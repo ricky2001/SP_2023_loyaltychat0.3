@@ -129,37 +129,37 @@ exports.item = (req, res) => {
     });
 
   };
-  expoers.itemshow=(req, res)=>{
-    let err='';
-    if (!req.body.Email||!req.body.ItemId ||!req.body.ItemName || !req.body.ItemPrice || !req.body.ItemTotal){
-      return res.status(422).json({
-        ItemId:"Items are not found",
-        ItemImg:"Items are not found",
-        ItemName:"Items are not found",
-        ItemPrice:"Items are not found",
-        ItemTotal:"Items are not found",
-      });
-    }
+  // expoers.itemshow=(req, res)=>{
+  //   let err='';
+  //   if (!req.body.Email||!req.body.ItemId ||!req.body.ItemName || !req.body.ItemPrice || !req.body.ItemTotal){
+  //     return res.status(422).json({
+  //       ItemId:"Items are not found",
+  //       ItemImg:"Items are not found",
+  //       ItemName:"Items are not found",
+  //       ItemPrice:"Items are not found",
+  //       ItemTotal:"Items are not found",
+  //     });
+  //   }
 
-    firebase.firestore().collection('rewarditem').add({
-      ItemId: req.body.ItemId,
-      ItemImg: req.body.ItemImg,
-      ItemName: req.body.ItemName,
-      ItemPrice: req.body.ItemPrice,
-      ItemTotal: req.body.ItemTotal,
+  //   firebase.firestore().collection('rewarditem').add({
+  //     ItemId: req.body.ItemId,
+  //     ItemImg: req.body.ItemImg,
+  //     ItemName: req.body.ItemName,
+  //     ItemPrice: req.body.ItemPrice,
+  //     ItemTotal: req.body.ItemTotal,
       
-    })
-      .then((docRef) => {
-        console.log('Document written with ID: ', docRef.id);
-      })
-      .catch((error) => {
-          err = error
-        console.error('Error adding document: ', error);
-      });
+  //   })
+  //     .then((docRef) => {
+  //       console.log('Document written with ID: ', docRef.id);
+  //     })
+  //     .catch((error) => {
+  //         err = error
+  //       console.error('Error adding document: ', error);
+  //     });
 
      
 
-  };
+  // };
 
 
   exports.getUserRewardExchange = (req, res) => {
