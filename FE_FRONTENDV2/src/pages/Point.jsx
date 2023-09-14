@@ -25,7 +25,8 @@ function  Point(){
                 <div className="col-start-2 col-span-4 justify-center items-center">
                     <div className="grid md:grid-cols-6   grid-cols-4">
                        <div className="col-start-2 col-span-2">
-                       <h1 className="text-lg font-bold ">Reward Exchange</h1>
+                       {/* <h1 className="text-lg font-bold ">Reward Exchange</h1> */}
+                       <h1 className="text-base font-bold mt-3 flex flex-col justify-center items-center gap-4">Reward Exchange</h1>
                        </div>
                     </div>
                     <div className="mt-3 flex flex-col justify-center items-center gap-4">
