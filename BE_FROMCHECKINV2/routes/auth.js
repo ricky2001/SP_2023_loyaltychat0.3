@@ -12,13 +12,21 @@ const {
 } = require("./verify/verify");
 const {
   consign,
-  getUserPointConsign
+  getUserPointConsign,
 } = require("../controllers/consign");
+const{
+  names
+}=require("../controllers/user");
 
 const {
   getUserDateCheckIn,
   updatedCheckIn
 } = require("../controllers/checkin");
+
+const {
+  item,
+  getUserRewardExchange
+} = require("../controllers/item");
 
 router.post("/signup", signup);
 
@@ -31,6 +39,12 @@ router.get("/userConsign",verifyToken, getUserPointConsign);
 router.post("/checkin", verifyToken ,updatedCheckIn);
 
 router.get("/userDateCheckIn", verifyToken ,getUserDateCheckIn);
+
+router.get("/user",verifyToken, names);
+
+router.post("/item", verifyToken ,item);
+
+router.get("/UserRewardExchange", verifyToken ,getUserRewardExchange);
 
 // router.post("/logout", verifyToken ,logout);
 
