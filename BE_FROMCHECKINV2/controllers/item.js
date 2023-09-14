@@ -40,11 +40,11 @@ exports.item = (req, res) => {
     //     });
 
         firebase.firestore().collection('rewardexchange').add({
-          Email:req.body.Email,
-          ItemId: req.body.ItemId,
-          ItemName: req.body.ItemName,
-          ItemPrice: req.body.ItemPrice,
-          ItemTotal: req.body.ItemTotal,
+          email:req.body.email,
+          itemid: req.body.itemid,
+          itemname: req.body.itemname,
+          itemprice: req.body.itemprice,
+          total: req.body.total,
           
         })
           .then((docRef) => {
@@ -57,11 +57,11 @@ exports.item = (req, res) => {
 
         // find user data and update exchange
 
-        firebase.firestore().collection('users').where('email', '==', req.body.Email).get()
+        firebase.firestore().collection('users').where('email', '==', req.body.email).get()
         .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
               const oldPoints = doc.data().points;
-              const newPoints = req.body.ItemPrice * req.body.ItemTotal;
+              const newPoints = req.body.itemprice * req.body.total;
               const pointsDiff = oldPoints * newPoints;
               doc.ref.update({
                 points: pointsDiff,
@@ -104,7 +104,60 @@ exports.item = (req, res) => {
   //   console.error('Error email to getting documents: ', error);
   // });
   // return res.status(200).json({ status: 'success', code: '200'});
-          
+     
+  firebase.firestore().collection('rewarditem').where('ItemId', '==', req.body.itemid).get()
+  .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        const oldTotal = doc.data().ItemTotal;
+        const newTotal = req.body.total;
+        const TotalDiff = oldTotal - newTotal;
+        doc.ref.update({
+          ItemTotal: TotalDiff,
+        })
+          .then(() => {
+            console.log('Points from updated successfully');
+          })
+          .catch((error) => {
+              err = error
+            console.error('Error email to updating points: ', error);
+          });
+      });
+    })
+    .catch((error) => {
+      err= error
+      console.error('Error email to getting documents: ', error);
+    });
+
+  };
+  expoers.itemshow=(req, res)=>{
+    let err='';
+    if (!req.body.Email||!req.body.ItemId ||!req.body.ItemName || !req.body.ItemPrice || !req.body.ItemTotal){
+      return res.status(422).json({
+        ItemId:"Items are not found",
+        ItemImg:"Items are not found",
+        ItemName:"Items are not found",
+        ItemPrice:"Items are not found",
+        ItemTotal:"Items are not found",
+      });
+    }
+
+    firebase.firestore().collection('rewarditem').add({
+      ItemId: req.body.ItemId,
+      ItemImg: req.body.ItemImg,
+      ItemName: req.body.ItemName,
+      ItemPrice: req.body.ItemPrice,
+      ItemTotal: req.body.ItemTotal,
+      
+    })
+      .then((docRef) => {
+        console.log('Document written with ID: ', docRef.id);
+      })
+      .catch((error) => {
+          err = error
+        console.error('Error adding document: ', error);
+      });
+
+     
 
   };
 
