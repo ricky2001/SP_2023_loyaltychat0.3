@@ -10,6 +10,7 @@ const {
 const {
   verifyToken
 } = require("./verify/verify");
+
 const {
   consign,
   getUserPointConsign
@@ -19,6 +20,10 @@ const {
   getUserDateCheckIn,
   updatedCheckIn
 } = require("../controllers/checkin");
+
+const {
+  getNewsfeed
+} = require("../controllers/newsfeed");
 
 router.post("/signup", signup);
 
@@ -31,6 +36,8 @@ router.get("/userConsign",verifyToken, getUserPointConsign);
 router.post("/checkin", verifyToken ,updatedCheckIn);
 
 router.get("/userDateCheckIn", verifyToken ,getUserDateCheckIn);
+
+router.get("/news", getNewsfeed)
 
 // router.post("/logout", verifyToken ,logout);
 

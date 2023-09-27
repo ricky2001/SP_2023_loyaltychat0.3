@@ -3,16 +3,14 @@ const admin = require("./../config/firebaseadmin");
 
 // Read newsfeed items
 exports.getNewsfeed = (req, res) => {
-  console.log('Getting newsfeed items');
-  firebase
-    .firestore()
-    .collection('newsfeed')
-    .orderBy('timestamp', 'desc') // Order by timestamp (most recent first)
-    .get()
+  firebase.firestore().collection('newsfeed').get()
     .then((querySnapshot) => {
       const newsfeedItems = [];
       querySnapshot.forEach((doc) => {
-        newsfeedItems.push({ id: doc.id, ...doc.data() });
+        console.log(doc.id, ' => ', doc.data());
+            if (doc.data()) {
+              return res.status(200).json(doc.data())
+            }
       });
       return res.status(200).json({ newsfeedItems });
     })

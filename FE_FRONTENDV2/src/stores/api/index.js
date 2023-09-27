@@ -33,6 +33,14 @@ export const getHistory = createAsyncThunk('api/userDateCheckIn', async () => {
 
 });
 
+export const getNewsfeed = createAsyncThunk('api/news', async () => {
+  const  response = await axiosInstance.get('api/news');
+  const  data = await response.data;
+  
+  return data;
+
+});
+
   let initialStateAPI = {
     coin:0,
     code:500,
