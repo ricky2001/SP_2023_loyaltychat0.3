@@ -5,7 +5,7 @@ import moment from 'moment';
 import  {useDispatch,useSelector} from 'react-redux'
 import {getHistory,checkIn} from '@/stores/api/index'
 import classNames from 'classnames';
-
+import {Link, useNavigate} from 'react-router-dom'
 
 
 function CalendarPage() {
@@ -147,7 +147,8 @@ return maxCount;
                <div className="flex flex-row  justify-center items-center ">
                    
                    <h1 className="text-xl mr-6">Check-in for event:</h1>
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Click</button>
+                    {/* <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Click</button> */}
+                    <Link to={`/QRCodeScanner`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Click</Link>
                    
                </div>
        

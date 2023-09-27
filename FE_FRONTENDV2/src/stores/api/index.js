@@ -11,13 +11,37 @@ export const useConsign = createAsyncThunk('api/consign', async ({ emailFrom, em
    
     return data;
   });
+  
+  export const UseRewardExchange = createAsyncThunk('api/item', async ({ email,itemid,itemname,itemprice,total }) => {
+    console.log(email,itemid,itemname,itemprice,total)
+    const numPoint = parseInt(itemprice)
+    const response = await axiosInstance.post('api/item', { email,itemid,itemname,itemprice:numPoint,total });
+    const data = await response.data;
+   
+    return data;
+  });
 
- export const getCoin = createAsyncThunk('api/getCoin', async () => {
+  export const getCoins = createAsyncThunk('api/getCoin', async () => {
+    const response = await axiosInstance.get('api/UserRewardExchange');
+    const data = await response.data;
+ 
+    return data;
+ }); 
+
+ export const getCoin = createAsyncThunk('api/getCoins', async () => {
     const response = await axiosInstance.get('api/userConsign');
     const data = await response.data;
  
     return data;
  }); 
+
+ export const getName = createAsyncThunk('api/getName', async () => {
+  const response = await axiosInstance.get('api/user');
+  const data = await response.data;
+
+  return data;
+});
+
 
  export const checkIn = createAsyncThunk('api/checkIn', async ({dateCheckIn,star}) => {
   const response = await axiosInstance.post('api/checkin',{dateCheckIn,points:star});
@@ -44,6 +68,7 @@ export const getNewsfeed = createAsyncThunk('api/news', async () => {
   let initialStateAPI = {
     coin:0,
     code:500,
+    names:"Sai Reacky",
     date:[],
 
     }
@@ -80,6 +105,15 @@ export  const  apiSlice = createSlice({name:'api', initialState: initialStateAPI
             state.status = 'failed';
             state.error = action.error.message;
           })
+          .addCase(getName.pending, (state) => {
+            state.status = 'loading';
+          })
+          .addCase(getName.fulfilled, (state, action) => {
+            state.status = 'succeeded';
+            state.names = action.payload.name;
+           
+          })
+          
           .addCase(getHistory.pending, (state) => {
             state.status = 'loading';
           } )
