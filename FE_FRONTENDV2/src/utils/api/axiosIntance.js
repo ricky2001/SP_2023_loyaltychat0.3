@@ -2,8 +2,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-// const baseURL = 'https://ratchaphon1412.co/';
-// const baseURL = 'https://cloudy-cyan-shift.cyclic.app/';
+
 const baseURL = 'http://localhost:3000';
 
 

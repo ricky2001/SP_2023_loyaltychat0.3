@@ -18,7 +18,7 @@ import { Provider } from 'react-redux'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 
 import  ProtectedRoute from './routers/protectRouter';
-
+import QRCodeScanner from './components/QRCodeScanner.jsx';
 
 const router = createBrowserRouter([
   {
@@ -44,7 +44,11 @@ const router = createBrowserRouter([
     path:"Consign",
     element:<ProtectedRoute component={<Consign/>} />,
   }
-
+  ,
+  {
+    path:"QRCodeScanner",
+    element:<ProtectedRoute component={<QRCodeScanner/>} />,
+  }
 ]);
 
 
