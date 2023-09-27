@@ -10,6 +10,7 @@ const {
 const {
   verifyToken
 } = require("./verify/verify");
+
 const {
   consign,
   getUserPointConsign,
@@ -24,9 +25,14 @@ const {
 } = require("../controllers/checkin");
 
 const {
+
+  getNewsfeed
+} = require("../controllers/newsfeed");
+
   item,
   getUserRewardExchange
 } = require("../controllers/item");
+
 
 router.post("/signup", signup);
 
@@ -40,11 +46,15 @@ router.post("/checkin", verifyToken ,updatedCheckIn);
 
 router.get("/userDateCheckIn", verifyToken ,getUserDateCheckIn);
 
+
+router.get("/news", getNewsfeed)
+
 router.get("/user",verifyToken, names);
 
 router.post("/item", verifyToken ,item);
 
 router.get("/UserRewardExchange", verifyToken ,getUserRewardExchange);
+
 
 // router.post("/logout", verifyToken ,logout);
 
