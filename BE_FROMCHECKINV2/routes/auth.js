@@ -29,6 +29,7 @@ const {
   getNewsfeed
 } = require("../controllers/newsfeed");
 
+const {
   item,
   getUserRewardExchange
 } = require("../controllers/item");
