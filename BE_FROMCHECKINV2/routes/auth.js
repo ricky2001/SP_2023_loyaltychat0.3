@@ -15,6 +15,7 @@ const {
   consign,
   getUserPointConsign,
 } = require("../controllers/consign");
+
 const{
   names
 }=require("../controllers/user");
@@ -34,6 +35,10 @@ const {
   getUserRewardExchange
 } = require("../controllers/item");
 
+const {
+  openai,
+} = require("../controllers/openai")
+
 
 router.post("/signup", signup);
 
@@ -47,7 +52,6 @@ router.post("/checkin", verifyToken ,updatedCheckIn);
 
 router.get("/userDateCheckIn", verifyToken ,getUserDateCheckIn);
 
-
 router.get("/news", getNewsfeed)
 
 router.get("/user",verifyToken, names);
@@ -56,6 +60,7 @@ router.post("/item", verifyToken ,item);
 
 router.get("/UserRewardExchange", verifyToken ,getUserRewardExchange);
 
+router.post("/openai", openai);
 
 // router.post("/logout", verifyToken ,logout);
 
