@@ -27,7 +27,6 @@ function CalendarPage() {
         'bg-slate-400 hover:bg-slate-700':disableButton,
     })
 
-
     useEffect(() => { 
         dispatch(getHistory())
         setToggle(false)
