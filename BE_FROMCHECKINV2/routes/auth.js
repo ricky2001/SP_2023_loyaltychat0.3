@@ -55,15 +55,12 @@ router.get("/news", getNewsfeed)
 
 router.get("/user", verifyToken, names);
 
-<<<<<<< Updated upstream
-router.post("/item", verifyToken, item);
-=======
+
 router.post("/itemexchange", verifyToken ,itemexchange);
 
 router.get("/getUserItemExchange", getUserItemExchange);
->>>>>>> Stashed changes
 
-router.get("/UserRewardExchange", verifyToken, getUserRewardExchange);
+// router.get("/UserRewardExchange", verifyToken, getUserRewardExchange);
 
 router.post("/scanqrcode", verifyToken, scan);
 // router.post("/logout", verifyToken ,logout);

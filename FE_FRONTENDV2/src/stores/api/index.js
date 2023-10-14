@@ -49,11 +49,13 @@ export const getNewsfeed = createAsyncThunk('api/news', async () => {
 
 });
 
-<<<<<<< Updated upstream
 export const scanqrcode = createAsyncThunk('api/scanqrcode', async () => {
   const  response = await axiosInstance.get('api/scanqrcode');
   const  data = await response.data;
-=======
+  return data;
+
+});
+
 export const useExchange = createAsyncThunk('api/exchange', async ({ email,itemid,itemname,itemtotal,totalprices }) => {
   console.log(email,itemid,itemname,itemtotal,totalprice)
   // const numItem = parseInt()
@@ -66,16 +68,11 @@ export const useExchange = createAsyncThunk('api/exchange', async ({ email,itemi
 export const getItem = createAsyncThunk('api/getItem', async () => {
   const  response =  axiosInstance.get('api/getUserItemExchange');
   const  data =  response.data;
->>>>>>> Stashed changes
   
   return data;
 
 });
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
   let initialStateAPI = {
     coin:0,
     code:500,
@@ -155,7 +152,6 @@ export  const  apiSlice = createSlice({name:'api', initialState: initialStateAPI
             state.status = 'failed';
             state.error = action.error.message;
           } )
-<<<<<<< Updated upstream
           
           .addCase(scanqrcode.pending, (state) => {
             state.status = 'loading';
@@ -169,7 +165,6 @@ export  const  apiSlice = createSlice({name:'api', initialState: initialStateAPI
             state.status = 'failed';
             state.error = action.error.message;
           } )
-=======
           .addCase(useExchange.pending, (state) => {
             state.status = 'loading';
           })
@@ -194,7 +189,6 @@ export  const  apiSlice = createSlice({name:'api', initialState: initialStateAPI
             state.status = 'failed';
             state.error = action.error.message;
           })
->>>>>>> Stashed changes
       },
     });
 
