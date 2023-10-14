@@ -1,4 +1,4 @@
-import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice,createAsyncThunk} from '@reduxjs/toolkit'
 
 import axiosInstance from '../../utils/api/axiosIntance.js'
 
@@ -11,22 +11,6 @@ export const useConsign = createAsyncThunk('api/consign', async ({ emailFrom, em
    
     return data;
   });
-  
-  export const UseRewardExchange = createAsyncThunk('api/item', async ({ email,itemid,itemname,itemprice,total }) => {
-    console.log(email,itemid,itemname,itemprice,total)
-    const numPoint = parseInt(itemprice)
-    const response = await axiosInstance.post('api/item', { email,itemid,itemname,itemprice:numPoint,total });
-    const data = await response.data;
-   
-    return data;
-  });
-
-  export const getCoins = createAsyncThunk('api/getCoin', async () => {
-    const response = await axiosInstance.get('api/UserRewardExchange');
-    const data = await response.data;
- 
-    return data;
- }); 
 
  export const getCoin = createAsyncThunk('api/getCoins', async () => {
     const response = await axiosInstance.get('api/userConsign');
@@ -65,20 +49,39 @@ export const getNewsfeed = createAsyncThunk('api/news', async () => {
 
 });
 
+<<<<<<< Updated upstream
 export const scanqrcode = createAsyncThunk('api/scanqrcode', async () => {
   const  response = await axiosInstance.get('api/scanqrcode');
   const  data = await response.data;
+=======
+export const useExchange = createAsyncThunk('api/exchange', async ({ email,itemid,itemname,itemtotal,totalprices }) => {
+  console.log(email,itemid,itemname,itemtotal,totalprice)
+  // const numItem = parseInt()
+  const response = await axiosInstance.post('api/consign', { email,itemid,itemname,itemtotal,totalprice});
+  const data = await response.data;
+ 
+  return data;
+});
+
+export const getItem = createAsyncThunk('api/getItem', async () => {
+  const  response =  axiosInstance.get('api/getUserItemExchange');
+  const  data =  response.data;
+>>>>>>> Stashed changes
   
   return data;
 
 });
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
   let initialStateAPI = {
     coin:0,
     code:500,
-    names:"Sai Reacky",
+    names:"",
     date:[],
-
+    data:[],
     }
 
 export  const  apiSlice = createSlice({name:'api', initialState: initialStateAPI, 
@@ -119,8 +122,12 @@ export  const  apiSlice = createSlice({name:'api', initialState: initialStateAPI
           .addCase(getName.fulfilled, (state, action) => {
             state.status = 'succeeded';
             state.names = action.payload.name;
-           
           })
+        
+        .addCase(getName.rejected, (state, action) => {
+          state.status = 'failed';
+          state.error = action.error.message;
+        })
           
           .addCase(getHistory.pending, (state) => {
             state.status = 'loading';
@@ -148,6 +155,7 @@ export  const  apiSlice = createSlice({name:'api', initialState: initialStateAPI
             state.status = 'failed';
             state.error = action.error.message;
           } )
+<<<<<<< Updated upstream
           
           .addCase(scanqrcode.pending, (state) => {
             state.status = 'loading';
@@ -161,6 +169,32 @@ export  const  apiSlice = createSlice({name:'api', initialState: initialStateAPI
             state.status = 'failed';
             state.error = action.error.message;
           } )
+=======
+          .addCase(useExchange.pending, (state) => {
+            state.status = 'loading';
+          })
+          .addCase(useExchange.fulfilled, (state, action) => {
+            state.status = 'succeeded';
+            state.code = action.payload.code;
+           
+          })
+          .addCase(useExchange.rejected, (state, action) => {
+            state.status = 'failed';
+            state.error = action.error.message;
+          })
+          .addCase(getItem.pending, (state) => {
+            state.status = 'loading';
+          })
+          .addCase(getItem.fulfilled, (state, action) => {
+            state.status = 'succeeded';
+            state.code = action.payload.code;
+           
+          })
+          .addCase(getItem.rejected, (state, action) => {
+            state.status = 'failed';
+            state.error = action.error.message;
+          })
+>>>>>>> Stashed changes
       },
     });
 

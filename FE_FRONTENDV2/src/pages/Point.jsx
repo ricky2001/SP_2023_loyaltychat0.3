@@ -7,7 +7,7 @@ import {useSelector,useDispatch} from 'react-redux'
 function  Point(){
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getCoin(),getName())
+        dispatch(getCoin()), dispatch(getName())
     }, [dispatch])
     let coinUser = useSelector(state => state.apiStore.coin)
     let nameUser = useSelector(state => state.apiStore.names)
@@ -16,7 +16,7 @@ function  Point(){
         <Base>
            <div className="mx-auto w-full h-full mt-32">
             <div className="flex flex-col justify-center items-center">
-            {/* <h1 className="text-black font-bold mb-4">Name :  {nameUser}</h1> */}
+            <h1 className="text-black font-bold mb-4">Name :  {nameUser}</h1>
                 <h1 className="text-black font-bold mb-4">Your stars {coinUser}</h1>
                 <Link to={`/consign`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Consign</Link>
             </div>

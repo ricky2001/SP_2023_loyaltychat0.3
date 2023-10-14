@@ -39,6 +39,26 @@ function QRCodeScanner() {
         }
       );
 
+      try {
+        const response = await fetch(scanqrcode(), {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ qrCodeMessage }),
+        });if (response.ok) {
+          // Handle successful API response here
+          const data = await response.json();
+          console.log('API Response:', data);
+        } else {
+          // Handle API error here
+          console.error('API Error:', response.status);
+        }
+      } catch (error) {
+        console.error('Error sending POST request:', error);
+      }
+    
+
       setIsScanning(true);
     } catch (error) {
       console.error(error);
