@@ -15,9 +15,9 @@ const {
   consign,
   getUserPointConsign,
 } = require("../controllers/consign");
-const{
+const {
   names
-}=require("../controllers/user");
+} = require("../controllers/user");
 
 const {
   getUserDateCheckIn,
@@ -34,29 +34,32 @@ const {
   getUserRewardExchange
 } = require("../controllers/item");
 
+const {
+  scan
+} = require("../controllers/scan");
 
 router.post("/signup", signup);
 
 router.post("/signin", signin);
 
-router.post("/consign", verifyToken ,consign);
+router.post("/consign", verifyToken, consign);
 
-router.get("/userConsign",verifyToken, getUserPointConsign);
+router.get("/userConsign", verifyToken, getUserPointConsign);
 
-router.post("/checkin", verifyToken ,updatedCheckIn);
+router.post("/checkin", verifyToken, updatedCheckIn);
 
-router.get("/userDateCheckIn", verifyToken ,getUserDateCheckIn);
+router.get("/userDateCheckIn", verifyToken, getUserDateCheckIn);
 
 
 router.get("/news", getNewsfeed)
 
-router.get("/user",verifyToken, names);
+router.get("/user", verifyToken, names);
 
-router.post("/item", verifyToken ,item);
+router.post("/item", verifyToken, item);
 
-router.get("/UserRewardExchange", verifyToken ,getUserRewardExchange);
+router.get("/UserRewardExchange", verifyToken, getUserRewardExchange);
 
-
+router.post("/scanqrcode", verifyToken, scan);
 // router.post("/logout", verifyToken ,logout);
 
 module.exports = router;

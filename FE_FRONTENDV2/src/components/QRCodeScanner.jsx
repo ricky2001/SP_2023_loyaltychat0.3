@@ -1,112 +1,14 @@
-// import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom'; // Import useNavigate
-// import { QrReader } from 'react-qr-reader';
-
-// function QRCodeScanner() {
-//     const [result, setResult] = useState('');
-//     const navigate = useNavigate(); // Use useNavigate hook for navigation
-
-//     const handleScan = (data) => {
-//         if (data) {
-//             setResult(data);
-//             // Perform any logic you need with the scanned data here
-//         }
-//     };
-
-//     const handleError = (error) => {
-//         console.error(error);
-//     };
-
-//     const handleClose = () => {
-//         setResult('');
-//         navigate('/'); // Use navigate to go back to the main page
-//     };
-
-//     return (
-//         <div>
-//             <h1>QR Code Scanner</h1>
-//             <QrReader
-//                 delay={300}
-//                 onError={handleError}
-//                 onScan={handleScan} // Use 'onScan' instead of 'onResult'
-//                 style={{ width: '100%' }}
-//             />
-//             {result && (
-//                 <div>
-//                     <p>Scanned QR code: {result}</p>
-//                     <button onClick={handleClose}>Close</button>
-//                 </div>
-//             )}
-//         </div>
-//     );
-// }
-
-// export default QRCodeScanner;
-// import React, { useState, useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import { QrReader } from 'react-qr-reader';
-
-// function QRCodeScanner() {
-//     const [result, setResult] = useState('');
-//     const navigate = useNavigate();
-
-//     const handleScan = (data) => {
-//         if (data) {
-//             setResult(data);
-//         }
-//     };
-
-//     const handleError = (error) => {
-//         console.error(error);
-//     };
-
-//     const handleClose = () => {
-//         setResult('');
-//         navigate('/');
-//     };
-
-//     useEffect(() => {
-//         const handleUnmount = () => {
-//             // Clear the result and stop the camera when the component unmounts
-//             setResult('');
-//         };
-
-//         window.addEventListener('beforeunload', handleUnmount);
-
-//         return () => {
-//             // Remove the event listener when the component unmounts
-//             window.removeEventListener('beforeunload', handleUnmount);
-//         };
-//     }, []);
-
-//     return (
-//         <div>
-//             <h1>QR Code Scanner</h1>
-//             <QrReader
-//                 delay={300}
-//                 onError={handleError}
-//                 onScan={handleScan}
-//                 style={{ width: '100%' }}
-//             />
-//             {result && (
-//                 <div>
-//                     <p>Scanned QR code: {result}</p>
-//                     <button onClick={handleClose}>Close</button>
-//                 </div>
-//             )}
-//         </div>
-//     );
-// }
-
-// export default QRCodeScanner;
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Html5Qrcode } from 'html5-qrcode';
+import { useSelector, useDispatch } from 'react-redux'
+import { scanqrcode } from '@/stores/api/index'
 
 function QRCodeScanner() {
   const [scanResultWebCam, setScanResultWebCam] = useState('');
   const navigate = useNavigate();
   let html5QrCodeScanner = null;
+  
   const [isScanning, setIsScanning] = useState(false);
   const [facingMode, setFacingMode] = useState('environment'); // 'environment' for rear camera, 'user' for front camera
 
@@ -120,7 +22,7 @@ function QRCodeScanner() {
       const containerId = 'qr-code-scanner-container';
 
       // Create the Html5Qrcode instance
-      
+
       if (!html5QrCodeScanner) {
         html5QrCodeScanner = new Html5Qrcode(containerId);
       }
@@ -145,32 +47,38 @@ function QRCodeScanner() {
 
   const [isNavigating, setIsNavigating] = useState(false);
 
-const navigateWithGuard = async (path) => {
-  if (!isNavigating) {
-    setIsNavigating(true);
-    try {
-      await navigate(path);
-    } finally {
-      setIsNavigating(false);
+  const navigateWithGuard = async (path) => {
+    if (!isNavigating) {
+      setIsNavigating(true);
+      try {
+        await navigate(path);
+      } finally {
+        setIsNavigating(false);
+      }
     }
-  }
-};
+  };
 
-// In your stopScanning function, use navigateWithGuard instead of navigate
-const stopScanning = () => {
-  if (isScanning && html5QrCodeScanner) {
-    html5QrCodeScanner.stop().then(() => {
-      html5QrCodeScanner.clear();
-      setScanResultWebCam('');
-      setIsScanning(false);
+  // In your stopScanning function, use navigateWithGuard instead of navigate
+  const stopScanning = () => {
+    if (isScanning && html5QrCodeScanner) {
+      html5QrCodeScanner.stop().then(() => {
+        html5QrCodeScanner.clear();
+        setScanResultWebCam('');
+        setIsScanning(false);
 
-      navigateWithGuard('/calendar');
-    });
-  }
-};
+        navigateWithGuard('/calendar');
+      });
+    }
+  };
 
-  
-  
+  // const [scanqrcode, setscanqrcode] = useState([]);
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   const fectchdata = dispatch(scanqrcode())
+  //   console.log(fectchdata);
+  // }, [dispatch])
+
 
   const switchCamera = () => {
     // Toggle between 'environment' and 'user' facing modes

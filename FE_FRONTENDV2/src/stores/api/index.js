@@ -65,6 +65,14 @@ export const getNewsfeed = createAsyncThunk('api/news', async () => {
 
 });
 
+export const scanqrcode = createAsyncThunk('api/scanqrcode', async () => {
+  const  response = await axiosInstance.get('api/scanqrcode');
+  const  data = await response.data;
+  
+  return data;
+
+});
+
   let initialStateAPI = {
     coin:0,
     code:500,
@@ -137,6 +145,19 @@ export  const  apiSlice = createSlice({name:'api', initialState: initialStateAPI
            
           } )
           .addCase(checkIn.rejected, (state, action) => {
+            state.status = 'failed';
+            state.error = action.error.message;
+          } )
+          
+          .addCase(scanqrcode.pending, (state) => {
+            state.status = 'loading';
+          })
+          .addCase(scanqrcode.fulfilled, (state, action) => {
+            state.status = 'succeeded';
+            state.code = action.payload.code;
+           
+          } )
+          .addCase(scanqrcode.rejected, (state, action) => {
             state.status = 'failed';
             state.error = action.error.message;
           } )
