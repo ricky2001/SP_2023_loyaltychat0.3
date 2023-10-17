@@ -16,9 +16,9 @@ const {
   getUserPointConsign,
 } = require("../controllers/consign");
 
-const{
+const {
   names
-}=require("../controllers/user");
+} = require("../controllers/user");
 
 const {
   getUserDateCheckIn,
@@ -31,37 +31,47 @@ const {
 } = require("../controllers/newsfeed");
 
 const {
-  item,
-  getUserRewardExchange
+  itemexchange,
+  getUserItemExchange
 } = require("../controllers/item");
 
 const {
   openai,
 } = require("../controllers/openai")
 
+const {
+  scan
+} = require("../controllers/scan");
+
 
 router.post("/signup", signup);
 
 router.post("/signin", signin);
 
-router.post("/consign", verifyToken ,consign);
+router.post("/consign", verifyToken, consign);
 
-router.get("/userConsign",verifyToken, getUserPointConsign);
+router.get("/userConsign", verifyToken, getUserPointConsign);
 
-router.post("/checkin", verifyToken ,updatedCheckIn);
+router.post("/checkin", verifyToken, updatedCheckIn);
 
-router.get("/userDateCheckIn", verifyToken ,getUserDateCheckIn);
+router.get("/userDateCheckIn", verifyToken, getUserDateCheckIn);
 
 router.get("/news", getNewsfeed)
 
-router.get("/user",verifyToken, names);
+router.get("/user", verifyToken, names);
 
-router.post("/item", verifyToken ,item);
 
-router.get("/UserRewardExchange", verifyToken ,getUserRewardExchange);
+router.post("/itemexchange", verifyToken ,itemexchange);
+
+router.get("/getUserItemExchange", getUserItemExchange);
+
 
 router.post("/openai", openai);
 
+// router.get("/UserRewardExchange", verifyToken, getUserRewardExchange);
+
+
+router.post("/scanqrcode", verifyToken, scan);
 // router.post("/logout", verifyToken ,logout);
 
 module.exports = router;
