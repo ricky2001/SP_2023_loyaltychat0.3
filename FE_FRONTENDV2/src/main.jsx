@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard.jsx'
 import Point from './pages/Point.jsx'
 import CalendarPage from './pages/Calendar.jsx'
 import Consign from './pages/Consign.jsx'
+import Form from './pages/form.jsx';
 import './index.css'
 import {
   createBrowserRouter,
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
   {
     path:"QRCodeScanner",
     element:<ProtectedRoute component={<QRCodeScanner/>} />,
+  },
+  {
+    path:"Form",
+    element:<ProtectedRoute component={<Form/>} />,
   }
 ]);
 
