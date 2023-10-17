@@ -1,12 +1,5 @@
 const openAI = require("openai");
-
-
 require('dotenv').config();
-
-// const configuration = new Configuration({
-//   organization: process.env.OPENAI_ORG_KEY,
-//   apiKey: process.env.OPENAI_API_KEY,
-// });
 
 const openai = new openAI({
   organization: process.env.OPENAI_ORG_KEY,
@@ -33,24 +26,6 @@ exports.openai = async (req, res) => {
   });
 }
 
-// app.post("/api/openai", async (req, res) => {
-
-//   const { message } = req.body;
-//   console.log(message)
-
-//   const basePromptPrefix = `This is a conversation between ATAmanager and a stranger.\nRelevant information that ATAmanager knows:\n${knowledge}`;
-//   console.log(basePromptPrefix);
-  
-//   const response = await openai.createCompletion({
-//     model: "text-davinci-003",
-//     prompt: `${basePromptPrefix}\n\nStranger:${message}\n\nATAmanager:`,
-//     max_tokens: 256,
-//     temperature: 0.7,
-//   });
-//   res.json({
-//     message: response.data.choices[0].text,
-//   });
-// })
 
 
 
