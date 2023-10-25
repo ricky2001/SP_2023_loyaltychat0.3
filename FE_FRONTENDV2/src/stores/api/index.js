@@ -65,7 +65,7 @@ export const useExchange = createAsyncThunk('api/exchange', async ({ email,itemi
   return data;
 });
 
-export const getItem = createAsyncThunk('api/getUserItemExchange', async () => {
+export const getUserItemExchange = createAsyncThunk('api/getUserItemExchange', async () => {
   const  response =  axiosInstance.get('api/getUserItemExchange');
   const  data =  response.data;
   
@@ -177,15 +177,15 @@ export  const  apiSlice = createSlice({name:'api', initialState: initialStateAPI
             state.status = 'failed';
             state.error = action.error.message;
           })
-          .addCase(getItem.pending, (state) => {
+          .addCase(getUserItemExchange.pending, (state) => {
             state.status = 'loading';
           })
-          .addCase(getItem.fulfilled, (state, action) => {
+          .addCase(getUserItemExchange.fulfilled, (state, action) => {
             state.status = 'succeeded';
             state.code = action.payload.code;
            
           })
-          .addCase(getItem.rejected, (state, action) => {
+          .addCase(getUserItemExchange.rejected, (state, action) => {
             state.status = 'failed';
             state.error = action.error.message;
           })

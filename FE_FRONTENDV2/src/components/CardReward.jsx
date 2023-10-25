@@ -1,34 +1,76 @@
-import React,{useState,useEffect} from 'react'
-import '@/assets/css/counter.css'
-import {useSelector,useDispatch} from 'react-redux'
-import {getItem} from '@/stores/api/index'
+import React, { useState, useEffect } from 'react';
+import '@/assets/css/counter.css';
+import { useSelector, useDispatch } from 'react-redux';
+// import { getUserItemExchange  } from '@/stores/api/index';
+import axios from 'axios';
 
-function CardReward(){
-    const [item,setitem] = useState([]);
-    const dispatch = useDispatch();
-    useEffect(() => {
-        const fectchdata = dispatch(getItem())
-        console.log(fectchdata);
-        // setitem(fectchdata)
-    }, [dispatch])
-    // let item = useSelector(state => state.apiStore.data);
-    // useEffect(() => {
-    //     setitem(getItem())
-    // }, [setitem])
-    
+function CardReward() {
+  const [item, setItem] = useState([]); // Use setItem to update the item state
+  const dispatch = useDispatch();
 
-    return(
-<div>
-    {item.map((data,index)=>{
-        return(
-            <a  className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-        <img className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src={data.itemimg} alt=""/>
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       // Fetch data from the API
+  //       const response = await dispatch(getItem());
+  //       console.log('API response:', response); // Log the response to the console
+  //       // Update the item state with the fetched data
+  //       setItem(response?.data || []); // Use optional chaining and default value to handle undefined response.data
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   };
+
+  //   // Call the fetchData function
+  //   fetchData();
+  // }, [dispatch]);
+
+//   useEffect(() => {
+//     dispatch(getUserItemExchange())
+// }, [dispatch])
+// useEffect(() => {
+//   dispat.then(response => {
+//     setItem(response.data);
+//     console.log(item);
+//   })
+//     .catch(error => {
+//       console.log(error);
+//     });
+// }, [])
+
+  useEffect(() => {
+    axios.get('http://localhost:3000/api/getUserItemExchange').then(response => {
+      setItem(response.data);
+      console.log(item);
+    })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
+
+  async function handleClickCheckin() {
+    console.log("hello world");
+
+  }
+
+
+
+
+  return (
+    <div>
+      {/* <h1>{JSON.stringify(item[0].itemid)}</h1>
+      <img className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src={item[0].itemimg} alt=""/> */}
+      {item.map((item, index) => (
+        <div key={index}>
+          <a  className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+        <img className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src={item.itemimg} alt=""/>
         <div className="flex flex-col justify-between p-4 leading-normal">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{data.itemname}
-            <span class="text-sm font-medium mr-2 px-2.5 py-0.5 rounded bg-gray-700 text-gray-300 ml-4">{data.itemprice} stars</span>
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{JSON.stringify(item.itemname)}
+            <span class="text-sm font-medium mr-2 px-2.5 py-0.5 rounded bg-gray-700 text-gray-300 ml-4">{JSON.stringify(item.itemprice)} stars, &nbsp;amount{JSON.stringify(item.itemtotal)}</span>
+            
             </h5>
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">This pencils make with high material and buitifull design.
-            </p><input type="text" id="disabled-input"  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  />
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{JSON.stringify(item.itemdetail)}
+            </p><br />
     
             
             <div className="flex flex-row justify-between items-center">
@@ -42,21 +84,22 @@ function CardReward(){
                     <button data-action="increment" className="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
                         <span className="m-auto text-2xl font-thin">+</span>
                     </button>
+                    
                     </div>
-    
+                    
                 
                 </div>
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Exchange</button>
+                <br/>
+                
             </div>
+            <br/><button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Exchange</button>
         </div>   
-    </a>
-        )
-        
-    })}
-
-</div>
-    )
-
+    </a><br/>
+        </div>
+      ))}
+      
+    </div>
+  );
 }
 
-export  default CardReward;
+export default CardReward;

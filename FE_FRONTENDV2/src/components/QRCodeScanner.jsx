@@ -146,6 +146,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { BrowserMultiFormatReader, NotFoundException } from '@zxing/library';
 import { Link } from 'react-router-dom';
+import {scanqrcode} from '@/stores/api/index'
 
 const QRCodeScanner = () => {
   const videoRef = useRef(null);
