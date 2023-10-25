@@ -32,8 +32,7 @@ function  Point(){
                     <div className="mt-3 flex flex-col justify-center items-center gap-4">
                     
                         <CardReward/>
-                        {/* <CardReward/>
-                        <CardReward/> */}
+
                     </div>
                 </div>
                    

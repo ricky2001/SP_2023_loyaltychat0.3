@@ -1,86 +1,32 @@
-import React, { useState } from "react";
+import React,{useState,useEffect} from 'react'
+import Base from '@/layouts/base'
+import {Link, useNavigate} from 'react-router-dom'
+import {useSelector,useDispatch} from 'react-redux'
+function  form(){
+    
+    
+    return ( 
+        <Base>
+           <div className="mx-auto w-full h-full mt-32">
+            
+            <div className="grid grid-cols-6 mt-8">
+           
+                <div className="col-start-2 col-span-4 justify-center items-center">
+                    <div className="grid md:grid-cols-6   grid-cols-4">
+                       <div className="col-start-2 col-span-2">
+                       <h1 className="text-base font-bold mt-3 flex flex-col justify-center items-center gap-4">Form list</h1>
+                       </div>
+                    </div>
+                    
+                </div>
+                   
+               
+            </div>
+            </div>
+        </Base>
 
-const Form = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    address: "",
-    city: "",
-    state: "",
-    zip: "",
-    phone: "",
-  });
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-  };
-  return (
-    <div className="Form">
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleChange}
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="address"
-          placeholder="Address"
-          value={formData.address}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="city"
-          placeholder="City"
-          value={formData.city}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="state"
-          placeholder="State"
-          value={formData.state}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="zip"
-          placeholder="Zip"
-          value={formData.zip}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="phone"
-          placeholder="Phone"
-          value={formData.phone}
-          onChange={handleChange}
-        />
-        <input type="submit" value="Submit" />
-      </form>
-    </div>
-  );
-};
-export default Form
+    )
+
+}
+
+export default form;

@@ -50,7 +50,7 @@ export const getNewsfeed = createAsyncThunk('api/news', async () => {
 });
 
 export const scanqrcode = createAsyncThunk('api/scanqrcode', async () => {
-  const  response = await axiosInstance.get('api/scanqrcode');
+  const  response = await axiosInstance.post('api/scanqrcode');
   const  data = await response.data;
   return data;
 
@@ -65,7 +65,7 @@ export const useExchange = createAsyncThunk('api/exchange', async ({ email,itemi
   return data;
 });
 
-export const getItem = createAsyncThunk('api/getItem', async () => {
+export const getItem = createAsyncThunk('api/getUserItemExchange', async () => {
   const  response =  axiosInstance.get('api/getUserItemExchange');
   const  data =  response.data;
   
