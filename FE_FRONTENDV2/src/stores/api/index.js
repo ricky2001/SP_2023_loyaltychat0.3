@@ -48,8 +48,10 @@ export const fetchNews = createAsyncThunk('api/fetchNews', async () => {
 });
 
 export const scanqrcode = createAsyncThunk('api/scanqrcode', async () => {
-  const response = await axiosInstance.get('api/scanqrcode');
-  const data = await response.data;
+
+  const  response = await axiosInstance.post('api/scanqrcode');
+  const  data = await response.data;
+  
   return data;
 
 });
@@ -63,15 +65,17 @@ export const useExchange = createAsyncThunk('api/exchange', async ({ email, item
   return data;
 });
 
-export const getItem = createAsyncThunk('api/getItem', async () => {
-  const response = axiosInstance.get('api/getUserItemExchange');
-  const data = response.data;
 
+export const getUserItemExchange = createAsyncThunk('api/getUserItemExchange', async () => {
+  const  response =  axiosInstance.get('api/getUserItemExchange');
+  const  data =  response.data;
+  
   return data;
 
 });
 
-export const userMessage = createAsyncThunk('api/aiMessage', async ({ userInput }) => {
+  
+  export const userMessage = createAsyncThunk('api/aiMessage', async ({ userInput }) => {
   console.log(userInput)
   const response = await axiosInstance.post('api/aiMessage', { userInput });
   const data = await response.data;
@@ -79,133 +83,120 @@ export const userMessage = createAsyncThunk('api/aiMessage', async ({ userInput 
   return data;
 });
 
-let initialStateAPI = {
-  coin: 0,
-  code: 500,
-  names: "",
-  date: [],
-  data: [],
-}
+  let initialStateAPI = {
+    coin:0,
+    code:500,
+    names:"",
+    date:[],
+    data:[],
+    }
 
-export const apiSlice = createSlice({
-  name: 'api', initialState: initialStateAPI,
-  reducers: {
-
-
-
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(useConsign.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(useConsign.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.code = action.payload.code;
-
-      })
-      .addCase(useConsign.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
-      })
-      .addCase(getCoin.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(getCoin.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.coin = action.payload.points;
-
-      })
-      .addCase(getCoin.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
-      })
-      .addCase(getName.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(getName.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.names = action.payload.name;
-      })
-
-      .addCase(getName.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
-      })
-
-      .addCase(getHistory.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(getHistory.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.date = action.payload.dateHistory;
-
-
-
-      })
-      .addCase(getHistory.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
-      })
-      .addCase(checkIn.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(checkIn.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.code = action.payload.code;
-
-      })
-      .addCase(checkIn.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
-      })
-
-      .addCase(scanqrcode.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(scanqrcode.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.code = action.payload.code;
-
-      })
-      .addCase(scanqrcode.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
-      })
-      .addCase(useExchange.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(useExchange.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.code = action.payload.code;
-
-      })
-      .addCase(useExchange.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
-      })
-      .addCase(getItem.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(getItem.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.code = action.payload.code;
-
-      })
-      .addCase(getItem.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
-      })
-
-      .addCase(userMessage.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.code = action.payload.code;
-
-      })
-      .addCase(userMessage.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
-      })
+export  const  apiSlice = createSlice({name:'api', initialState: initialStateAPI, 
+    reducers: {
+     
+    },
+    extraReducers:(builder) => {
+        builder
+          .addCase(useConsign.pending, (state) => {
+            state.status = 'loading';
+          })
+          .addCase(useConsign.fulfilled, (state, action) => {
+            state.status = 'succeeded';
+            state.code = action.payload.code;
+           
+          })
+          .addCase(useConsign.rejected, (state, action) => {
+            state.status = 'failed';
+            state.error = action.error.message;
+          })
+          .addCase(getCoin.pending, (state) => {
+            state.status = 'loading';
+          })
+          .addCase(getCoin.fulfilled, (state, action) => {
+            state.status = 'succeeded';
+            state.coin = action.payload.points;
+           
+          })
+          .addCase(getCoin.rejected, (state, action) => {
+            state.status = 'failed';
+            state.error = action.error.message;
+          })
+          .addCase(getName.pending, (state) => {
+            state.status = 'loading';
+          })
+          .addCase(getName.fulfilled, (state, action) => {
+            state.status = 'succeeded';
+            state.names = action.payload.name;
+          })
+        
+        .addCase(getName.rejected, (state, action) => {
+          state.status = 'failed';
+          state.error = action.error.message;
+        })
+          
+          .addCase(getHistory.pending, (state) => {
+            state.status = 'loading';
+          } )
+          .addCase(getHistory.fulfilled, (state, action) => {
+            state.status = 'succeeded';
+            state.date = action.payload.dateHistory;
+           
+           
+           
+          } )
+          .addCase(getHistory.rejected, (state, action) => {
+            state.status = 'failed';
+            state.error = action.error.message;
+          } )
+          .addCase(checkIn.pending, (state) => {
+            state.status = 'loading';
+          })
+          .addCase(checkIn.fulfilled, (state, action) => {
+            state.status = 'succeeded';
+            state.code = action.payload.code;
+           
+          } )
+          .addCase(checkIn.rejected, (state, action) => {
+            state.status = 'failed';
+            state.error = action.error.message;
+          } )
+          
+          .addCase(scanqrcode.pending, (state) => {
+            state.status = 'loading';
+          })
+          .addCase(scanqrcode.fulfilled, (state, action) => {
+            state.status = 'succeeded';
+            state.code = action.payload.code;
+           
+          } )
+          .addCase(scanqrcode.rejected, (state, action) => {
+            state.status = 'failed';
+            state.error = action.error.message;
+          } )
+          .addCase(useExchange.pending, (state) => {
+            state.status = 'loading';
+          })
+          .addCase(useExchange.fulfilled, (state, action) => {
+            state.status = 'succeeded';
+            state.code = action.payload.code;
+           
+          })
+          .addCase(useExchange.rejected, (state, action) => {
+            state.status = 'failed';
+            state.error = action.error.message;
+          })
+          .addCase(getUserItemExchange.pending, (state) => {
+            state.status = 'loading';
+          })
+          .addCase(getUserItemExchange.fulfilled, (state, action) => {
+            state.status = 'succeeded';
+            state.code = action.payload.code;
+           
+          })
+          .addCase(getUserItemExchange.rejected, (state, action) => {
+            state.status = 'failed';
+            state.error = action.error.message;
+          })
       .addCase(fetchNews.pending, (state) => {
         state.status = 'loading';
       })
@@ -217,9 +208,8 @@ export const apiSlice = createSlice({
         state.status = 'failed';
         state.error = action.error.message;
       });
-
-  },
-});
+      },
+    });
 
 export default apiSlice.reducer;
-export const selectNews = (state) => state.news.data;
+
