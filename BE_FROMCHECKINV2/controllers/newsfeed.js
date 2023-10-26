@@ -2,15 +2,16 @@ const firebase = require("./../config/firebase");
 const admin = require("./../config/firebaseadmin");
 
 // Read newsfeed items
-exports.getNewsfeed = (req, res) => {
+exports.getNews = (req, res) => {
   firebase.firestore().collection('newsfeed').get()
     .then((querySnapshot) => {
       const newsfeedItems = [];
       querySnapshot.forEach((doc) => {
-        console.log(doc.id, ' => ', doc.data());
-            if (doc.data()) {
-              return res.status(200).json(doc.data())
-            }
+        const data = doc.data();
+        if (data && data.author && data.detail) {
+          // Collect the specific data you need
+          newsfeedItems.push({ author: data.author, detail: data.detail });
+        }
       });
       return res.status(200).json({ newsfeedItems });
     })

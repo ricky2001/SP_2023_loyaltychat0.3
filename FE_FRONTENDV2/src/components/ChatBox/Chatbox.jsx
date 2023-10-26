@@ -63,7 +63,7 @@ const ChatBox = () => {
             </div>
             <div className="chat-content">
               <div className="chat-messages" ref={chatMessagesRef}>
-                {messages
+                {/* {messages
                   .sort((a, b) => a.timestamp - b.timestamp)
                   .map((message, index) => (
                     <div
@@ -72,7 +72,7 @@ const ChatBox = () => {
                     >
                       {message.text}
                     </div>
-                  ))}
+                  ))} */}
               </div>
               <form onSubmit={handleSubmit} className="message-input">
                 <input
