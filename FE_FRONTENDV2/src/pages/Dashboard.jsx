@@ -4,7 +4,6 @@ import Carousel from '@/components/CarouselDashboard';
 import Recent from '@/components/Recents';
 import Describtions from '@/components/Describtions';
 import Newsfeed from '@/components/Newsfeed';
-import Chatbot from '../components/Chatbot';
 import ChatBox from '../components/ChatBox/Chatbox';
 
 function Dashboard() {
@@ -18,7 +17,6 @@ function Dashboard() {
                     <Newsfeed />
                     {/* <Describtions /> */}
                     <ChatBox />
-                    {/* <Chatbot /> */}
                 </div>
             </div>
         </Base>

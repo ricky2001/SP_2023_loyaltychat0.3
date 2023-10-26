@@ -36,7 +36,7 @@ const {
 } = require("../controllers/item");
 
 const {
-  openai,
+  getaiMessage,
 } = require("../controllers/openai")
 
 const {
@@ -66,7 +66,7 @@ router.post("/itemexchange", verifyToken ,itemexchange);
 router.get("/getUserItemExchange", getUserItemExchange);
 
 
-router.post("/openai", openai);
+router.post("/aiMessage", getaiMessage);
 
 // router.get("/UserRewardExchange", verifyToken, getUserRewardExchange);
 

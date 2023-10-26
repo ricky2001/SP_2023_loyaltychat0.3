@@ -73,6 +73,14 @@ export const getItem = createAsyncThunk('api/getItem', async () => {
 
 });
 
+export const userMessage = createAsyncThunk('api/aiMessage', async ({ userInput }) => {
+  console.log(userInput)
+  const response = await axiosInstance.post('api/aiMessage', { userInput });
+  const data = await response.data;
+ 
+  return data;
+});
+
   let initialStateAPI = {
     coin:0,
     code:500,
@@ -186,6 +194,16 @@ export  const  apiSlice = createSlice({name:'api', initialState: initialStateAPI
            
           })
           .addCase(getItem.rejected, (state, action) => {
+            state.status = 'failed';
+            state.error = action.error.message;
+          })
+
+          .addCase(userMessage.fulfilled, (state, action) => {
+            state.status = 'succeeded';
+            state.code = action.payload.code;
+           
+          })
+          .addCase(userMessage.rejected, (state, action) => {
             state.status = 'failed';
             state.error = action.error.message;
           })
