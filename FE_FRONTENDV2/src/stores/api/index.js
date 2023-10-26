@@ -1,25 +1,25 @@
-import { createSlice,createAsyncThunk} from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 import axiosInstance from '../../utils/api/axiosIntance.js'
 
 
-export const useConsign = createAsyncThunk('api/consign', async ({ emailFrom, emailTo,starConsign,text }) => {
-    console.log(emailFrom, emailTo,starConsign,text)
-    const numPoint = parseInt(starConsign)
-    const response = await axiosInstance.post('api/consign', { emailFrom, emailTo,starConsign:numPoint,text });
-    const data = await response.data;
-   
-    return data;
-  });
+export const useConsign = createAsyncThunk('api/consign', async ({ emailFrom, emailTo, starConsign, text }) => {
+  console.log(emailFrom, emailTo, starConsign, text)
+  const numPoint = parseInt(starConsign)
+  const response = await axiosInstance.post('api/consign', { emailFrom, emailTo, starConsign: numPoint, text });
+  const data = await response.data;
 
- export const getCoin = createAsyncThunk('api/getCoins', async () => {
-    const response = await axiosInstance.get('api/userConsign');
-    const data = await response.data;
- 
-    return data;
- }); 
+  return data;
+});
 
- export const getName = createAsyncThunk('api/getName', async () => {
+export const getCoin = createAsyncThunk('api/getCoins', async () => {
+  const response = await axiosInstance.get('api/userConsign');
+  const data = await response.data;
+
+  return data;
+});
+
+export const getName = createAsyncThunk('api/getName', async () => {
   const response = await axiosInstance.get('api/user');
   const data = await response.data;
 
@@ -27,43 +27,44 @@ export const useConsign = createAsyncThunk('api/consign', async ({ emailFrom, em
 });
 
 
- export const checkIn = createAsyncThunk('api/checkIn', async ({dateCheckIn,star}) => {
-  const response = await axiosInstance.post('api/checkin',{dateCheckIn,points:star});
+export const checkIn = createAsyncThunk('api/checkIn', async ({ dateCheckIn, star }) => {
+  const response = await axiosInstance.post('api/checkin', { dateCheckIn, points: star });
   const data = await response.data;
   return data;
- });
+});
 
 export const getHistory = createAsyncThunk('api/userDateCheckIn', async () => {
-  const  response = await axiosInstance.get('api/userDateCheckIn');
-  const  data = await response.data;
-  
+  const response = await axiosInstance.get('api/userDateCheckIn');
+  const data = await response.data;
+
   return data;
 
 });
 
-export const getNewsfeed = createAsyncThunk('api/news', async () => {
-  const  response = await axiosInstance.get('api/news');
-  const  data = await response.data;
-  
-  return data;
+export const fetchNews = createAsyncThunk('api/fetchNews', async () => {
+    const response = await axiosInstance.get('api/getNews'); 
+    return response.data; 
 
 });
 
 export const scanqrcode = createAsyncThunk('api/scanqrcode', async () => {
+
   const  response = await axiosInstance.post('api/scanqrcode');
   const  data = await response.data;
+  
   return data;
 
 });
 
-export const useExchange = createAsyncThunk('api/exchange', async ({ email,itemid,itemname,itemtotal,totalprices }) => {
-  console.log(email,itemid,itemname,itemtotal,totalprice)
+export const useExchange = createAsyncThunk('api/exchange', async ({ email, itemid, itemname, itemtotal, totalprices }) => {
+  console.log(email, itemid, itemname, itemtotal, totalprice)
   // const numItem = parseInt()
-  const response = await axiosInstance.post('api/consign', { email,itemid,itemname,itemtotal,totalprice});
+  const response = await axiosInstance.post('api/consign', { email, itemid, itemname, itemtotal, totalprice });
   const data = await response.data;
- 
+
   return data;
 });
+
 
 export const getUserItemExchange = createAsyncThunk('api/getUserItemExchange', async () => {
   const  response =  axiosInstance.get('api/getUserItemExchange');
@@ -71,6 +72,15 @@ export const getUserItemExchange = createAsyncThunk('api/getUserItemExchange', a
   
   return data;
 
+});
+
+  
+  export const userMessage = createAsyncThunk('api/aiMessage', async ({ userInput }) => {
+  console.log(userInput)
+  const response = await axiosInstance.post('api/aiMessage', { userInput });
+  const data = await response.data;
+
+  return data;
 });
 
   let initialStateAPI = {
@@ -83,9 +93,7 @@ export const getUserItemExchange = createAsyncThunk('api/getUserItemExchange', a
 
 export  const  apiSlice = createSlice({name:'api', initialState: initialStateAPI, 
     reducers: {
-      
-    
-    
+     
     },
     extraReducers:(builder) => {
         builder
@@ -189,7 +197,19 @@ export  const  apiSlice = createSlice({name:'api', initialState: initialStateAPI
             state.status = 'failed';
             state.error = action.error.message;
           })
+      .addCase(fetchNews.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchNews.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.data = action.payload;
+      })
+      .addCase(fetchNews.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
       },
     });
 
 export default apiSlice.reducer;
+
