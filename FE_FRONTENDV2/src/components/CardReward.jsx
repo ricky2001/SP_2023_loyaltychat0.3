@@ -2,46 +2,83 @@ import React, { useState, useEffect } from 'react';
 import '@/assets/css/counter.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useExchange } from '@/stores/api/index';
-// import { setEmail } from '@/stores/auth/index'
+import { setEmail } from '@/stores/auth/index'
 import axios from 'axios';
 
 
 function CardReward() {
   const [item, setItem] = useState([]); // Use setItem to update the item state
-  const dispatch = useDispatch();
-  const userEmail = useSelector(state => state.authStore.email); // Assuming your user email is stored in Redux state
-  const [itemTotal, setItemTotal] = useState(1);
+  // const dispatch = useDispatch();
+  const email = useSelector(state => state.authStore.email);
+  const [emailUser,setEmailUser] = useState();
+  const [itemtotal,setItemTotal]=useState();
+  const [itemId,setItemId] = useState('');
   // const items = useSelector(state => state.apistStore.data); 
 
+  const dispatch = useDispatch();
+    useEffect(() => {   
+        dispatch(setEmail())
+        
+        
+    }, [dispatch])
 
+    useEffect(() => {
+      setEmailUser(email)
+     }, [email])
 
+  // useEffect(() => {
+  //   axios.get('http://localhost:3000/api/getUserItemExchange').then(response => {
+  //     setItem(response.data);
+  //     console.log(item);
+  //   })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // }, []);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/getUserItemExchange').then(response => {
-      setItem(response.data);
-      console.log(item);
-    })
+    axios.get('http://localhost:3000/api/getUserItemExchange')
+      .then(response => {
+        const fetchedItems = response.data;
+        // Assuming each item object has an 'itemId' property, update the state with the first item's itemId
+        if (fetchedItems.length > 0) {
+          setItemId(fetchedItems[0].itemId);
+        }
+        setItem(fetchedItems);
+      })
       .catch(error => {
-        console.log(error);
+        console.error('Error fetching user items:', error);
       });
   }, []);
 
-  async function handleClickExchage(itemId) {
-    try {
-      const response = await useExchange({
-        email: userEmail,
-        itemid: itemId,
-        itemtotal: itemTotal // Use the itemTotal state variable
-      });
+  // async function handleClickExchage(itemId) {
+  //   try {
+  //     const response = await useExchange({
+  //       email: userEmail,
+  //       itemid: itemId,
+  //       itemtotal: itemTotal // Use the itemTotal state variable
+  //     });
 
-      // Handle the API response as needed
-      // dispatch(setEmail(response.data.emailuser));
-      // ... handle other state updates or actions based on the API response
+  //     // Handle the API response as needed
+  //     // dispatch(setEmail(response.data.emailuser));
+  //     // ... handle other state updates or actions based on the API response
 
-    } catch (error) {
-      console.error('Error exchanging item:', error);
-    }
-  }
+  //   } catch (error) {
+  //     console.error('Error exchanging item:', error);
+  //   }
+  // }
+
+  const handleChangeItemTotal = (e)=>{
+    setItemTotal(e.target.value);
+}
+
+  const handleClickExchage = async(e)=>{
+    e.preventDefault();
+    console.log(itemId,emailUser,itemtotal);
+    
+    await dispatch(useExchange({emailuser:emailUser,itemid:itemId,itemTotal:itemtotal}));
+    
+}
 
 
 
@@ -78,22 +115,12 @@ function CardReward() {
                     
                     </div> */}
 
-                  <input
-                    type="number"
-                    min="0"
-                    value={itemTotal}
-                    onChange={(e) => {
-                      const inputValue = parseInt(e.target.value);
-                      if (!isNaN(inputValue)) {
-                        setItemTotal(inputValue);
-                      }
-                    }}
-                  />
+<input type="number" id="small-input" className="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Fill item total no.." onChange={handleChangeItemTotal}/>
                 </div>
                 <br />
 
               </div>
-              <br /><button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl" onClick={() => handleClickExchage(item.itemid)}>
+              <br /><button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl" onClick={handleClickExchage}>
                 Exchange
               </button>
             </div>

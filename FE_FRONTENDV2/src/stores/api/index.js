@@ -56,12 +56,12 @@ export const scanqrcode = createAsyncThunk('api/scanqrcode', async () => {
 
 });
 
-export const useExchange = createAsyncThunk('api/useExchange', async ({emailuser, itemid, itemTotal}) => {
+export const useExchange = createAsyncThunk('api/itemexchange', async ({emailuser, itemid, itemTotal}) => {
   console.log(emailuser, itemid, itemTotal);
   try {
     // Make your API call and return the data
-    const numItem = parseInt(itemTotal)
-    const response = await axiosInstance.post('api/itemexchange', { emailuser, itemid, itemTotal: numItem});
+    // const numItem = parseInt(itemTotal)
+    const response = await axiosInstance.post('api/itemexchange', { emailuser, itemid, itemTotal});
     const data = await response.data;
     return data;
   } catch (error) {
