@@ -1,4 +1,4 @@
-* {
+/* * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
@@ -22,7 +22,7 @@ img {
 	padding: 2rem;
 }
 
-h1 {
+h2 {
 	font-size: 2rem;
 	margin-bottom: 1rem;
 	color: rgb(255, 255, 255);
@@ -50,4 +50,4 @@ button, a {
 	color: #2bcb4b;
 	font-size: 1.5rem;
 	text-decoration: none;
-}
+} */

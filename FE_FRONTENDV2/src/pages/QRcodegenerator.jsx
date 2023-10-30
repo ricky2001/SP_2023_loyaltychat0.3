@@ -27,7 +27,7 @@ function QRcodegenerator() {
         
 		<div className="QRcodegenerator">
 			<div>
-            <h1>QR Generator</h1>
+            <h2>QR Generator</h2>
             </div>
 			<input 
 				type="text"
