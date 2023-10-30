@@ -158,6 +158,63 @@
 // }
 
 // export default QRCodeScanner;
+// import React, { useEffect, useRef, useState } from 'react';
+// import { BrowserMultiFormatReader, NotFoundException } from '@zxing/library';
+// import { Link } from 'react-router-dom';
+
+// const QRCodeScanner = () => {
+//   const videoRef = useRef(null);
+//   const codeReader = new BrowserMultiFormatReader();
+//   const [scannedData, setScannedData] = useState('');
+//   // const [scanning, setScanning] = useState(true);
+
+//   useEffect(() => {
+//     // Initialize scanner and video input devices when the component mounts
+//     codeReader
+//       .listVideoInputDevices()
+//       .then((videoInputDevices) => {
+//         if (videoInputDevices.length > 0) {
+//           codeReader.decodeFromVideoDevice(
+//             videoInputDevices[0].deviceId,
+//             videoRef.current,
+//             (result, error) => {
+//               if (result) {
+//                 setScannedData(result.getText());
+//                 // setScanning(false);
+//               } else if (error && error instanceof NotFoundException) {
+//                 console.log('No QR code found.');
+//               }
+//             }
+//           );
+//         } else {
+//           console.error('No video input devices found.');
+//         }
+//       })
+//       .catch((err) => {
+//         console.error('Error accessing video devices:', err);
+//       });
+
+//     // Cleanup function: Reset the scanner when the component unmounts
+//     return () => {
+//       codeReader.reset();
+//     };
+//   }, []);
+
+//   return (
+//     <div>
+//       <h2>QR Code Scanner</h2>
+      
+//         <div>
+//           <video ref={videoRef} playsInline autoPlay muted />
+//           <p>Scanned QR Code: {scannedData}</p>
+//           <Link to="/calendar"><button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-xl">Go Back to Another Page</button></Link>
+//         </div>
+       
+//     </div>
+//   );
+// };
+
+// export default QRCodeScanner;
 import React, { useEffect, useRef, useState } from 'react';
 import { BrowserMultiFormatReader, NotFoundException } from '@zxing/library';
 import { Link } from 'react-router-dom';
@@ -166,26 +223,22 @@ const QRCodeScanner = () => {
   const videoRef = useRef(null);
   const codeReader = new BrowserMultiFormatReader();
   const [scannedData, setScannedData] = useState('');
-  // const [scanning, setScanning] = useState(true);
+  const [selectedDeviceIndex, setSelectedDeviceIndex] = useState(0);
+  const [videoInputDevices, setVideoInputDevices] = useState([]);
 
   useEffect(() => {
-    // Initialize scanner and video input devices when the component mounts
     codeReader
       .listVideoInputDevices()
-      .then((videoInputDevices) => {
-        if (videoInputDevices.length > 0) {
-          codeReader.decodeFromVideoDevice(
-            videoInputDevices[0].deviceId,
-            videoRef.current,
-            (result, error) => {
-              if (result) {
-                setScannedData(result.getText());
-                // setScanning(false);
-              } else if (error && error instanceof NotFoundException) {
-                console.log('No QR code found.');
-              }
+      .then((devices) => {
+        setVideoInputDevices(devices);
+        if (devices.length > 0) {
+          codeReader.decodeFromVideoDevice(devices[selectedDeviceIndex].deviceId, videoRef.current, (result, error) => {
+            if (result) {
+              setScannedData(result.getText());
+            } else if (error && error instanceof NotFoundException) {
+              console.log('No QR code found.');
             }
-          );
+          });
         } else {
           console.error('No video input devices found.');
         }
@@ -194,22 +247,44 @@ const QRCodeScanner = () => {
         console.error('Error accessing video devices:', err);
       });
 
-    // Cleanup function: Reset the scanner when the component unmounts
     return () => {
       codeReader.reset();
     };
-  }, []);
+  }, [selectedDeviceIndex]);
+
+  const switchCamera = () => {
+    if (videoInputDevices.length > 1) {
+      setSelectedDeviceIndex((selectedDeviceIndex + 1) % videoInputDevices.length);
+    }
+  };
 
   return (
     <div>
       <h2>QR Code Scanner</h2>
-      
-        <div>
-          <video ref={videoRef} playsInline autoPlay muted />
-          <p>Scanned QR Code: {scannedData}</p>
-          <Link to="/calendar"><button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-xl">Go Back to Another Page</button></Link>
-        </div>
-       
+      <div>
+        <video ref={videoRef} playsInline autoPlay muted />
+        <p>Scanned QR Code: {scannedData}</p>
+        {/* <p>Selected Camera: {videoInputDevices[selectedDeviceIndex]?.label || 'Unknown Camera'}</p> */}
+        <center>
+          <button
+          onClick={switchCamera}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl"
+        >
+          Switch Camera
+        </button>
+        </center>
+        
+        
+      </div>
+      <br></br>
+      <center>
+         <Link to="/calendar">
+          <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-xl">
+            Go Back to Another Page
+          </button>
+        </Link>
+      </center>
+     
     </div>
   );
 };
