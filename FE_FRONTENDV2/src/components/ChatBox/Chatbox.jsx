@@ -1,15 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useDispatch,useSelector } from 'react-redux'
 import { AiOutlineMessage } from 'react-icons/ai';
-import {useSelector,useDispatch} from 'react-redux'
-// import { user } from '@/stores/api/index'
-
 import './ChatBox.css';
+import {userMessage,setHistory} from '../../stores/api/index.js'
+
 
 const ChatBox = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
-  const [messages, setMessages] = useState(null);
+  // const [messages, setMessages] = useState([]);
   const botName = 'Bot';
+  const dispatch = useDispatch();
+  const messages = useSelector(state => state.apiStore.history)
 
   const chatMessagesRef = useRef(null); // Ref for chat messages container
 
@@ -25,18 +27,9 @@ const ChatBox = () => {
     
     e.preventDefault();
     if (!input) return;
-
-    console.log(input);
-    await dispatch(userInput({ userInput: input }));
-    
-    try {
-      const aiResponse = await getaiMessage(input);
-      const botMessage = { text: aiResponse, isUser: false, timestamp: new Date() };
-      setMessages([...messages, botMessage]);
-    } catch (error) {
-      console.error(error);
-    }
-    
+      dispatch(setHistory(input)); //user text
+      dispatch(userMessage({ userInput: input })); //bot text
+      setInput("");
   };
 
   useEffect(() => {
@@ -63,8 +56,8 @@ const ChatBox = () => {
             </div>
             <div className="chat-content">
               <div className="chat-messages" ref={chatMessagesRef}>
-                {/* {messages
-                  .sort((a, b) => a.timestamp - b.timestamp)
+                {messages
+                  // .sort((a, b) => a.timestamp - b.timestamp)
                   .map((message, index) => (
                     <div
                       key={index}
@@ -72,7 +65,7 @@ const ChatBox = () => {
                     >
                       {message.text}
                     </div>
-                  ))} */}
+                  ))}
               </div>
               <form onSubmit={handleSubmit} className="message-input">
                 <input
