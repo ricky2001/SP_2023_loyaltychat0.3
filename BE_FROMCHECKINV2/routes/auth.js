@@ -66,7 +66,7 @@ router.post("/itemexchange", verifyToken ,itemexchange);
 router.get("/getUserItemExchange", getUserItemExchange);
 
 
-router.post("/aiMessage", verifyToken, getaiMessage);
+router.post("/aiMessage", getaiMessage);
 
 // router.get("/UserRewardExchange", verifyToken, getUserRewardExchange);
 

@@ -76,12 +76,13 @@ export const getUserItemExchange = createAsyncThunk('api/getUserItemExchange', a
 
   
   export const userMessage = createAsyncThunk('api/aiMessage', async ({ userInput }) => {
-  console.log(userInput)
-  const response = await axiosInstance.post('api/aiMessage', { userInput });
-  const data = await response.data;
-
-  return data;
+  // console.log(userInput)
+  const response = await axiosInstance.post('api/aiMessage', { "message" : userInput })
+  return response.data;
+  
 });
+
+
 
   let initialStateAPI = {
     coin:0,
@@ -89,11 +90,15 @@ export const getUserItemExchange = createAsyncThunk('api/getUserItemExchange', a
     names:"",
     date:[],
     data:[],
+    history:[],
     }
 
 export  const  apiSlice = createSlice({name:'api', initialState: initialStateAPI, 
     reducers: {
-     
+      setHistory(state,action){
+        const userChat = { text: action.payload, isUser: true, timestamp: Math.floor(Date.now() / 1000) };
+        state.history.push(userChat)
+      }
     },
     extraReducers:(builder) => {
         builder
@@ -207,9 +212,25 @@ export  const  apiSlice = createSlice({name:'api', initialState: initialStateAPI
       .addCase(fetchNews.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
+      })
+      .addCase(userMessage.pending, (state,action) => {
+        state.status = 'loading';
+      })
+      .addCase(userMessage.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        const botMessage = { text: action.payload.messages.content, isUser: false, timestamp: Math.floor(Date.now() / 1000) };
+        state.history.push(botMessage)
+      })
+      .addCase(userMessage.rejected, (state, action) => {
+        state.status = 'failed';
+        // state.error = action.error.message;
+        const botMessage = { text: action.error.message, isUser: false, timestamp: Math.floor(Date.now() / 1000) };
+        state.history.push(botMessage)
       });
       },
     });
+
+export const {setHistory} = apiSlice.actions;
 
 export default apiSlice.reducer;
 
