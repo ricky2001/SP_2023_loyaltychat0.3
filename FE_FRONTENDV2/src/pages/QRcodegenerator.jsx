@@ -2,6 +2,8 @@ import QRCode from 'qrcode'
 import { useState } from 'react'
 // import './App.css'
 import './QRcodegenerator.css';
+import Base from '@/layouts/base.jsx'
+
 
 function QRcodegenerator() {
 	const [url, setUrl] = useState('')
@@ -24,7 +26,7 @@ function QRcodegenerator() {
 	}
 
 	return (
-        
+        <Base>
 		<div className="QRcodegenerator">
 			<div>
             <h2>QR Generator</h2>
@@ -40,6 +42,7 @@ function QRcodegenerator() {
 				<a href={qr} download="qrcode.png">Download</a>
 			</>}
 		</div>
+		</Base>
 	)
 }
 

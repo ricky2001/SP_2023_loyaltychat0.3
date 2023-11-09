@@ -219,6 +219,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { BrowserMultiFormatReader, NotFoundException } from '@zxing/library';
 import { Link } from 'react-router-dom';
 import Base from '@/layouts/base.jsx'
+import { IoChevronBackSharp} from "react-icons/io5";
 
 const QRCodeScanner = () => {
   const videoRef = useRef(null);
@@ -261,6 +262,19 @@ const QRCodeScanner = () => {
 
   return (
     <Base>
+    <br></br>
+    
+    
+    <div className="flex items-center ml-2">
+    {/* &nbsp;&nbsp;&nbsp;&nbsp; */}
+    
+         <Link to="/calendar" className="flex items-center">
+          <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-0 px-2 rounded-xl flex items-center">
+          <IoChevronBackSharp style={{ marginRight: '3px'}}/>Back
+          </button>
+        </Link>
+        </div>
+      
     <center>
     <div>
       <h2>QR Code Scanner</h2>
@@ -279,14 +293,7 @@ const QRCodeScanner = () => {
         
         
       </div>
-      <br></br>
-      <center>
-         <Link to="/calendar">
-          <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-xl">
-            Go Back
-          </button>
-        </Link>
-      </center>
+      
      
     </div>
     </center>
