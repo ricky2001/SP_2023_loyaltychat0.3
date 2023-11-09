@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@reduxjs/toolkit": "^1.9.7",
     "@zxing/library": "^0.20.0",
     "axios": "^1.5.1",
@@ -17,6 +18,15 @@
     "classnames": "^2.3.2",
     "flowbite": "^1.6.5",
     "flowbite-react": "^0.6.4",
+=======
+    "@reduxjs/toolkit": "^1.9.5",
+    "@zxing/library": "^0.20.0",
+    "axios": "^1.4.0",
+    "bootstrap-icons": "^1.10.5",
+    "classnames": "^2.3.2",
+    "flowbite": "^1.6.5",
+    "flowbite-react": "^0.4.4",
+>>>>>>> 0d40e894d826878fa844ab596fef0d075ea27311
     "html5-qrcode": "^2.3.8",
     "moment": "^2.29.4",
     "prop-types": "^15.8.1",
