@@ -20,7 +20,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 
 import  ProtectedRoute from './routers/protectRouter';
 import QRCodeScanner from './components/QRCodeScanner.jsx';
-import Form from './pages/Form.jsx'
+import Form from './pages/form.jsx'
 import QRcodegenerator from './pages/QRcodegenerator.jsx'
 
 const router = createBrowserRouter([
@@ -51,13 +51,6 @@ const router = createBrowserRouter([
   {
     path:"QRCodeScanner",
     element:<ProtectedRoute component={<QRCodeScanner/>} />,
-<<<<<<< HEAD
-  },
-  {
-    path:"Form",
-    element:<ProtectedRoute component={<Form/>} />,
-  }
-=======
   },{
     path:"/form",
     element:<ProtectedRoute component={<Form/>} />,
@@ -65,7 +58,6 @@ const router = createBrowserRouter([
   path:"/QRcodegenerator",
   element:<ProtectedRoute component={<QRcodegenerator/>} />,
 }
->>>>>>> 0d40e894d826878fa844ab596fef0d075ea27311
 ]);
 
 
