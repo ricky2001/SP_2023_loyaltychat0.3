@@ -218,6 +218,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { BrowserMultiFormatReader, NotFoundException } from '@zxing/library';
 import { Link } from 'react-router-dom';
+import Base from '@/layouts/base.jsx'
 
 const QRCodeScanner = () => {
   const videoRef = useRef(null);
@@ -259,6 +260,8 @@ const QRCodeScanner = () => {
   };
 
   return (
+    <Base>
+    <center>
     <div>
       <h2>QR Code Scanner</h2>
       <div>
@@ -280,12 +283,14 @@ const QRCodeScanner = () => {
       <center>
          <Link to="/calendar">
           <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-xl">
-            Go Back to Another Page
+            Go Back
           </button>
         </Link>
       </center>
      
     </div>
+    </center>
+    </Base>
   );
 };
 
