@@ -20,7 +20,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 
 import  ProtectedRoute from './routers/protectRouter';
 import QRCodeScanner from './components/QRCodeScanner.jsx';
-import Form from './pages/form.jsx'
+
 import QRcodegenerator from './pages/QRcodegenerator.jsx'
 
 const router = createBrowserRouter([
