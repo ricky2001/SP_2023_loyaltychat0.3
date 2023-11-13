@@ -1,46 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import './Newsfeed/newsfeed.css';
-import axios from 'axios';
-// import { useDispatch } from 'react-redux';
-// import { fetchNews } from '@/stores/api/index';
+
+import axiosInstance from '../utils/api/axiosIntance.js';
 
 function Newsfeed() {
   const [isPopupOpen, setPopupOpen] = useState(false);
+  const [isEditOpen, setEditOpen] = useState(false);
   const [newsList, setNewsList] = useState([]);
   const [newAuthor, setNewAuthor] = useState('');
   const [newDetail, setNewDetail] = useState('');
+  const [updateAuthor, setUpdateAuthor] = useState('');
+  const [updateDetail, setUpdateDetail] = useState('');
+  const [selectedNewsId, setSelectedNewsId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const cardsPerPage = 2;
+  const cardsPerPage = 5;
 
-  const [dataList, setdataList] = useState([]);
+  const postNews = async () => {
+    const response = await axiosInstance.post('/api/createNews', {
+      content: newDetail,
+      author: newAuthor,
+      timestamp: new Date().getTime(), // Example timestamp creation, adjust according to Firestore timestamp
+    });
+    const newNewsId = response.data.newsId;
+    setNewsList([{ id: newNewsId, author: newAuthor, detail: newDetail }, ...newsList]);
+    setPopupOpen(false);
+    setNewAuthor('');
+    setNewDetail('');
+  };
 
+  useEffect(() => {
+    getNews();
+  }, []);
 
-  // const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   axios.get('http://localhost:3000/api/getNews').then(response => {
-  //     setdataList(response.data);
-  //     console.log(dataList);
-  //   }).catch(error => {console.log(error);});
-  // }, []);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const newsCollection = await firestore.collection('newsfeed').get();
-  //       const newsData = newsCollection.docs.map((doc) => ({
-  //         id: doc.id,
-  //         ...doc.data(),
-  //       }));
-  //       setNewsList(newsData);
-  //     } catch (error) {
-  //       console.error('Error fetching data from Firestore:', error);
-  //     }
-  //     console.log(newsList);
-  //   };
-
-  //   fetchData();
-  // }, []);
+  const getNews = async () => {
+    const response = await axiosInstance.get('/api/getNews');
+    const sortedNews = response.data.newsfeedItems.sort((a, b) => b.timestamp - a.timestamp);
+    setNewsList(sortedNews);
+  };
 
   const openPopup = () => {
     setPopupOpen(true);
@@ -52,12 +48,49 @@ function Newsfeed() {
     setNewDetail('');
   };
 
-  const createNews = () => {
-    if (newAuthor && newDetail) {
-      setNewsList([...newsList, { author: newAuthor, detail: newDetail }]);
-      closePopup();
+  const openEdit = (id) => {
+    setSelectedNewsId(id);
+    setEditOpen(true);
+    const selectedNews = newsList.find(news => news.id === id);
+    setUpdateAuthor(selectedNews.author);
+    setUpdateDetail(selectedNews.detail);
+  };
+
+  const closeEdit = () => {
+    setEditOpen(false);
+    setUpdateAuthor('');
+    setUpdateDetail('');
+    setSelectedNewsId(null);
+  };
+
+  const performEdit = async () => {
+    if (updateAuthor && updateDetail) {
+      const updatedNewsList = [...newsList];
+      const newsIndex = updatedNewsList.findIndex(news => news.id === selectedNewsId);
+      updatedNewsList[newsIndex] = { id: selectedNewsId, author: updateAuthor, detail: updateDetail };
+      setNewsList(updatedNewsList);
+      try {
+        await axiosInstance.post(`api/updateNews?id=${selectedNewsId}`, {
+          author: updateAuthor,
+          detail: updateDetail,
+        });
+      } catch (error) {
+        console.error("Failed to update news:", error);
+      }
+      closeEdit();
     }
   };
+
+  const performDelete = async (id) => {
+    const updatedNewsList = newsList.filter(news => news.id !== id);
+    setNewsList(updatedNewsList);
+    try {
+      await axiosInstance.delete(`api/deleteNews?id=${id}`);
+    } catch (error) {
+      console.error("Failed to delete news:", error);
+    }
+    closeEdit();
+  }
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -85,7 +118,6 @@ function Newsfeed() {
         <div className="flex items-center justify-between mb-4 p-5">
           <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Recent</h5>
           <div className="ml-2"></div>
-
           <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={openPopup}>
             Create News
           </button>
@@ -93,9 +125,12 @@ function Newsfeed() {
 
         <div className="news-list">
           {currentCards.map((news, index) => (
-            <div key={index} className="card">
+            <div key={news.id} className="card">
               <h3>Author: {news.author}</h3>
               <p>Detail: {news.detail}</p>
+              <div>
+                <button onClick={() => openEdit(news.id)}>Edit/Delete</button>
+              </div>
             </div>
           ))}
         </div>
@@ -134,7 +169,7 @@ function Newsfeed() {
             onChange={(e) => setNewDetail(e.target.value)}
           />
           <div className="button-container">
-            <button className="bg-blue-500 text-white" onClick={createNews}>
+            <button className="bg-blue-500 text-white" onClick={postNews}>
               Save News
             </button>
             <button className="bg-red-500 text-white" onClick={closePopup}>
@@ -144,6 +179,33 @@ function Newsfeed() {
         </div>
       )}
 
+      {isEditOpen && (
+        <div className="popup">
+          <h2>Edit/Delete News</h2>
+          <input
+            type="text"
+            placeholder="Author"
+            value={updateAuthor}
+            onChange={(e) => setUpdateAuthor(e.target.value)}
+          />
+          <textarea
+            placeholder="News Detail"
+            value={updateDetail}
+            onChange={(e) => setUpdateDetail(e.target.value)}
+          />
+          <div className="button-container">
+            <button className="bg-blue-500 text-white" onClick={performEdit}>
+              Update News
+            </button>
+            <button className="bg-red-500 text-white" onClick={() => performDelete(selectedNewsId)}>
+              Delete News
+            </button>
+            <button className="bg-gray-500 text-white" onClick={closeEdit}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
