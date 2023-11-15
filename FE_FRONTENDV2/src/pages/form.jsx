@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-function UserSatisfactionForm() {
+function Form() {
   const [satisfactionLevel, setSatisfactionLevel] = useState(''); // State to store satisfaction level
   const [comments, setComments] = useState(''); // State to store user comments
 
@@ -67,4 +67,4 @@ function UserSatisfactionForm() {
   );
 }
 
-export default UserSatisfactionForm;
+export default Form;
