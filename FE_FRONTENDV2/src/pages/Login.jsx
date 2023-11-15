@@ -1,9 +1,9 @@
-import React,{useState} from 'react'
+import React,{useState,useCallback} from 'react'
 import Base from '@/layouts/base'
-import {  useDispatch } from 'react-redux'
-import {login} from '@/stores/auth/index'
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux'
+import {login,auth} from '@/stores/auth/index'
 import logo from "@/assets/img/logo.png";
+import { useNavigate } from "react-router-dom";
 
 
 function Login(){
@@ -12,11 +12,10 @@ function Login(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const isAuthenticated  = useSelector(state => state.authStore.isAuth);
 
    
     const dispatch = useDispatch()
-
-
 
     const handleChangeEmail = (e)=>{
         setEmail(e.target.value);
@@ -27,16 +26,19 @@ function Login(){
         
     }
 
+    const navigateDashboard = useCallback(() => {
+        dispatch(auth());
+        if(isAuthenticated){
+            navigate("/dashboard");
+        }
+    },[dispatch,])
+
     const handleSubmit = async (e)=>{
         e.preventDefault();
         await dispatch(login({email,password} ))
-       
-        navigate("/dashboard");
-       
-    
-
-
+        navigateDashboard()
     }
+    
 
 
 

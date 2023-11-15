@@ -2,15 +2,17 @@ const firebase = require("./../config/firebase");
 const admin = require("./../config/firebaseadmin");
 
 // Read newsfeed items
-exports.getNewsfeed = (req, res) => {
+exports.getNews = (req, res) => {
   firebase.firestore().collection('newsfeed').get()
     .then((querySnapshot) => {
       const newsfeedItems = [];
       querySnapshot.forEach((doc) => {
-        console.log(doc.id, ' => ', doc.data());
-            if (doc.data()) {
-              return res.status(200).json(doc.data())
-            }
+        const data = doc.data();
+        if (data && data.author && data.detail) {
+          // Collect the specific data you need
+          // console.log(data)
+          newsfeedItems.push({ id : doc.id, author: data.author, detail: data.detail });
+        }
       });
       return res.status(200).json({ newsfeedItems });
     })
@@ -21,7 +23,7 @@ exports.getNewsfeed = (req, res) => {
 };
 
 // Create a new newsfeed item
-exports.createNewsfeedItem = (req, res) => {
+exports.createNews = (req, res) => {
   const { content } = req.body;
   const token = req.headers.authorization.split(" ")[1];
   admin
@@ -35,7 +37,7 @@ exports.createNewsfeedItem = (req, res) => {
         .firestore()
         .collection('newsfeed')
         .add({
-          content,
+          detail: content,
           author: email,
           timestamp: new Date(),
         })
@@ -54,9 +56,9 @@ exports.createNewsfeedItem = (req, res) => {
 };
 
 // Update a newsfeed item by ID
-exports.updateNewsfeedItem = (req, res) => {
-  const { id } = req.params;
-  const { content } = req.body;
+exports.updateNews = (req, res) => {
+  const id = req.query.id;
+  const { author,detail } = req.body;
   const token = req.headers.authorization.split(" ")[1];
 
   admin
@@ -69,7 +71,8 @@ exports.updateNewsfeedItem = (req, res) => {
         .collection('newsfeed')
         .doc(id)
         .update({
-          content,
+          detail: detail,
+          author: author,
           timestamp: new Date(),
         })
         .then(() => {
@@ -87,8 +90,8 @@ exports.updateNewsfeedItem = (req, res) => {
 };
 
 // Delete a newsfeed item by ID
-exports.deleteNewsfeedItem = (req, res) => {
-  const { id } = req.params;
+exports.deleteNews = (req, res) => {
+  const id = req.query.id;
   const token = req.headers.authorization.split(" ")[1];
 
   admin
