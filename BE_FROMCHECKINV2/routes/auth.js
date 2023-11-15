@@ -26,8 +26,10 @@ const {
 } = require("../controllers/checkin");
 
 const {
-
-  getNewsfeed
+  getNews,
+  createNews,
+  updateNews,
+  deleteNews
 } = require("../controllers/newsfeed");
 
 const {
@@ -36,7 +38,7 @@ const {
 } = require("../controllers/item");
 
 const {
-  openai,
+  getaiMessage,
 } = require("../controllers/openai")
 
 const {
@@ -56,22 +58,28 @@ router.post("/checkin", verifyToken, updatedCheckIn);
 
 router.get("/userDateCheckIn", verifyToken, getUserDateCheckIn);
 
-router.get("/news", getNewsfeed)
-
 router.get("/user", verifyToken, names);
 
-
-router.post("/itemexchange", verifyToken ,itemexchange);
+router.post("/itemexchange", verifyToken, itemexchange);
 
 router.get("/getUserItemExchange", getUserItemExchange);
 
 
-router.post("/openai", openai);
+router.post("/aiMessage", getaiMessage);
+
+router.get("/getNews", verifyToken, getNews)
+
+router.post("/createNews", verifyToken, createNews)
+
+router.post("/updateNews", verifyToken, updateNews)
+
+router.delete("/deleteNews", verifyToken, deleteNews)
+
 
 // router.get("/UserRewardExchange", verifyToken, getUserRewardExchange);
 
-
 router.post("/scanqrcode", verifyToken, scan);
+
 // router.post("/logout", verifyToken ,logout);
 
 module.exports = router;

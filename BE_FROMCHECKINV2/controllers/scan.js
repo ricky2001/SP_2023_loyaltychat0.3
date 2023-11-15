@@ -17,9 +17,8 @@ exports.scan = async (req, res) => {
         const newPoints = oldPoints + 1;
         const email = req.body.email; // Get user email from the user document
         const time = req.body.time;
-        const event = req.body.event;
 
-        if (email == null || time == null || event == null) {
+        if (email == null || time == null) {
             return res.status(500).json({
                 status: "Invalid email or time",
                 code: "500"
@@ -31,7 +30,6 @@ exports.scan = async (req, res) => {
             email: email,
             time: time,
             star: 1,
-            eventname: event,
         })
         .then((docRef) => {
             console.log('Document written with ID: ', docRef.id);

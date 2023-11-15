@@ -4,8 +4,34 @@ const admin = require("./../config/firebaseadmin");
 //rewaed exchanges
 exports.itemexchange = (req, res) => {
   let err = '';
+  // if (req.body.itemid != req.body.itemid || req.body.itemtotal > req.body.total) {
+  //   return res.status(404).json({
+  //     status: "Item not found",
+  //     code: "404"
+  //   });
+  // }
 
-  // find item data and calculate amount of items
+  // if (req.body.itemprice <=0||req.body.itemtotal <=0) {
+  //   return res.status(400).json({
+  //     status: "You must select an item",
+  //     code: "400"
+  //   })
+  // }
+  // save rewardexchange to base
+  
+
+  //get rewarditem from base
+  // firebase.firestore().collection('rewarditem').get({
+  //   itemidm: req.body.itemid,
+  //   total: req.body.itemtotal,
+  //   itemprices: req.body.itemprice,
+  // });
+
+  // find user data 
+
+ 
+
+
   firebase.firestore().collection('rewarditem').where('itemid', '==', req.body.itemid).get()
     .then((querySnapshot1) => {
       querySnapshot1.forEach((doc1) => {
@@ -18,7 +44,6 @@ exports.itemexchange = (req, res) => {
             code: "500"
           });
         }
-        //find user to calculate from items which exchanged 
         firebase.firestore().collection('users').where('email', '==', req.body.emailuser).get()
         .then((querySnapshot2) => {
           querySnapshot2.forEach((doc2) => {
