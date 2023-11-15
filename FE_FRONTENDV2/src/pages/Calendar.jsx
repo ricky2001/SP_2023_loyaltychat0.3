@@ -16,6 +16,9 @@ function CalendarPage() {
     let history = useSelector(state => state.apiStore.date)
     const [star,setStar] = useState();
     const [maxCount,setMaxCount] = useState();
+    const h1Style = {
+		fontWeight: 700, // Adjust the value to make the text thicker or thinner
+	  };
 
     const popupShow  = classNames('fixed  top-0  left-0  right-0 bottom-0 flex flex-row justify-center items-center bg-black bg-opacity-30 z-50',{
         'hidden':!toggle,
@@ -143,19 +146,27 @@ return maxCount;
         <div className="w-full h-screen">
         <div className="flex flex-col justify-center items-center">
             <div className="flex flex-col justify-center items-center mb-4 ">
-                    <h1 className="text-xl  mb-4">Check-in</h1>
-               <div className="flex flex-row  justify-center items-center ">
+                    <h1 className="text-xl  mb-4" style={h1Style}>Check-in</h1>
+                    {/* <div  className='flex flex-rol justify-start'> */}
                    
-                   <h1 className="text-xl mr-6">Check-in for event:</h1>
+                   {/* <h1 className="text-xl mr-6">Check-in for event:</h1> */}
                     {/* <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Click</button> */}
-                    <Link to={`/QRCodeScanner`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Click</Link>
+                    {/* <Link to={`/QRcodegenerator`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">crate barcode</Link>&nbsp;
+                    <Link to={`/QRCodeScanner`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Click</Link> */}
+                    
                    
-               </div>
+               {/* </div> */}
        
                 
             </div>
             
             <div  className='flex flex-col justify-start'>
+            <h1 className="text-xl mr-6">Check-in for event</h1>
+            <div  className='flex flex-rol justify-start'>
+            <Link to={`/QRcodegenerator`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">crate barcode</Link>&nbsp;
+            <Link to={`/QRCodeScanner`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Check-in</Link>
+            </div>
+
             <h1 className="text-xl mr-6 mb-4">Check-in for daily</h1>  
             <EmployeeCalendar markedDates={history } />
             </div>
@@ -173,7 +184,7 @@ return maxCount;
                            <span className="sr-only">Close modal</span>
                        </button>
                        <div className="p-6 text-center">
-                            <svg aria-hidden="true" class="mx-auto w-40 h-40 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>First star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg aria-hidden="true" className="mx-auto w-40 h-40 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>First star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
                            {/* <svg aria-hidden="true" className="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> */}
                            <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Stack {maxCount} and Star {star}</h3>
                            <button  type="button" className="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2" onClick={handleClickCheckin}>

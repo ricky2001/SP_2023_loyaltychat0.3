@@ -23,7 +23,7 @@ function Form() {
     console.log('Satisfaction Level:', satisfactionLevel);
     console.log('Comments:', comments);
 
-    // Reset form fields
+    // Reset form fields npm i
     setSatisfactionLevel('');
     setComments('');
   };
