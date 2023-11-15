@@ -38,7 +38,7 @@ const {
 } = require("../controllers/item");
 
 const {
-  openai,
+  getaiMessage,
 } = require("../controllers/openai")
 
 const {
