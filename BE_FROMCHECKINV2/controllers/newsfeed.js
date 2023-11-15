@@ -2,7 +2,7 @@ const firebase = require("./../config/firebase");
 const admin = require("./../config/firebaseadmin");
 
 // Read newsfeed items
-exports.getNewsfeed = (req, res) => {
+exports.getNews = (req, res) => {
   firebase.firestore().collection('newsfeed').get()
     .then((querySnapshot) => {
       const newsfeedItems = [];

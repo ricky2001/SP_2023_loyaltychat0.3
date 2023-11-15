@@ -42,8 +42,10 @@ function Newsfeed() {
     setPopupOpen(true);
   };
 
-  const handleClosePopUp = () => {
-    setPopUpVisible(false);
+  const closePopup = () => {
+    setPopupOpen(false);
+    setNewAuthor('');
+    setNewDetail('');
   };
 
   const openEdit = (id) => {

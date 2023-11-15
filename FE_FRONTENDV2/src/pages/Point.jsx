@@ -4,39 +4,13 @@ import CardReward from '@/components/CardReward';
 import {Link, useNavigate} from 'react-router-dom'
 import {getCoin,getName} from '@/stores/api/index'
 import {useSelector,useDispatch} from 'react-redux'
-
-
 function  Point(){
-    // const dispatch = useDispatch();
-    // useEffect(() => {
-    //     dispatch(getCoin()), dispatch(getName())
-    // }, [dispatch])
-    // let coinUser = useSelector(state => state.apiStore.coin)
-    // let nameUser = useSelector(state => state.apiStore.names)
-
     const dispatch = useDispatch();
-
-    // Fetch initial data on component mount
     useEffect(() => {
-      dispatch(getCoin());
-      dispatch(getName());
-    }, [dispatch]);
-  
-    // Fetch real-time data at a regular interval
-    useEffect(() => {
-      const interval = setInterval(() => {
-        dispatch(getCoin());
-        dispatch(getName());
-      }, 5000); // Fetch data every 10 seconds (adjust the interval as needed)
-  
-      // Clear the interval when the component is unmounted or the dependencies change
-      return () => clearInterval(interval);
-    }, [dispatch]);
-  
-    // Retrieve data from the Redux store
-    const coinUser = useSelector(state => state.apiStore.coin);
-    const nameUser = useSelector(state => state.apiStore.names);
-  
+        dispatch(getCoin()), dispatch(getName())
+    }, [dispatch])
+    let coinUser = useSelector(state => state.apiStore.coin)
+    let nameUser = useSelector(state => state.apiStore.names)
     
     return ( 
         <Base>

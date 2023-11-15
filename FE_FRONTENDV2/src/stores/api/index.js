@@ -1,25 +1,25 @@
-import { createSlice,createAsyncThunk} from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 import axiosInstance from '../../utils/api/axiosIntance.js'
 
 
-export const useConsign = createAsyncThunk('api/consign', async ({ emailFrom, emailTo,starConsign,text }) => {
-    console.log(emailFrom, emailTo,starConsign,text)
-    const numPoint = parseInt(starConsign)
-    const response = await axiosInstance.post('api/consign', { emailFrom, emailTo,starConsign:numPoint,text });
-    const data = await response.data;
-   
-    return data;
-  });
+export const useConsign = createAsyncThunk('api/consign', async ({ emailFrom, emailTo, starConsign, text }) => {
+  console.log(emailFrom, emailTo, starConsign, text)
+  const numPoint = parseInt(starConsign)
+  const response = await axiosInstance.post('api/consign', { emailFrom, emailTo, starConsign: numPoint, text });
+  const data = await response.data;
 
- export const getCoin = createAsyncThunk('api/getCoins', async () => {
-    const response = await axiosInstance.get('api/userConsign');
-    const data = await response.data;
- 
-    return data;
- }); 
+  return data;
+});
 
- export const getName = createAsyncThunk('api/getName', async () => {
+export const getCoin = createAsyncThunk('api/getCoins', async () => {
+  const response = await axiosInstance.get('api/userConsign');
+  const data = await response.data;
+
+  return data;
+});
+
+export const getName = createAsyncThunk('api/getName', async () => {
   const response = await axiosInstance.get('api/user');
   const data = await response.data;
 
@@ -27,48 +27,35 @@ export const useConsign = createAsyncThunk('api/consign', async ({ emailFrom, em
 });
 
 
- export const checkIn = createAsyncThunk('api/checkIn', async ({dateCheckIn,star}) => {
-  const response = await axiosInstance.post('api/checkin',{dateCheckIn,points:star});
+export const checkIn = createAsyncThunk('api/checkIn', async ({ dateCheckIn, star }) => {
+  const response = await axiosInstance.post('api/checkin', { dateCheckIn, points: star });
   const data = await response.data;
   return data;
- });
+});
 
 export const getHistory = createAsyncThunk('api/userDateCheckIn', async () => {
-  const  response = await axiosInstance.get('api/userDateCheckIn');
-  const  data = await response.data;
-  
+  const response = await axiosInstance.get('api/userDateCheckIn');
+  const data = await response.data;
+
   return data;
 
 });
 
 export const scanqrcode = createAsyncThunk('api/scanqrcode', async () => {
-  const  response = await axiosInstance.post('api/scanqrcode');
-  const  data = await response.data;
+
+  const response = await axiosInstance.post('api/scanqrcode');
+  const data = await response.data;
+
   return data;
 
 });
 
-// export const useExchange = createAsyncThunk('api/useExchange', async ({emailuser, itemid, itemTotal}) => {
-//   console.log(emailuser, itemid, itemTotal);
-//   try {
-//     // Make your API call and return the data
-//     // const numItem = parseInt(itemTotal)
-//     const response = await axiosInstance.post('api/itemexchange', { emailuser, itemid, itemTotal});
-//     const data = await response.data;
-//     return data;
-//   } catch (error) {
-//     // Return a rejected action with the error payload
-//     return Promise.reject(error);
-//   }
-// });
-
-export const useExchange = createAsyncThunk('api/useExchange', async ({ emailuser, itemid, itemTotal }) => {
-  console.log(emailuser, itemid, itemTotal);
-  const numItemid=parseInt(itemid)
-  const numItemtotal=parseInt(itemTotal)
-  const response = await axiosInstance.post('api/itemexchange', { emailuser, itemid:numItemid, itemTotal:numItemtotal });
+export const useExchange = createAsyncThunk('api/exchange', async ({ email, itemid, itemname, itemtotal, totalprices }) => {
+  console.log(email, itemid, itemname, itemtotal, totalprice)
+  // const numItem = parseInt()
+  const response = await axiosInstance.post('api/consign', { email, itemid, itemname, itemtotal, totalprice });
   const data = await response.data;
- 
+
   return data;
 });
 
@@ -300,3 +287,4 @@ export const apiSlice = createSlice({
 export const { setHistory } = apiSlice.actions;
 
 export default apiSlice.reducer;
+
