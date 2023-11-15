@@ -25,7 +25,6 @@ const ChatBox = () => {
   };
 
   const handleSubmit = async (e) => {
-    
     e.preventDefault();
     if (!input) return;
       dispatch(setHistory(input)); //user text
@@ -35,8 +34,8 @@ const ChatBox = () => {
 
   useEffect(() => {
     // Scroll to the bottom of the chat messages when a new message is added or chat is opened
-    if (chatMessagesRef) {
-      chatMessagesRef.scrollTop = chatMessagesRef.scrollHeight;
+    if (chatMessagesRef.current) {
+      chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
     }
   }, [messages, isOpen]);
 
