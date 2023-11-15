@@ -28,7 +28,7 @@ function Login(){
 
     const navigateDashboard = useCallback(() => {
         dispatch(auth());
-        if(isAuthenticated){
+        if(isAuthenticated||dispatch){
             navigate("/dashboard");
         }
     },[dispatch,])
