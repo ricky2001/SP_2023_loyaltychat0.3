@@ -3,13 +3,14 @@ import { useDispatch,useSelector } from 'react-redux'
 import { AiOutlineMessage } from 'react-icons/ai';
 import './ChatBox.css';
 import {userMessage,setHistory} from '../../stores/api/index.js'
+import logo from '../../assets/img/botlogo.png'
 
 
 const ChatBox = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
   // const [messages, setMessages] = useState([]);
-  const botName = 'Bot';
+  const botName = 'Help center';
   const dispatch = useDispatch();
   const messages = useSelector(state => state.apiStore.history)
 
@@ -47,7 +48,7 @@ const ChatBox = () => {
           <div className={`chat-box ${isOpen ? 'open' : ''}`}>
             <div className="chat-header" onClick={toggleChat}>
               <div className="bot-info">
-                <img src="logo-ata-it-limited-165-145-removebg-preview.png" alt="Bot Icon" className="bot-icon" />
+                <img img src={logo} alt="Bot Icon" className="bot-icon" />
                 <span className="bot-name">{botName}</span>
               </div>
               <div className="close-button" onClick={toggleChat}>

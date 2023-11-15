@@ -8,7 +8,7 @@ const axios = require('axios');
 // });
 
 // Set your OpenAI API key
-const apiKey = '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';
+const apiKey = process.env.OPENAI_API_KEY;
 
 // Define the prompt for your request
 // const prompt = "Translate the following English text to French: 'Hello, how are you?'";
@@ -27,10 +27,10 @@ exports.getaiMessage = async (req, res) => {
 
   try {
     const response = await axios.post('https://api.openai.com/v1/chat/completions', {
-      "model": "ft:gpt-3.5-turbo-0613:personal::8BlNNmlB",
+      "model": process.env.JOB_ID,
       "messages": [{"role": "assistant", "content": "I am a helpful assistant at ATA IT Limited Thailand."},
       {"role": "user", "content": "You are one of the HR department's staffs"},
-      {"role": "assistant", "content": "Yes, I know everything about company policies, leaving policies and benefit package of all employees "},
+      {"role": "assistant", "content": "Yes, I know everything about company policies, leaving policies and benefit package of all employees, Therefore, answer the question with the correct answer that matches the answer given. "},
       {"role": "user", "content": reqobj.message}],
       "temperature": 0.7
     }, {
