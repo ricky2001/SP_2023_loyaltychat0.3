@@ -5,12 +5,36 @@ import {Link, useNavigate} from 'react-router-dom'
 import {getCoin,getName} from '@/stores/api/index'
 import {useSelector,useDispatch} from 'react-redux'
 function  Point(){
+    // const dispatch = useDispatch();
+    // useEffect(() => {
+    //     dispatch(getCoin()), dispatch(getName())
+    // }, [dispatch])
+    // let coinUser = useSelector(state => state.apiStore.coin)
+    // let nameUser = useSelector(state => state.apiStore.names)
+    //old code
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getCoin()), dispatch(getName())
-    }, [dispatch])
-    let coinUser = useSelector(state => state.apiStore.coin)
-    let nameUser = useSelector(state => state.apiStore.names)
+  const [intervalId, setIntervalId] = useState(null);
+
+  useEffect(() => {
+    // Initial fetch
+    dispatch(getCoin());
+    dispatch(getName());
+
+    // Set up interval to continuously update coin data
+    const id = setInterval(() => {
+      dispatch(getCoin());
+    }, 3000); // Update every 5 seconds, adjust as needed
+
+    setIntervalId(id);
+
+    return () => {
+      // Clean up the interval when the component is unmounted
+      clearInterval(intervalId);
+    };
+  }, [dispatch]);
+
+  const coinUser = useSelector((state) => state.apiStore.coin);
+  const nameUser = useSelector((state) => state.apiStore.names);
     
     return ( 
         <Base>

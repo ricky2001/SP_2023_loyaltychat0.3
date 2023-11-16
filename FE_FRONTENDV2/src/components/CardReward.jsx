@@ -3,7 +3,7 @@ import '@/assets/css/counter.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useExchange } from '@/stores/api/index';
 import { setEmail } from '@/stores/auth/index'
-import axios from 'axios';
+import axiosInstance from '../utils/api/axiosIntance.js';
 
 
 function CardReward() {
@@ -38,7 +38,7 @@ function CardReward() {
   // }, []);
 const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/getUserItemExchange');
+      const response = await  axiosInstance.get('api/getUserItemExchange');
       setItem(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);

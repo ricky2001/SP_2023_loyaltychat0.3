@@ -41,21 +41,22 @@ export const getHistory = createAsyncThunk('api/userDateCheckIn', async () => {
 
 });
 
-export const scanqrcode = createAsyncThunk('api/scanqrcode', async () => {
-
-  const response = await axiosInstance.post('api/scanqrcode');
+export const scanqrcode = createAsyncThunk('api/scanqrcode', async ({ emailuser, event}) => {
+  console.log(emailuser,event)
+  const response = await axiosInstance.post('api/scanqrcode', { emailuser, event});
   const data = await response.data;
 
   return data;
 
 });
 
-export const useExchange = createAsyncThunk('api/exchange', async ({ email, itemid, itemname, itemtotal, totalprices }) => {
-  console.log(email, itemid, itemname, itemtotal, totalprice)
-  // const numItem = parseInt()
-  const response = await axiosInstance.post('api/consign', { email, itemid, itemname, itemtotal, totalprice });
+export const useExchange = createAsyncThunk('api/useExchange', async ({ emailuser, itemid, itemTotal }) => {
+  console.log(emailuser, itemid, itemTotal);
+  const numItemid=parseInt(itemid)
+  const numItemtotal=parseInt(itemTotal)
+  const response = await axiosInstance.post('api/itemexchange', { emailuser, itemid:numItemid, itemTotal:numItemtotal });
   const data = await response.data;
-
+ 
   return data;
 });
 
