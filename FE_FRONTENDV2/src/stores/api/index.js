@@ -41,7 +41,7 @@ export const getHistory = createAsyncThunk('api/userDateCheckIn', async () => {
 
 });
 
-export const scanqrcode = createAsyncThunk('api/scanqrcode', async ({ emailuser, event}) => {
+export const scanqrCode = createAsyncThunk('api/scanqrCode', async ({ emailuser, event}) => {
   console.log(emailuser,event)
   const response = await axiosInstance.post('api/scanqrcode', { emailuser, event});
   const data = await response.data;
@@ -187,15 +187,15 @@ export const apiSlice = createSlice({
         state.error = action.error.message;
       })
 
-      .addCase(scanqrcode.pending, (state) => {
+      .addCase(scanqrCode.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(scanqrcode.fulfilled, (state, action) => {
+      .addCase(scanqrCode.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.code = action.payload.code;
 
       })
-      .addCase(scanqrcode.rejected, (state, action) => {
+      .addCase(scanqrCode.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       })
