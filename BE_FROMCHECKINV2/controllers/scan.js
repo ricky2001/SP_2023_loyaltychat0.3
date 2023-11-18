@@ -21,6 +21,8 @@ exports.scan = async (req, res) => {
         const email = req.body.emailuser; // Get user email from the user document
         const time = new Date();
         const event = req.body.event;
+        // const formattedDate = time.toISOString();
+        
 
         if (email == null || event == null) {
             return res.status(500).json({
@@ -30,7 +32,8 @@ exports.scan = async (req, res) => {
         }
 
         // Adding event check-in record
-        firebase.firestore().collection('eventcheckin').add({
+        // firebase.firestore().collection('eventcheckin').doc(`${event}_${formattedDate}`).set({
+            firebase.firestore().collection('eventcheckin').add({
             email: email,
             time: time,
             star: 1,

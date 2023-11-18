@@ -45,6 +45,14 @@ const {
   scan
 } = require("../controllers/scan");
 
+const {
+  getForm,
+  createForm,
+  updateForm,
+  deleteForm,
+  keepForm
+} = require("../controllers/form");
+
 
 router.post("/signup", signup);
 
@@ -75,6 +83,15 @@ router.post("/updateNews", verifyToken, updateNews)
 
 router.delete("/deleteNews", verifyToken, deleteNews)
 
+router.get("/getForm", verifyToken, getForm)
+
+router.post("/createForm", verifyToken, createForm)
+
+router.post("/updateForm", verifyToken, updateForm)
+
+router.delete("/deleteForm", verifyToken, deleteForm)
+
+router.post("/keepForm", verifyToken, keepForm)
 
 // router.get("/UserRewardExchange", verifyToken, getUserRewardExchange);
 

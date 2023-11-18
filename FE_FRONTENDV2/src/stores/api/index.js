@@ -103,6 +103,41 @@ export const minusNews = createAsyncThunk('api/deleteNews', async ({ author, det
 
 });
 
+export const keepForm = createAsyncThunk('api/keepForm', async ({ email, EventName, comments,satisfied }) => {
+  console.log(email, EventName, comments,satisfied );
+  const response = await axiosInstance.post('api/keepForm', { email, EventName, comments,satisfied  });
+  const data = await response.data;
+ 
+  return data;
+});
+// export const getForm = createAsyncThunk('api/getForm', async ({ author, detail }) => {
+//   console.log(author, detail)
+//   const response = await axiosInstance.get('api/getForm');
+//   return response.data;
+
+// });
+
+// export const addNews = createAsyncThunk('api/createNews', async ({ author, detail }) => {
+//   console.log(author, detail)
+//   const response = await axiosInstance.post('api/createNews', { author, detail });
+//   return response.data;
+
+// });
+
+// export const editNews = createAsyncThunk('api/updateNews', async ({ author, detail }) => {
+//   console.log(author, detail)
+//   const response = await axiosInstance.post('api/updateNews', { author, detail });
+//   return response.data;
+
+// });
+
+// export const minusNews = createAsyncThunk('api/deleteNews', async ({ author, detail }) => {
+//   console.log(author, detail)
+//   const response = await axiosInstance.post('api/deleteNews');
+//   return response.data;
+
+// });
+
 
 let initialStateAPI = {
   coin: 0,
@@ -281,6 +316,18 @@ export const apiSlice = createSlice({
         // state.error = action.error.message;
         const botMessage = { text: action.error.message, isUser: false, timestamp: Math.floor(Date.now() / 1000) };
         state.history.push(botMessage)
+      })
+      .addCase(keepForm.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(keepForm.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.code = action.payload.code;
+
+      })
+      .addCase(keepForm.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
       });
   },
 });
