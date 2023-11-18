@@ -22,6 +22,7 @@ import  ProtectedRoute from './routers/protectRouter';
 import QRCodeScanner from './components/QRCodeScanner.jsx';
 
 import QRcodegenerator from './pages/QRcodegenerator.jsx'
+import Addre from './pages/addre.jsx'
 
 const router = createBrowserRouter([
   {
@@ -57,6 +58,9 @@ const router = createBrowserRouter([
 },{
   path:"/QRcodegenerator",
   element:<ProtectedRoute component={<QRcodegenerator/>} />,
+},{
+  path:"/addre",
+  element:<ProtectedRoute component={<Addre/>} />,
 }
 ]);
 
