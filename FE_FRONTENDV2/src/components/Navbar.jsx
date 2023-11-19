@@ -17,7 +17,7 @@ function Navbar(){
 <div className="">
 <nav className="bg-white border-gray-200 w-full  top-0 fixed  z-40">
   <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-    <Link to={`/`} className="flex items-center">
+    <Link to={`/dashboard`} className="flex items-center">
         <img src={logo} className="h-8 mr-3" alt="Flowbite Logo" />
         {/* <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Lorem</span> */}
     </Link>
