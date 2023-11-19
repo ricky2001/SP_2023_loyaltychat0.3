@@ -37,22 +37,4 @@ app.listen(port, () => {
 // // Routes
 // app.use("/api", authRoutes);
 
-// // exports.api = functions.https.onRequest(async (req, res) => {
-// //   try {
-   
-// //     // Middlewares
-
-// // // PORT
-// // // const port = 3000;
-
-// // // // Starting a server
-// // // app.listen(port, () => {
-// // //   console.log(`Start server : ${port}`);
-// // // });
-// //   } catch (error) {
-// //     console.error('Error:', error);
-// //     res.status(500).send('Internal Server Error');
-// //   }
-// // });
-
 // exports.api = functions.https.onRequest(app);
