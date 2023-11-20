@@ -23,7 +23,7 @@ const ReportIssue = () => {
 
     return (
         <Base>
-            <div className="max-w-md mx-auto p-4 border rounded shadow-md">
+            <div className="max-w-md mx-auto p-4 mt-20 border rounded shadow-md">
                 <h2 className="text-lg font-semibold">Report Issues</h2>
 
                 <form onSubmit={handleSubmit} className="mt-4">
