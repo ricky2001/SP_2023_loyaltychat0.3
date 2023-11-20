@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "loyalty-e5fdd",
+    "staging": "loyalty-e5fdd"
+  },
+  "targets": {},
+  "etags": {}
+}

@@ -34,7 +34,8 @@ const {
 
 const {
   itemexchange,
-  getUserItemExchange
+  getUserItemExchange,
+  createReward
 } = require("../controllers/item");
 
 const {
@@ -72,6 +73,7 @@ router.post("/itemexchange", verifyToken, itemexchange);
 
 router.get("/getUserItemExchange", getUserItemExchange);
 
+router.post("/createreward", verifyToken,createReward);
 
 router.post("/aiMessage", getaiMessage);
 

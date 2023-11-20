@@ -23,8 +23,6 @@ function CardReward() {
   const closeEditPopup = () => {
     setEditOpen(false);
   };
-
-
   // const items = useSelector(state => state.apistStore.data); 
 
   // const dispatch = useDispatch();
@@ -48,7 +46,7 @@ function CardReward() {
   //       console.log(error);
   //     });
   // }, []);
-  const fetchData = async () => {
+const fetchData = async () => {
     try {
       const response = await axiosInstance.get('api/getUserItemExchange');
       setItem(response.data);
@@ -87,12 +85,12 @@ function CardReward() {
 
     // dispatch(useExchange({ emailuser: emailUser, itemid: itemId, itemTotal: itemtotal }));
 
-    // Perform the exchange operation
-    dispatch(useExchange({ emailuser: emailUser, itemid: itemId, itemTotal: itemtotal }))
-      .then(() => {
-        // Fetch updated data after the exchange operation is successful
-        fetchData();
-        console.log('Fetch updated data successful!');
+     // Perform the exchange operation
+     dispatch(useExchange({ emailuser: emailUser, itemid: itemId, itemTotal: itemtotal }))
+     .then(() => {
+       // Fetch updated data after the exchange operation is successful
+       fetchData();
+       console.log('Fetch updated data successful!');
 
         // Reset input fields or clear any other necessary states
         setItemId('');
@@ -102,6 +100,24 @@ function CardReward() {
         // Handle error if the exchange operation fails
         console.error('Exchange error:', error);
       });
+
+
+     // Perform the exchange operation
+     dispatch(useExchange({ emailuser: emailUser, itemid: itemId, itemTotal: itemtotal }))
+     .then(() => {
+       // Fetch updated data after the exchange operation is successful
+       fetchData();
+       console.log('Fetch updated data successful!');
+
+       // Reset input fields or clear any other necessary states
+       setItemId('');
+       setItemTotal('');
+     })
+     .catch(error => {
+       // Handle error if the exchange operation fails
+       console.error('Exchange error:', error);
+     });
+ 
 
 
     console.log('Item ID:', itemId);
