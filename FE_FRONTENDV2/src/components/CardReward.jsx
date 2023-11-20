@@ -13,6 +13,18 @@ function CardReward() {
   const [emailUser, setEmailUser] = useState();
   const [itemtotal, setItemTotal] = useState('');
   const [itemId, setItemId] = useState('');
+  const [isEditOpen, setEditOpen] = useState(false);
+
+  const openEditPopup = () => {
+    setEditOpen(true);
+  };
+
+  // Function to close the edit popup
+  const closeEditPopup = () => {
+    setEditOpen(false);
+  };
+
+
   // const items = useSelector(state => state.apistStore.data); 
 
   // const dispatch = useDispatch();
@@ -36,9 +48,9 @@ function CardReward() {
   //       console.log(error);
   //     });
   // }, []);
-const fetchData = async () => {
+  const fetchData = async () => {
     try {
-      const response = await  axiosInstance.get('api/getUserItemExchange');
+      const response = await axiosInstance.get('api/getUserItemExchange');
       setItem(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -68,36 +80,49 @@ const fetchData = async () => {
   const handleChangeItemTotal = (e) => {
     setItemTotal(e.target.value);
   }
-  const handleClickExchage = async (e , itemId) => {
+  const handleClickExchage = async (e, itemId) => {
     e.preventDefault();
 
     // setItemId(itemId);
 
     // dispatch(useExchange({ emailuser: emailUser, itemid: itemId, itemTotal: itemtotal }));
 
-     // Perform the exchange operation
-     dispatch(useExchange({ emailuser: emailUser, itemid: itemId, itemTotal: itemtotal }))
-     .then(() => {
-       // Fetch updated data after the exchange operation is successful
-       fetchData();
-       console.log('Fetch updated data successful!');
+    // Perform the exchange operation
+    dispatch(useExchange({ emailuser: emailUser, itemid: itemId, itemTotal: itemtotal }))
+      .then(() => {
+        // Fetch updated data after the exchange operation is successful
+        fetchData();
+        console.log('Fetch updated data successful!');
 
-       // Reset input fields or clear any other necessary states
-       setItemId('');
-       setItemTotal('');
-     })
-     .catch(error => {
-       // Handle error if the exchange operation fails
-       console.error('Exchange error:', error);
-     });
- 
+        // Reset input fields or clear any other necessary states
+        setItemId('');
+        setItemTotal('');
+      })
+      .catch(error => {
+        // Handle error if the exchange operation fails
+        console.error('Exchange error:', error);
+      });
+
 
     console.log('Item ID:', itemId);
     console.log('Email User:', emailUser);
     console.log('Item Total:', itemtotal);
-    
+
   };
 
+  const handleUpdateReward = () => {
+    // Your update logic here
+    console.log('Update Form button clicked!');
+    alert('Update Form button clicked!');
+
+    closeEditPopup();
+  };
+  const handleDeleteReward = () => {
+    // Your update logic here
+    console.log('Delete Form button clicked!');
+    alert('Delete Form button clicked!');
+    closeEditPopup();
+  };
 
 
 
@@ -108,46 +133,111 @@ const fetchData = async () => {
       {item.map((item, index) => (
         <div key={index}>
           <a className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-          <div className="flex flex-row justify-between items-center" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px' }}>
-          
-          
-          <input
-          
-            type="number"
-            min="0"
-            id="itemId-input"
-            className="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            // placeholder="Fill item ID..."
-            placeholder={`Item NO. ${item.itemid}`}
-            // value={item.itemid} // Set the input value to item.itemid
-            readOnly // Make the input read-only
-            style={{ textAlign: 'center' }}
-          />
-         
-      </div>
+            <div className="flex flex-row justify-between items-center" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px' }}>
+
+
+              <input
+
+                type="number"
+                min="0"
+                id="itemId-input"
+                className="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                // placeholder="Fill item ID..."
+                placeholder={`Item NO. ${item.itemid}`}
+                // value={item.itemid} // Set the input value to item.itemid
+                readOnly // Make the input read-only
+                style={{ textAlign: 'center' }}
+              />
+
+            </div>
 
             <img className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src={item.itemimg} alt="" />
             <div className="flex flex-col justify-between p-4 leading-normal">
               <center>
-              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{JSON.stringify(item.itemname)}<br/>
-                <span className="text-sm font-medium mr-2 px-2.5 py-0.5 rounded bg-gray-700 text-gray-300 ml-4">{JSON.stringify(item.itemprice)} stars, &nbsp;amount {JSON.stringify(item.itemtotal)}</span>
+                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{JSON.stringify(item.itemname)}<br />
+                  <span className="text-sm font-medium mr-2 px-2.5 py-0.5 rounded bg-gray-700 text-gray-300 ml-4">{JSON.stringify(item.itemprice)} stars, &nbsp;amount {JSON.stringify(item.itemtotal)}</span>
 
-              </h5></center>
+                </h5></center>
               <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{JSON.stringify(item.itemdetail)}
-              </p><br />
+              </p>
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded-xl ml-2 " onClick={openEditPopup}>
+                Reward Edit
+              </button>
+              {isEditOpen && (
+                <div style={{ width: '400px', height: '300px' }} className="popup">
 
-              
+                  <div>
+                    <div>
+                      <label htmlFor="id">ID : </label>&nbsp;&nbsp;
+                      <input type="text" name='id' className='form-control' />
+                    </div>
+                    <br />
+                    <div>
+                      <label htmlFor="name">Name : </label>&nbsp;&nbsp;
+                      <input type="text" name='name' className='form-control' />
+                    </div>
+                    <br />
+                    <div>
+                      <label htmlFor="details">Details : </label>&nbsp;&nbsp;
+                      <input type="text" name='Details' className='form-control' />
+                    </div>
+                    <br />
+                    <div>
+                      <label htmlFor="price">Price : </label>
+                      <input type="text" name='price' className='form-control' />
+                    </div>
+                    <br />
+                    <div>
+                      <label htmlFor="total">Total of Items: </label>
+                      <input type="text" name='total' className='form-control' />
+                    </div>
+                  </div>
+                  <div>
+                    <center>
+
+                      {/* <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded-xl" onClick={closeEditPopup}>
+                        Cancel
+                      </button>&nbsp;&nbsp;&nbsp;
+                      <button
+                        type="submit"
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl"
+                      >
+                        Submit
+                      </button> */}
+                      <div className="button-container">&nbsp;&nbsp;
+                        <button className="bg-green-400 hover:bg-green-700 text-white font-bold py-0 px-1 rounded-xl" onClick={handleUpdateReward}>
+                          Update Reward
+                        </button>&nbsp;
+                        <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-0 px-2 rounded-xl" onClick={handleDeleteReward} >
+                          Delete Reward
+                        </button>&nbsp;<br />
+                        <br />
+                        <button className="bg-red-700 hover:bg-red-800 text-white font-bold py-0 px-2 rounded-xl" onClick={closeEditPopup}>
+                          Cancel
+                        </button>
+                      </div>
+
+                    </center>
+
+                  </div>
+
+
+                </div>
+              )}
+              <br />
+
+
               {/* <div className="flex flex-row justify-between items-center"> */}
-                {/* <div className="custom-number-input h-10 w-32" > */}
+              {/* <div className="custom-number-input h-10 w-32" > */}
 
-                  
-                  <input type="number" min='0' id="small-input" className="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Fill item total no.." onChange={handleChangeItemTotal} />
-                
-                {/* </div>
+
+              <input type="number" min='0' id="small-input" className="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Fill item total no.." onChange={handleChangeItemTotal} />
+
+              {/* </div>
                 <br /> */}
 
               {/* </div> */}
-              <br /><button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl"  onClick={(e) => handleClickExchage(e, item.itemid)}>
+              <br /><button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl" onClick={(e) => handleClickExchage(e, item.itemid)}>
                 Exchange
               </button>
             </div>
@@ -156,6 +246,7 @@ const fetchData = async () => {
       ))}
 
     </div>
+
   );
 }
 

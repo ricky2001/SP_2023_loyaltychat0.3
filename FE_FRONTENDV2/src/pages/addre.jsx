@@ -6,6 +6,17 @@ import Base from '@/layouts/base.jsx'
 function addre() {
   const [images, setImages] = useState([]);
   const [imageURLs, setImageURLs] = useState([]);
+  // const [isPopupOpen, setPopupOpen] = useState(false);
+  // const [isEditOpen, setEditOpen] = useState(false);
+  // const [isPopupOpenForm, setPopupOpenForm] = useState(false);
+
+
+
+
+
+
+
+
   useEffect(() => {
     if (images.length < 1) return;
     const newImageUrls = [];
@@ -17,7 +28,6 @@ function addre() {
   }
   console.log("Images : ", images);
   console.log("imageURLs : ", imageURLs);
-
 
   return (
     <Base>
