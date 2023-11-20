@@ -13,29 +13,7 @@ function CardReward() {
   const [emailUser, setEmailUser] = useState();
   const [itemtotal, setItemTotal] = useState('');
   const [itemId, setItemId] = useState('');
-  // const items = useSelector(state => state.apistStore.data); 
-
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(setEmail())
-
-
-  // }, [dispatch])
-
-  // useEffect(() => {
-  //   setEmailUser(email)
-  // }, [email])
-
-  // useEffect(() => {
-  //   axios.get('http://localhost:3000/api/getUserItemExchange').then(response => {
-  //     setItem(response.data);
-  //     console.log(item);
-
-  //   })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // }, []);
+ 
 const fetchData = async () => {
     try {
       const response = await  axiosInstance.get('api/getUserItemExchange');
@@ -70,10 +48,6 @@ const fetchData = async () => {
   }
   const handleClickExchage = async (e , itemId) => {
     e.preventDefault();
-
-    // setItemId(itemId);
-
-    // dispatch(useExchange({ emailuser: emailUser, itemid: itemId, itemTotal: itemtotal }));
 
      // Perform the exchange operation
      dispatch(useExchange({ emailuser: emailUser, itemid: itemId, itemTotal: itemtotal }))
