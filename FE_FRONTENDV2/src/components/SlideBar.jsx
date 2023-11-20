@@ -56,16 +56,16 @@ function SlideBar({ styleClass }) {
                 </a>
             </li>
             <li>
-                <a href="#" className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                <Link to={'/reportissue'} className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                     <i className="bi bi-exclamation-octagon-fill text-gray-700 font-bold text-xl"></i>
                     <span className="flex-1 ml-3 whitespace-nowrap">Report issues</span>
-                </a>
+                </Link>
             </li>
             <li>
-                <a href="#" className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                <Link to={'/policy'} className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                     <i className="bi bi-shield-fill-check text-gray-700 font-bold text-xl"></i>
                     <span className="flex-1 ml-3 whitespace-nowrap">Privacy Policy</span>
-                </a>
+                </Link>
             </li>
             <li className="fixed bottom-0" onClick={logoutSystem}>
                 <Link to={`/`} className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
