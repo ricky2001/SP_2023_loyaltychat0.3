@@ -31,36 +31,45 @@ function addre() {
           </Link>
         </div>
         <div className="flex flex-col justify-center items-center">
-          <div className='w-50 border bg-secondary text-white p-5'>
+          <div className='w-50  text-black p-5'>
 
-            <div className="flex flex-col justify-center items-center">
+            <div className="flex flex-col justify-center items-center font-bold " style={{ fontSize: '20px' }}>
 
-              <h3>Add Reward</h3>
+              <h3 >ADD REWARD</h3>
             </div>
+            <br /><br />
             <form>
-              <div>
-                <label htmlFor="id">Id : </label>
+              <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <label htmlFor="id">ID : </label>&nbsp;&nbsp;
                 <input type="text" name='id' className='form-control' />
               </div>
-              <div>
-                <label htmlFor="name">Name : </label>
+              <br />
+              <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <label htmlFor="name">Name : </label>&nbsp;&nbsp;
                 <input type="text" name='name' className='form-control' />
               </div>
-              <div>
-                <label htmlFor="details">Details : </label>
+              <br />
+              <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <label htmlFor="details">Details : </label>&nbsp;&nbsp;
                 <input type="text" name='Details' className='form-control' />
               </div>
-              <div>
-                <label htmlFor="price">Price : </label>
+              <br />
+              <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <label htmlFor="price">Price : </label>&nbsp;&nbsp;
                 <input type="text" name='price' className='form-control' />
               </div>
+              <br />
               <div>
-                <label htmlFor="total">Total: </label>
+                <label htmlFor="total">Total of Items: </label>&nbsp;&nbsp;
                 <input type="text" name='total' className='form-control' />
               </div>
               <div><br />
 
                 <div className="App">
+
+                  <p style={{ color: 'red', fontSize: 'small' }}>*If you want to change Image, choose a new file</p>
+
+
                   <input type="file" multiple accept="image/*" onChange={onImageChange} />
                   {imageURLs.map((imageSrc, idx) => (
                     <img key={idx} width="640" height="360" src={imageSrc} />
