@@ -1,5 +1,14 @@
 const express = require("express");
 const router = express.Router();
+// var app = express();
+
+// var multer  = require("multer");
+
+// var upload = multer();
+const multer  = require("multer");
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+const itemController = require('../controllers/item');
 
 const {
   signup,
@@ -35,7 +44,9 @@ const {
 const {
   itemexchange,
   getUserItemExchange,
-  createReward
+  createReward,
+  updateReward,
+  deleteReward
 } = require("../controllers/item");
 
 const {
@@ -73,7 +84,11 @@ router.post("/itemexchange", verifyToken, itemexchange);
 
 router.get("/getUserItemExchange", getUserItemExchange);
 
-router.post("/createreward", verifyToken,createReward);
+router.post("/createreward",upload.single('img'), verifyToken,createReward);
+
+router.delete("/deletereward", verifyToken, itemController.deleteReward);
+
+router.post("/updatereward", verifyToken,updateReward);
 
 router.post("/aiMessage", getaiMessage);
 

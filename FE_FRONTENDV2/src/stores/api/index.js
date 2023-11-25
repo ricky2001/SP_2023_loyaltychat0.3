@@ -110,6 +110,24 @@ export const keepForm = createAsyncThunk('api/keepForm', async ({ email, EventNa
  
   return data;
 });
+
+
+export const createReward = createAsyncThunk('api/createReward', async (formData) => {
+  try {
+    const response = await axiosInstance.post('api/createreward', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data', // Set the content type to multipart/form-data
+      },
+    });
+    const responseData = response.data;
+    return responseData;
+  } catch (error) {
+    console.error('Error in createReward:', error);
+    throw error;
+  }
+});
+
+
 // export const getForm = createAsyncThunk('api/getForm', async ({ author, detail }) => {
 //   console.log(author, detail)
 //   const response = await axiosInstance.get('api/getForm');
@@ -326,6 +344,18 @@ export const apiSlice = createSlice({
 
       })
       .addCase(keepForm.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(createReward.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(createReward.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.code = action.payload.code;
+
+      })
+      .addCase(createReward.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       });

@@ -1,7 +1,12 @@
-const firebase = require("firebase/app");
-require("firebase/auth");
-require("firebase/firestore");
-require("firebase/storage");
+const firebase = require("firebase/compat/app");
+require("firebase/compat/auth");
+require("firebase/compat/firestore");
+ require("firebase/compat/storage");
+
+
+
+
+
 
 // Add Firebase SDK Snippet
 const firebaseConfig = {
@@ -12,10 +17,12 @@ const firebaseConfig = {
   storageBucket: "loyalty-e5fdd.appspot.com",
   messagingSenderId: "264155182975",
   appId: "1:264155182975:web:e266f70c5684c1c4a10c4a",
-  measurementId: "G-0WEHK8LFCL"
+  measurementId: "G-0WEHK8LFCL",
 };
 
 firebase.initializeApp(firebaseConfig);
 
 
+
 module.exports = firebase;
+

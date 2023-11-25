@@ -2,6 +2,8 @@ import { useState } from 'react'
 import React from 'react'
 import '@/assets/css/counter.css'
 import { storage,db } from '../../../BE_FROMCHECKINV2/config/firebase';
+import { setEmail } from '@/stores/auth/index'
+import { cr } from '@/stores/api/index'
 
 function AddReward(){
     const [rewardName,setRewardName] =useState('');
