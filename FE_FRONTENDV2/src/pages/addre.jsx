@@ -5,7 +5,8 @@ import { IoChevronBackSharp } from 'react-icons/io5';
 import { Link, useNavigate } from 'react-router-dom';
 import Base from '@/layouts/base.jsx'
 import { setEmail } from '@/stores/auth/index';
-import { createreward } from '@/stores/api/index';
+// import { createreward } from '@/stores/api/index';
+import axiosInstance from '../utils/api/axiosIntance.js';
 
 
 function addre() {
@@ -45,9 +46,10 @@ function addre() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    const parsedValue = name === 'id' || name === 'price' || name === 'total' ? parseInt(value) : value;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: parsedValue,
     });
   };
 
@@ -83,7 +85,8 @@ function addre() {
   console.log('FormDataWithImages:', formDataWithImages);
 
   // Dispatch the createReward action with the FormData object
-  dispatch(createreward(formDataWithImages));
+  // dispatch(createreward(formDataWithImages));
+  await axiosInstance.post('/api/createreward', formDataWithImages)
 
     // Clear form fields after dispatching the action
     setFormData({
