@@ -5,7 +5,7 @@ import { IoChevronBackSharp } from 'react-icons/io5';
 import { Link, useNavigate } from 'react-router-dom';
 import Base from '@/layouts/base.jsx'
 import { setEmail } from '@/stores/auth/index';
-import { createReward } from '@/stores/api/index';
+import { createreward } from '@/stores/api/index';
 
 
 function addre() {
@@ -83,7 +83,7 @@ function addre() {
   console.log('FormDataWithImages:', formDataWithImages);
 
   // Dispatch the createReward action with the FormData object
-  dispatch(createReward(formDataWithImages));
+  dispatch(createreward(formDataWithImages));
 
     // Clear form fields after dispatching the action
     setFormData({

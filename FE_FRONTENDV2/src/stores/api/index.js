@@ -112,8 +112,7 @@ export const keepForm = createAsyncThunk('api/keepForm', async ({ email, EventNa
 });
 
 
-export const createReward = createAsyncThunk('api/createReward', async (formData) => {
-  try {
+export const createreward = createAsyncThunk('api/createreward', async (formData) => {
     const response = await axiosInstance.post('api/createreward', formData, {
       headers: {
         'Content-Type': 'multipart/form-data', // Set the content type to multipart/form-data
@@ -121,10 +120,7 @@ export const createReward = createAsyncThunk('api/createReward', async (formData
     });
     const responseData = response.data;
     return responseData;
-  } catch (error) {
-    console.error('Error in createReward:', error);
-    throw error;
-  }
+  
 });
 
 
@@ -347,15 +343,15 @@ export const apiSlice = createSlice({
         state.status = 'failed';
         state.error = action.error.message;
       })
-      .addCase(createReward.pending, (state) => {
+      .addCase(createreward.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(createReward.fulfilled, (state, action) => {
+      .addCase(createreward.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.code = action.payload.code;
 
       })
-      .addCase(createReward.rejected, (state, action) => {
+      .addCase(createreward.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       });
