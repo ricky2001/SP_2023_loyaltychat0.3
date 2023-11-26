@@ -23,7 +23,7 @@ exports.itemexchange = (req, res) => {
         .then((querySnapshot2) => {
           querySnapshot2.forEach((doc2) => {
             const oldPoints2 = doc2.data().points;
-            const newPoints2 = doc1.data().itemprice;
+            const newPoints2 = doc1.data().itemprice*req.body.itemTotal;
             const pointsDiff = oldPoints2 - newPoints2;
             if(pointsDiff < 0) {
               return res.status(500).json({
