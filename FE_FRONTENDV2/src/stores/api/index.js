@@ -124,33 +124,6 @@ export const createreward = createAsyncThunk('api/createreward', async (formData
 });
 
 
-// export const getForm = createAsyncThunk('api/getForm', async ({ author, detail }) => {
-//   console.log(author, detail)
-//   const response = await axiosInstance.get('api/getForm');
-//   return response.data;
-
-// });
-
-// export const addNews = createAsyncThunk('api/createNews', async ({ author, detail }) => {
-//   console.log(author, detail)
-//   const response = await axiosInstance.post('api/createNews', { author, detail });
-//   return response.data;
-
-// });
-
-// export const editNews = createAsyncThunk('api/updateNews', async ({ author, detail }) => {
-//   console.log(author, detail)
-//   const response = await axiosInstance.post('api/updateNews', { author, detail });
-//   return response.data;
-
-// });
-
-// export const minusNews = createAsyncThunk('api/deleteNews', async ({ author, detail }) => {
-//   console.log(author, detail)
-//   const response = await axiosInstance.post('api/deleteNews');
-//   return response.data;
-
-// });
 
 
 let initialStateAPI = {
