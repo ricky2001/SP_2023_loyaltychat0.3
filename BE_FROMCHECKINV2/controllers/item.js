@@ -141,8 +141,8 @@ exports.createReward = async (req, res) => {
     console.log('Form item added with ID: ', docRef.id);
     return res.status(201).json({ message: 'Form item created successfully' });
   } catch (error) {
-    console.error('Error:', error.message);
-    res.status(500).json({ message: 'Internal server error,pls check' });
+    console.error('Error in createReward:', error);
+    return res.status(500).json({ message: 'Internal server error', error: error.message });
   }
 };
 

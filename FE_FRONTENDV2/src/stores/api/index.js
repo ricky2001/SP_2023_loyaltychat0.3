@@ -112,17 +112,22 @@ export const keepForm = createAsyncThunk('api/keepForm', async ({ email, EventNa
 });
 
 
-export const createreward = createAsyncThunk('api/createreward', async (formData) => {
+export const createreward = createAsyncThunk('api/createreward', async (formData, { rejectWithValue }) => {
+  try {
     const response = await axiosInstance.post('api/createreward', formData, {
       headers: {
-        'Content-Type': 'multipart/form-data', // Set the content type to multipart/form-data
+        'Content-Type': 'multipart/form-data',
       },
     });
-    const responseData = response.data;
-    return responseData;
-  
-});
 
+    const responseData = response.data;
+    console.log('Form item created successfully:', responseData);
+    return responseData;
+  } catch (error) {
+    console.error('Error in createreward:', error);
+    return rejectWithValue(error.response.data);  // Pass the error response to the rejection value
+  }
+});
 
 
 
