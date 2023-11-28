@@ -108,7 +108,7 @@ exports.createReward = async (req, res) => {
     const { id, name, detail, price, total} = req.body;
     const img = req.file;
       console.log(req.body);
-      console.log(id, name, detail, price, total,img);
+      console.log("this is your: ",id, name, detail, price, total,img);
     if (!id || !name || !detail || !price || !total || !img) {
       return res.status(400).json({ error: 'Invalid request. Please provide all required fields and an image.' });
       
@@ -142,9 +142,12 @@ exports.createReward = async (req, res) => {
     return res.status(201).json({ message: 'Form item created successfully' });
   } catch (error) {
     console.error('Error in createReward:', error);
-    return res.status(500).json({ message: 'Internal server error', error: error.message });
+    return res.status(500).json({ message: 'Internal serve  r error', error: error.message,id, name, detail, price, total,img });
   }
 };
+
+
+
 
 
 

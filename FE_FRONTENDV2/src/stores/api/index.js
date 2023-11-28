@@ -1,6 +1,7 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import axiosInstance from '../../utils/api/axiosIntance.js'
+import axiosInstance from '../../utils/api/axiosIntance.js';
+
 
 
 export const useConsign = createAsyncThunk('api/consign', async ({ emailFrom, emailTo, starConsign, text }) => {
@@ -128,6 +129,9 @@ export const createreward = createAsyncThunk('api/createreward', async (formData
     return rejectWithValue(error.response.data);  // Pass the error response to the rejection value
   }
 });
+
+
+
 
 
 

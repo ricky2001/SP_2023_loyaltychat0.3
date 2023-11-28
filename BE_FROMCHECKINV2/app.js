@@ -8,7 +8,7 @@ const app = express();
 const authRoutes = require("./routes/auth");
 
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({ extended: false }));
 app.use(cors()); 
 
 // Routes
@@ -32,7 +32,7 @@ app.listen(port, () => {
 // const functions = require('firebase-functions');
 // const authRoutes = require("./routes/auth");
 
-// app.use(bodyParser.json());
+// app.use(bodyParser.json({ extended: false }));
 // app.use(cors()); 
 
 // // Routes

@@ -6,10 +6,12 @@ const router = express.Router();
 
 // var upload = multer();
 
-const multer  = require("multer");
+const multer  = require('multer');
 const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+
+const upload = multer({ storage: storage, limits: { fileSize: 1 * 1024 * 1024 }, });
 const itemController = require('../controllers/item');
+
 
 const {
   signup,
@@ -66,6 +68,10 @@ const {
   keepForm
 } = require("../controllers/form");
 
+const {
+  checkgraph
+} = require("../controllers/employeecheck");
+
 
 router.post("/signup", signup);
 
@@ -86,6 +92,8 @@ router.post("/itemexchange", verifyToken, itemexchange);
 router.get("/getUserItemExchange", getUserItemExchange);
 
 router.post("/createreward",upload.single('img'), verifyToken,createReward);
+
+// router.post("/createreward", verifyToken,createReward);
 
 router.delete("/deletereward", verifyToken, itemController.deleteReward);
 
@@ -111,9 +119,9 @@ router.delete("/deleteForm", verifyToken, deleteForm)
 
 router.post("/keepForm", verifyToken, keepForm)
 
-// router.get("/UserRewardExchange", verifyToken, getUserRewardExchange);
-
 router.post("/scanqrcode", verifyToken, scan);
+
+router.get("/checkgraph", verifyToken, checkgraph)
 
 // router.post("/logout", verifyToken ,logout);
 

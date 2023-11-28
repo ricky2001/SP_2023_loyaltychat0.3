@@ -8,6 +8,7 @@ import Point from './pages/Point.jsx'
 import CalendarPage from './pages/Calendar.jsx'
 import Consign from './pages/Consign.jsx'
 import Form from './pages/form.jsx';
+import CheckInGraph from './pages/CheckInGraph.jsx'
 import './index.css'
 import {
   createBrowserRouter,
@@ -61,6 +62,9 @@ const router = createBrowserRouter([
 },{
   path:"/addre",
   element:<ProtectedRoute component={<Addre/>} />,
+},{
+  path:"/CheckInGraph",
+  element:<ProtectedRoute component={<CheckInGraph/>} />,
 }
 ]);
 
