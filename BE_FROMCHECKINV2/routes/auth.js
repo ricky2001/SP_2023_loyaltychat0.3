@@ -53,6 +53,10 @@ const {
   keepForm
 } = require("../controllers/form");
 
+// const {
+//   reportIssue
+// } = require("../controllers/reportissue");
+
 
 router.post("/signup", signup);
 
@@ -98,5 +102,7 @@ router.post("/keepForm", verifyToken, keepForm)
 router.post("/scanqrcode", verifyToken, scan);
 
 // router.post("/logout", verifyToken ,logout);
+
+// router.post("/reportIssue", verifyToken, reportIssue);
 
 module.exports = router;
