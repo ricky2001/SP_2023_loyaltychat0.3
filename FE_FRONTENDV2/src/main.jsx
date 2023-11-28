@@ -10,6 +10,7 @@ import Consign from './pages/Consign.jsx'
 import Form from './pages/form.jsx';
 import ReportIssue from './pages/ReportIssue.jsx'
 import Policy from './pages/Policy.jsx'
+import CheckInGraph from './pages/CheckInGraph.jsx'
 import './index.css'
 import {
   createBrowserRouter,
@@ -24,6 +25,7 @@ import ProtectedRoute from './routers/protectRouter';
 import QRCodeScanner from './components/QRCodeScanner.jsx';
 
 import QRcodegenerator from './pages/QRcodegenerator.jsx'
+import Addre from './pages/addre.jsx'
 
 const router = createBrowserRouter([
   {
@@ -59,46 +61,26 @@ const router = createBrowserRouter([
     element: <ProtectedRoute component={<Form />} />,
   },
   {
-    path: "/QRcodegenerator",
-    element: <ProtectedRoute component={<QRcodegenerator />} />,
-  },
-  {
     path: "/reportissue",
     element: <ProtectedRoute component={<ReportIssue />} />,
   },
   {
     path: "/policy",
     element: <ProtectedRoute component={<Policy />} />,
-  }
+  },
+  {
+  path:"/QRcodegenerator",
+  element:<ProtectedRoute component={<QRcodegenerator/>} />,
+  },
+  {
+  path:"/addre",
+  element:<ProtectedRoute component={<Addre/>} />,
+},{
+  path:"/CheckInGraph",
+  element:<ProtectedRoute component={<CheckInGraph/>} />,
+}
+
 ]);
-
-
-// const router = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <App />,
-//   },
-//   {
-//     path: "/login",
-//     element: <Login />,
-//   },
-//   {
-//     path: "/dashboard",
-//     element: <Dashboard/>,
-//   },
-//   {
-//     path: "/point",
-//     element: <Point/>,
-//   },{
-//     path: "/calendar",
-//     element: <CalendarPage/>,
-//   },
-//   {
-//     path:"Consign",
-//     element:<Consign/>,
-//   }
-
-// ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

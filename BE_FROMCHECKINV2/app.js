@@ -2,12 +2,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require('cors');
 const app = express();
-const functions = require('firebase-functions');
+
 
 // Routes
 const authRoutes = require("./routes/auth");
 
-app.use(bodyParser.json());
+
+app.use(bodyParser.json({ extended: false }));
 app.use(cors()); 
 
 // Routes
@@ -31,7 +32,7 @@ app.listen(port, () => {
 // const functions = require('firebase-functions');
 // const authRoutes = require("./routes/auth");
 
-// app.use(bodyParser.json());
+// app.use(bodyParser.json({ extended: false }));
 // app.use(cors()); 
 
 // // Routes

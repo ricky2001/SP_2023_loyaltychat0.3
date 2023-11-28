@@ -49,11 +49,11 @@ function SlideBar({ styleClass }) {
                 </Link>
             </li>
             <li>
-                <a href="#" className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                <Link to={'/CheckInGraph'} className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                     <i className="bi bi-clipboard-data-fill text-gray-700 font-bold text-xl"></i>
 
                     <span className="flex-1 ml-3 whitespace-nowrap">Employee Graph</span>
-                </a>
+                </Link>
             </li>
             <li>
                 <Link to={'/reportissue'} className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">

@@ -1,6 +1,8 @@
 const firebase = require("./../config/firebase");
 const admin = require("./../config/firebaseadmin");
 
+
+
 //rewaed exchanges
 exports.itemexchange = (req, res) => {
   let err = '';
@@ -21,7 +23,7 @@ exports.itemexchange = (req, res) => {
         .then((querySnapshot2) => {
           querySnapshot2.forEach((doc2) => {
             const oldPoints2 = doc2.data().points;
-            const newPoints2 = doc1.data().itemprice;
+            const newPoints2 = doc1.data().itemprice*req.body.itemTotal;
             const pointsDiff = oldPoints2 - newPoints2;
             if(pointsDiff < 0) {
               return res.status(500).json({
@@ -79,9 +81,6 @@ exports.itemexchange = (req, res) => {
       console.error('Error item to getting documents: ', error);
     });
 
-    
-
-  
 };
 
 
@@ -102,3 +101,132 @@ exports.getUserItemExchange = (req, res) => {
         });
 };
 
+// Create a new item
+exports.createReward = async (req, res) => {
+  try {
+    // Validate the request
+    const { id, name, detail, price, total} = req.body;
+    const img = req.file;
+      console.log(req.body);
+      console.log("this is your: ",id, name, detail, price, total,img);
+    if (!id || !name || !detail || !price || !total || !img) {
+      return res.status(400).json({ error: 'Invalid request. Please provide all required fields and an image.' });
+      
+    }
+
+    // Authentication
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = await admin.auth().verifyIdToken(token);
+    const email = decodedToken.email;
+
+    // Upload the image to Firebase Storage
+    const storageRef = firebase.storage().ref();
+    const imagesRef = storageRef.child(`Reward/${img.originalname}`);
+    const snapshot = await imagesRef.put(img.buffer);
+
+    // Get the image download URL
+    const imgUrl = await imagesRef.getDownloadURL();
+
+    // Create a new item in Firestore with the image URL
+    const docRef = await firebase.firestore().collection('rewarditem').add({
+      itemid: parseInt(id),
+      Adder: email,
+      itemname: name,
+      itemdetail: detail,
+      itemprice: parseInt(price),
+      itemtotal: parseInt(total),
+      itemimg: imgUrl,
+    });
+
+    console.log('Form item added with ID: ', docRef.id);
+    return res.status(201).json({ message: 'Form item created successfully' });
+  } catch (error) {
+    console.error('Error in createReward:', error);
+    return res.status(500).json({ message: 'Internal serve  r error', error: error.message,id, name, detail, price, total,img });
+  }
+};
+
+
+
+
+
+
+
+// Update item reward
+exports.updateReward = async (req, res) => {
+  try {
+    console.log('Request Body:', req.body);
+    const { id, name, price, total, detail } = req.body;
+    const token = req.headers.authorization.split(" ")[1];
+
+    if (id == null || name == null || price == null || total == null || detail == null) {
+      return res.status(400).json({ error: 'Invalid request. Please provide all required fields.' });
+    }
+
+    const decodedToken = await admin.auth().verifyIdToken(token);
+    const email = decodedToken.email;
+
+    // Check if the document with the specified ID exists
+    const docSnapshot = await firebase.firestore().collection('rewarditem').where("itemid", "==", id).get();
+
+    if (docSnapshot.empty) {
+      return res.status(404).json({ error: 'Item not found.' });
+    }
+
+    // Update the item
+    const docRef = docSnapshot.docs[0]; // Assuming there is only one document with the specified ID
+    await docRef.ref.update({
+      Adder: email,
+      itemname: name,
+      itemdetail: detail,
+      itemprice: price,
+      itemtotal: total,
+    });
+
+    console.log('Form item updated with ID: ', docRef.id);
+    return res.status(200).json({ message: 'Form item updated successfully' });
+  } catch (error) {
+    console.error('Error updating form item: ', error);
+    return res.status(500).json({ message: 'Internal server error', error: error.message });
+  }
+};
+
+
+
+// Delete item reward along with image in storage
+exports.deleteReward = async (req, res) => {
+  try {
+    const { itemid } = req.body;
+    
+    if (!itemid) {
+      return res.status(400).json({ error: 'Invalid request. Missing itemid in the request body.' });
+    }
+
+    // Check if the document with the specified ID exists
+    const docSnapshot = await firebase.firestore().collection('rewarditem').where("itemid", "==", parseInt(itemid)).get();
+
+    if (docSnapshot.empty) {
+      return res.status(404).json({ error: 'Item not found.' });
+    }
+
+    const docData = docSnapshot.docs[0].data();
+
+    // Get the download URL of the image
+    const imgUrl = docData.itemimg;
+
+    // Get a reference to the image file in Firebase Storage
+    const storageRef = firebase.storage().refFromURL(imgUrl);
+
+    // Delete the image file
+    await storageRef.delete();
+
+    // Delete the document in Firestore
+    await docSnapshot.docs[0].ref.delete();
+
+    console.log('Item and image deleted successfully.');
+    return res.status(200).json({ message: 'Item and image deleted successfully.' });
+  } catch (error) {
+    console.error('Error deleting item and image:', error);
+    return res.status(500).json({ message: 'Internal server error', error: error.message });
+  }
+};
