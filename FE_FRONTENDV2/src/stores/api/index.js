@@ -1,6 +1,7 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import axiosInstance from '../../utils/api/axiosIntance.js'
+import axiosInstance from '../../utils/api/axiosIntance.js';
+
 
 
 export const useConsign = createAsyncThunk('api/consign', async ({ emailFrom, emailTo, starConsign, text }) => {
@@ -110,33 +111,28 @@ export const keepForm = createAsyncThunk('api/keepForm', async ({ email, EventNa
  
   return data;
 });
-// export const getForm = createAsyncThunk('api/getForm', async ({ author, detail }) => {
-//   console.log(author, detail)
-//   const response = await axiosInstance.get('api/getForm');
-//   return response.data;
 
-// });
 
-// export const addNews = createAsyncThunk('api/createNews', async ({ author, detail }) => {
-//   console.log(author, detail)
-//   const response = await axiosInstance.post('api/createNews', { author, detail });
-//   return response.data;
+export const createreward = createAsyncThunk('api/createreward', async (formData, { rejectWithValue }) => {
+  try {
+    const response = await axiosInstance.post('api/createreward', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
 
-// });
+    const responseData = response.data;
+    console.log('Form item created successfully:', responseData);
+    return responseData;
+  } catch (error) {
+    console.error('Error in createreward:', error);
+    return rejectWithValue(error.response.data);  // Pass the error response to the rejection value
+  }
+});
 
-// export const editNews = createAsyncThunk('api/updateNews', async ({ author, detail }) => {
-//   console.log(author, detail)
-//   const response = await axiosInstance.post('api/updateNews', { author, detail });
-//   return response.data;
 
-// });
 
-// export const minusNews = createAsyncThunk('api/deleteNews', async ({ author, detail }) => {
-//   console.log(author, detail)
-//   const response = await axiosInstance.post('api/deleteNews');
-//   return response.data;
 
-// });
 
 
 let initialStateAPI = {
@@ -326,6 +322,18 @@ export const apiSlice = createSlice({
 
       })
       .addCase(keepForm.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(createreward.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(createreward.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.code = action.payload.code;
+
+      })
+      .addCase(createreward.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       });

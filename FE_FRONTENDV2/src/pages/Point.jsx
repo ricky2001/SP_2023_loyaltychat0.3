@@ -5,13 +5,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { getCoin, getName } from '@/stores/api/index'
 import { useSelector, useDispatch } from 'react-redux'
 function Point() {
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //     dispatch(getCoin()), dispatch(getName())
-  // }, [dispatch])
-  // let coinUser = useSelector(state => state.apiStore.coin)
-  // let nameUser = useSelector(state => state.apiStore.names)
-  //old code
   const dispatch = useDispatch();
   const [intervalId, setIntervalId] = useState(null);
 

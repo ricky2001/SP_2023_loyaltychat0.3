@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const baseURL = 'http://localhost:3000';
+// const baseURL = 'https://us-central1-loyalty-e5fdd.cloudfunctions.net/api';
 
 
 const axiosInstance = axios.create({

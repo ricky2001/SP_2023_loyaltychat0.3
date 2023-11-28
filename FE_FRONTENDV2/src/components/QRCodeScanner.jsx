@@ -72,8 +72,10 @@ const QRCodeScanner = () => {
   }, [selectedDeviceIndex, emailUser]);
 
   const switchCamera = () => {
+    console.log('Switching camera...');
     if (videoInputDevices.length > 1) {
       setSelectedDeviceIndex((selectedDeviceIndex + 1) % videoInputDevices.length);
+      console.log('Selected device index:', selectedDeviceIndex);
     }
   };
 

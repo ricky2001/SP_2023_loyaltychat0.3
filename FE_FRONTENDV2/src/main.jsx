@@ -8,6 +8,9 @@ import Point from './pages/Point.jsx'
 import CalendarPage from './pages/Calendar.jsx'
 import Consign from './pages/Consign.jsx'
 import Form from './pages/form.jsx';
+import ReportIssue from './pages/ReportIssue.jsx'
+import Policy from './pages/Policy.jsx'
+import CheckInGraph from './pages/CheckInGraph.jsx'
 import './index.css'
 import {
   createBrowserRouter,
@@ -18,7 +21,7 @@ import { store } from './stores/config.js'
 import { Provider } from 'react-redux'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 
-import  ProtectedRoute from './routers/protectRouter';
+import ProtectedRoute from './routers/protectRouter';
 import QRCodeScanner from './components/QRCodeScanner.jsx';
 
 import QRcodegenerator from './pages/QRcodegenerator.jsx'
@@ -35,42 +38,57 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <ProtectedRoute component={<Dashboard/>} />,
+    element: <ProtectedRoute component={<Dashboard />} />,
   },
   {
     path: "/point",
-    element: <ProtectedRoute component={<Point/>} />,
-  },{
+    element: <ProtectedRoute component={<Point />} />,
+  }, 
+  {
     path: "/calendar",
-    element: <ProtectedRoute component={<CalendarPage/>} />,
+    element: <ProtectedRoute component={<CalendarPage />} />,
   },
   {
-    path:"Consign",
-    element:<ProtectedRoute component={<Consign/>} />,
-  }
-  ,
+    path: "Consign",
+    element: <ProtectedRoute component={<Consign />} />,
+  },
   {
-    path:"QRCodeScanner",
-    element:<ProtectedRoute component={<QRCodeScanner/>} />,
-  },{
-    path:"/form",
-    element:<ProtectedRoute component={<Form/>} />,
-},{
+    path: "QRCodeScanner",
+    element: <ProtectedRoute component={<QRCodeScanner />} />,
+  },
+  {
+    path: "/form",
+    element: <ProtectedRoute component={<Form />} />,
+  },
+  {
+    path: "/reportissue",
+    element: <ProtectedRoute component={<ReportIssue />} />,
+  },
+  {
+    path: "/policy",
+    element: <ProtectedRoute component={<Policy />} />,
+  },
+  {
   path:"/QRcodegenerator",
   element:<ProtectedRoute component={<QRcodegenerator/>} />,
-},{
+  },
+  {
   path:"/addre",
   element:<ProtectedRoute component={<Addre/>} />,
+},{
+  path:"/CheckInGraph",
+  element:<ProtectedRoute component={<CheckInGraph/>} />,
 }
+
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     {/* <App /> */}
     <Provider store={store}>
-   
-    <RouterProvider router={router} />
+
+      <RouterProvider router={router} />
     </Provider>
-   
+
   </React.StrictMode>
 )

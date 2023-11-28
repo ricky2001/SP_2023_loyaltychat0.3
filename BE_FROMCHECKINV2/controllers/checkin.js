@@ -48,6 +48,17 @@ exports.getUserDateCheckIn = (req, res) => {
   exports.updatedCheckIn = (req, res) => {
   // save dateCheckIn to base
   const token = req.headers.authorization.split(" ")[1];
+  const timestamp = new Date().getTime();
+
+// Create a new Date object using the timestamp
+const date = new Date(timestamp);
+
+// Format the time with time zone information
+const options = { hour12: true, hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Bangkok' };
+const formattedTime = date.toLocaleString('en-US', options);
+
+console.log("Thailand Time:", formattedTime);
+
   admin
     .auth()
     .verifyIdToken(token)
@@ -56,7 +67,8 @@ exports.getUserDateCheckIn = (req, res) => {
 
       firebase.firestore().collection('checkin').add({
         dateCheckIn: req.body.dateCheckIn,
-        email: email
+        email: email,
+        time:formattedTime
       })
         .then((docRef) => {
           console.log('Document checkIn written with ID: ', docRef.id);
