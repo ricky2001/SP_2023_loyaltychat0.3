@@ -73,6 +73,9 @@ function CheckInGraph() {
             console.error("Error fetching data:", error);
           });
       }, []);
+      const getHeight = () => {
+        return window.innerWidth <= 768 ? 300 : 400;
+      };
   
   
   
@@ -82,14 +85,16 @@ function CheckInGraph() {
         <div className="flex flex-col justify-center items-center">
           <p className="text-xl font-bold mb-4">Current Date: {new Date().toDateString()}</p>
         </div>
+        <center>
         <div className="col">
           <Chart
             options={graphData.options}
             series={graphData.series}
             type="bar"
-            width="100%"
+            width="95%"
+            height={getHeight()}
           />
-        </div>
+        </div></center>
       </div>
     </Base>
 
