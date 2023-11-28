@@ -68,9 +68,15 @@ const {
   keepForm
 } = require("../controllers/form");
 
+
+// const {
+//   reportIssue
+// } = require("../controllers/reportissue");
+
 const {
   checkgraph
 } = require("../controllers/employeecheck");
+
 
 
 router.post("/signup", signup);
@@ -124,5 +130,7 @@ router.post("/scanqrcode", verifyToken, scan);
 router.get("/checkgraph", verifyToken, checkgraph)
 
 // router.post("/logout", verifyToken ,logout);
+
+// router.post("/reportIssue", verifyToken, reportIssue);
 
 module.exports = router;
