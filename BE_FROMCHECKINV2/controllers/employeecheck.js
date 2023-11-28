@@ -65,8 +65,8 @@ function getTimeCategory(time) {
     const period = time.split(' ')[1]; // AM or PM
 
     if (period === 'AM') {
-        return hour < 12 ? 'morning' : 'afternoon';
+        return hour <= 12 ? 'morning' : 'afternoon';
     } else {
-        return hour < 12 ? 'afternoon' : 'evening';
+        return hour <= 12 ? 'afternoon' : 'evening';
     }
 }
