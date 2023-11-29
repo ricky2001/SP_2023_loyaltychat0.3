@@ -1,57 +1,25 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react'
 
-const ChatBot = () => {
-  const [input, setInput] = useState('');
-  const [messages, setMessages] = useState([]);
+export class Chatbot extends Component {
 
-  const openaiApiKey = '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'; // Replace with your OpenAI API key
-  const modelId = 'ftjob-pXEfLCYjNWrGDjVjf7VWs2SL'; // Replace with your fine-tuned model ID
-
-  const sendMessage = async (message) => {
-    setMessages([...messages, { role: 'user', content: message }]);
-    setInput('');
-
-    try {
-      const response = await fetch('https://api.openai.com/v1/engines/davinci-codex/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${openaiApiKey}`,
-        },
-        body: JSON.stringify({
-          prompt: message,
-          model: modelId,
-          max_tokens: 50,
-        }),
-      });
-
-      const data = await response.json();
-
-      const chatbotMessage = data.choices[0].text;
-      setMessages([...messages, { role: 'chatbot', content: chatbotMessage }]);
-    } catch (error) {
-      console.error('Error sending message to chatbot:', error);
+    componentDidMount() {
+        (function (d, m) {
+            var kommunicateSettings =
+                { "appId": "12790f086637446abd439f1ade6cecffc", "popupWidget": true, "automaticChatOpenOnNavigation": true };
+            var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
+            s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
+            var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
+            window.kommunicate = m; m._globals = kommunicateSettings;
+        })(document, window.kommunicate || {});
     }
-  };
 
-  return (
-    <div>
-      <div className="chat-messages">
-        {messages.map((message, index) => (
-          <div key={index} className={`message ${message.role}`}>
-            {message.content}
-          </div>
-        ))}
-      </div>
-      <input
-        type="text"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        placeholder="Type a message..."
-      />
-      <button onClick={() => sendMessage(input)}>Send</button>
-    </div>
-  );
-};
+    render() {
+        return (
+            <div>
 
-export default ChatBot;
+            </div>
+        )
+    }
+}
+
+export default Chatbot
