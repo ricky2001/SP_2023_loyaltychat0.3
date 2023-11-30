@@ -2,7 +2,6 @@ const firebase = require("./../config/firebase");
 const admin = require("./../config/firebaseadmin");
 
 
-
 //rewaed exchanges
 exports.itemexchange = (req, res) => {
   let err = '';
@@ -37,6 +36,7 @@ exports.itemexchange = (req, res) => {
               itemname: doc1.data().itemname,
               itemtotal: req.body.itemTotal,
               totalprices: doc1.data().itemprice,
+              date: new Date()
             })
               .then((docRef) => {
                 console.log('Document written with ID: ', docRef.id);
@@ -145,6 +145,56 @@ exports.createReward = async (req, res) => {
     return res.status(500).json({ message: 'Internal serve  r error', error: error.message,id, name, detail, price, total,img });
   }
 };
+// exports.createReward = async (req, res) => {
+//   try {
+//     // Validate the request
+//     const { id, name, detail, price, total, img } = req.body;
+//     if (!id || !name || !detail || !price || !total || !img) {
+//       return res.status(400).json({ error: 'Invalid request. Please provide all required fields and an image.' });
+//     }
+//     console.log('Backend Request Body:', req.body);
+
+
+
+//     // Authentication
+//     const token = req.headers.authorization.split(' ')[1];
+//     const decodedToken = await admin.auth().verifyIdToken(token);
+//     const email = decodedToken.email;
+
+//     // Get the base64 image data from the request body
+//     const imgBase64 = req.body.img;
+
+//     // Convert the base64 string to a buffer
+//     const imgBuffer = Buffer.from(imgBase64.split(',')[1], 'base64');
+
+//     // Upload the image to Firebase Storage
+//     const storageRef = firebase.storage().ref();
+//     const imagesRef = storageRef.child(`Reward/${id}_${Date.now()}.png`);
+//     const snapshot = await imagesRef.put(imgBuffer);
+
+//     // Get the image download URL
+//     const imgUrl = await imagesRef.getDownloadURL();
+
+//     // Create a new item in Firestore with the image URL
+//     const docRef = await firebase.firestore().collection('rewarditem').add({
+//       itemid: parseInt(id),
+//      Adder: email,
+//       itemname: name,
+//       itemdetail: detail,
+//       itemprice: parseInt(price),
+//       itemtotal: parseInt(total),
+//       itemimg: imgUrl,
+//     });
+
+//     console.log('Form item added with ID: ', docRef.id);
+//     return res.status(201).json({ message: 'Form item created successfully' });
+//   } catch (error) {
+//    console.error('Error in createReward:', error);
+//    return res.status(500).json({ message: 'Internal serve  r error', error: error.message,id, name, detail, price, total,img });
+//   }
+// };
+
+
 
 
 
