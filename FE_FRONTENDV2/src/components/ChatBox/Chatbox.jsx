@@ -3,7 +3,7 @@ import { useDispatch,useSelector } from 'react-redux'
 import { AiOutlineMessage } from 'react-icons/ai';
 import './ChatBox.css';
 import {userMessage,setHistory} from '../../stores/api/index.js'
-import logo from '../../assets/img/botlogo.png'
+import logo from '../../assets/img/botlogo.jpg'
 
 
 const ChatBox = () => {

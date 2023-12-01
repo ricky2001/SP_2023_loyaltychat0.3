@@ -1,5 +1,3 @@
-// Policy.jsx
-
 import React from 'react';
 import Base from '../layouts/base';
 

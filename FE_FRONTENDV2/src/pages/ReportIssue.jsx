@@ -1,71 +1,88 @@
-// ReportIssue.jsx
-
 import React, { useState } from 'react';
 import Base from '../layouts/base';
+import axiosInstance from '../utils/api/axiosIntance.js';
 
 const ReportIssue = () => {
-    const [applicationIssue, setApplicationIssue] = useState('');
+  const [applicationIssue, setApplicationIssue] = useState('');
+  const [email, setEmail] = useState('');
 
-    // Assuming you have the admin email stored somewhere
-    const adminEmail = 'admin@example.com';
+  const handleIssueChange = (event) => {
+    setApplicationIssue(event.target.value);
+  };
 
-    const handleIssueChange = (event) => {
-        setApplicationIssue(event.target.value);
-    };
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-        // Add your logic to handle the submission of the issue
-        // For example, send a request to your server or perform any necessary actions
-        console.log('Submitted issue:', applicationIssue);
-    };
+    try {
+      const response = await axiosInstance.post('/api/reportIssue', {
+        message: applicationIssue,
+        email: email,
+      });
 
-    return (
-        <Base>
-            <div className="max-w-md mx-auto p-4 mt-20 border rounded shadow-md">
-                <h2 className="text-lg font-semibold">Report Issues</h2>
+      console.log('Response:', response.data);
 
-                <form onSubmit={handleSubmit} className="mt-4">
-                    <div className="mb-4">
-                        <label htmlFor="adminEmail" className="block mb-1">
-                            Admin Email:
-                        </label>
-                        <input
-                            type="text"
-                            id="adminEmail"
-                            name="adminEmail"
-                            value={adminEmail}
-                            readOnly
-                            className="w-full px-3 py-2 bg-gray-100 text-gray-500 border rounded focus:outline-none"
-                        />
-                    </div>
+      if (response.status === 200) {
+        console.log('Issue submitted successfully!');
+        // Optionally, you can reset the form fields or navigate to a success page
+        setApplicationIssue('');
+        setEmail('');
+      } else {
+        console.error('Failed to submit issue.');
+      }
+    } catch (error) {
+      console.error('Error submitting issue:', error);
+    }
+  };
 
-                    <div className="mb-4">
-                        <label htmlFor="applicationIssue" className="block mb-1">
-                            Application Issues:
-                        </label>
-                        <textarea
-                            id="applicationIssue"
-                            name="applicationIssue"
-                            value={applicationIssue}
-                            onChange={handleIssueChange}
-                            className="w-full px-3 py-2 border rounded focus:outline-none"
-                            style={{ minHeight: '100px' }}
-                            required
-                        />
-                    </div>
+  return (
+    <Base>
+    <div className="max-w-md mx-auto p-4 border rounded shadow-md">
+      <h2 className="text-lg font-semibold mb-10">Report Issues</h2>
 
-                    <button
-                        type="submit"
-                        className="bg-green-500 text-white py-2 px-4 rounded focus:outline-none hover:bg-green-600"
-                    >
-                        Submit Issue
-                    </button>
-                </form>
-            </div>
-        </Base>
-    );
+      <form onSubmit={handleSubmit} className="mt-4">
+        <div className="mb-4">
+          <label htmlFor="adminEmail" className="block mb-1">
+            From:
+          </label>
+          <input
+            type="text"
+            id="From"
+            name="From"
+            value={email}
+            onChange={handleEmailChange}
+            className="w-full px-3 py-2 bg-gray-100 text-gray-500 border rounded focus:outline-none"
+          />
+        </div>
+
+        <div className="mb-10">
+          <label htmlFor="applicationIssue" className="block mb-1">
+            Application Issues:
+          </label>
+          <textarea
+            id="applicationIssue"
+            name="applicationIssue"
+            value={applicationIssue}
+            onChange={handleIssueChange}
+            className="w-full px-3 py-2 border rounded focus:outline-none"
+            style={{ minHeight: '100px' }}
+            required
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="bg-green-500 text-white py-2 px-4 rounded focus:outline-none hover:bg-green-600 mb-10 mx-auto"
+        >
+          Submit Issue
+        </button>
+      </form>
+    </div>
+    </Base>
+  );
 };
 
 export default ReportIssue;
