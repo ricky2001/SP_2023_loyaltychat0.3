@@ -99,7 +99,7 @@ function CardReward() {
   const handleClickExchange = async (e, itemId) => {
     e.preventDefault();
 
-    if (itemtotal > 0) {
+    if (itemtotal > 0 && itemtotal<= item.itemtotal) {
       dispatch(useExchange({ emailuser: emailUser, itemid: itemId, itemTotal: itemtotal }))
         .then(() => {
           fetchData();
@@ -122,7 +122,7 @@ function CardReward() {
       Swal.fire({
         icon: "error",
         title: "Exchange operation not performed. ",
-        text: "Itemtotal can not be 0 or null!",
+        text: "Itemtotal can not be 0 or null or more than amoung!",
         
       });
     }
@@ -146,6 +146,21 @@ function CardReward() {
       };
       console.log('Update Data:', updateData);
       const response = await axiosInstance.post('api/updatereward', updateData);
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "success",
+        title: "Edit reward successfully"
+      });
 
       if (response.status === 200) {
         console.log('Reward updated successfully!');
@@ -165,22 +180,51 @@ function CardReward() {
 
   const handleDeleteReward = async (itemId) => {
     console.log('Deleting item with ID:', itemId);
-    try {
-      // Call the backend API to delete the reward
-      const response = await axiosInstance.delete('api/deletereward', { data: { itemid: itemId } });
-  
-      if (response.status === 200) {
-        console.log('Reward deleted successfully!');
-        fetchData();
-      } else {
-        console.error('Error deleting reward:', response.data.message);
-      }
-    } catch (error) {
-      console.error('Error deleting reward:', error.message);
-    }
-  
-    closeEditPopup();
+    Swal.fire({
+      title: "Do you want to delete it?",
+      
+      showCancelButton: true,
+      confirmButtonText: "YES",
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        // Swal.fire("Delete success!");
+        axiosInstance.delete('api/deletereward', { data: { itemid: itemId } });
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          }
+        });
+        Toast.fire({
+          icon: "success",
+          title: "Delete successfully"
+        });
+        closeEditPopup();
     Cancellation();
+      } 
+    });
+    // try {
+    //   // Call the backend API to delete the reward
+    //   const response = await axiosInstance.delete('api/deletereward', { data: { itemid: itemId } });
+  
+    //   if (response.status === 200) {
+    //     console.log('Reward deleted successfully!');
+    //     fetchData();
+    //   } else {
+    //     console.error('Error deleting reward:', response.data.message);
+    //   }
+    // } catch (error) {
+    //   console.error('Error deleting reward:', error.message);
+    // }
+  
+    // closeEditPopup();
+    // Cancellation();
   };
   
 
@@ -243,8 +287,8 @@ function CardReward() {
                         </button>&nbsp;
                         <button
                           className="bg-red-500 hover:bg-red-700 text-white font-bold py-0 px-2 rounded-xl"
-                          // onClick={() => handleDeleteReward(item.itemid)}
-                          onClick={() => setShowdelPopup(true)}
+                          onClick={() => handleDeleteReward(item.itemid)}
+                          // onClick={() => setShowdelPopup(true)}
                         >
                           Delete Reward
                         </button>&nbsp;<br />

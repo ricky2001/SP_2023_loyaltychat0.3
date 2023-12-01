@@ -109,7 +109,6 @@ function addre() {
     e.preventDefault();
     Swal.fire({
       title: "ADD REWARD successful!",
-      text: "Please, Check Notify!",
       icon: "success"
     });
   
