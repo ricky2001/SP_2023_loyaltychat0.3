@@ -20,7 +20,7 @@ function CardReward() {
   const [total, setTotal] = useState('');
   const [showPopup, setShowPopup] = useState(false);
   const [showdelPopup, setShowdelPopup] = useState(false);
-  
+  const [showexPopup, setShowexPopup] = useState(false);
   
   const handleConfirmation = () => {
     // Handle confirmation logic here
@@ -37,6 +37,11 @@ function CardReward() {
     // Handle cancellation logic here
     console.log('Cancelled');
     setShowdelPopup(false);
+  };
+  const Cancell = () => {
+    // Handle cancellation logic here
+    console.log('Cancelled');
+    setShowexPopup(false);
   };
   const openEditPopup = (itemId) => {
     // Find the selected item by itemId
@@ -104,6 +109,8 @@ function CardReward() {
         .catch((error) => {
           console.error('Exchange error:', error);
         });
+        
+        // Cancell();
     } else {
       console.log('Itemtotal is 0 or null. Exchange operation not performed.');
     }
@@ -111,6 +118,7 @@ function CardReward() {
     console.log('Item ID:', itemId);
     console.log('Email User:', emailUser);
     console.log('Item Total:', itemtotal);
+    alert('Exchange Successful!');
   };
 
   const handleUpdateReward = async () => {
@@ -240,7 +248,10 @@ function CardReward() {
               <br />
               <input type="number" min="0" id="small-input" className="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Fill item total no.." onChange={handleChangeItemTotal} />
               <br />
-              <button className="bg-blue-500 hover.bg-blue-700 text-white font.bold py-2 px-4 rounded-xl" onClick={(e) => handleClickExchange(e, item.itemid)}>
+              <button className="bg-blue-500 hover.bg-blue-700 text-white font.bold py-2 px-4 rounded-xl" 
+              // onClick={() => setShowexPopup(true)}
+              onClick={(e) => handleClickExchange(e, item.itemid)}
+              >
                 Exchange
               </button>
             </div>
@@ -259,7 +270,7 @@ function CardReward() {
                            <button  type="button" className="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2" onClick={handleUpdateReward}>
                                Yes, I'm sure
                            </button>
-                           <button   className="bg-red-700 hover:bg-red-800 text-white font-bold py-0 px-2 rounded-xl" onClick={handleCancellation}>No, cancel</button>
+                           <button type="button" className="bg-red-500 hover:bg-red-700 text-white font-bold py-0 px-2 rounded-xl" onClick={handleCancellation}>No, cancel</button>
                        </div>
                    </div>
                </div>
@@ -275,12 +286,28 @@ function CardReward() {
                            <button  type="button" className="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2" onClick={() => handleDeleteReward(item.itemid)}>
                                Yes, I'm sure
                            </button>
-                           <button   className="bg-red-700 hover:bg-red-800 text-white font-bold py-0 px-2 rounded-xl" onClick={Cancellation}>No, cancel</button>
+                           <button   className="bg-red-500 hover:bg-red-700 text-white font-bold py-0 px-2 rounded-xl" onClick={Cancellation}>No, cancel</button>
                        </div>
                    </div>
                </div>
         </div>
       )}
+      {/* {showexPopup && (
+        <div className="popup">
+          <div className="relative w-full max-w-md max-h-full">
+                   <div >
+                       <div className="p-6 text-center">
+                           <svg aria-hidden="true" className="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                           <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you Sure to  Exchange?</h3>
+                           <button  type="button" className="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2" onClick={(e) => handleClickExchange(e, item.itemid)}>
+                               Yes, I'm sure
+                           </button>
+                           <button   className="bg-red-700 hover:bg-red-800 text-white font-bold py-0 px-2 rounded-xl" onClick={Cancell}>No, cancel</button>
+                       </div>
+                   </div>
+               </div>
+        </div>
+      )} */}
     </div>
     </div>
   );
