@@ -76,8 +76,9 @@ function FormConsign(){
         }else{
             Swal.fire({
                 icon: "error",
-                title: "Your Stars is not enough",
-                text: "Check your stars!",
+                title: "Submit failed",
+                text: "Check your stars or email fill !",
+                confirmButtonColor:"#00324D",
               });
               setToggle(!toggle);
         }

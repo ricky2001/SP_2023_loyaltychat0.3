@@ -7,7 +7,7 @@ import Dashboard from './pages/Dashboard.jsx'
 import Point from './pages/Point.jsx'
 import CalendarPage from './pages/Calendar.jsx'
 import Consign from './pages/Consign.jsx'
-import Form from './pages/form.jsx';
+import Form from './pages/Form.jsx';
 import ReportIssue from './pages/ReportIssue.jsx'
 import Policy from './pages/Policy.jsx'
 import CheckInGraph from './pages/CheckInGraph.jsx'

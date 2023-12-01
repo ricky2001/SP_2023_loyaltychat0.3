@@ -117,6 +117,7 @@ function addre() {
         icon: "error",
         title: "Please fill in all required fields. ",
         text: "(ID, Name, Detail, Price, Total) and upload at least one image.",
+        confirmButtonColor:"#00324D",
         
       });
       // alert('Please fill in all required fields (ID, Name, Detail, Price, Total) and upload at least one image.');

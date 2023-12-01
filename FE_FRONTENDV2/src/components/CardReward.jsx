@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useExchange } from '@/stores/api/index';
 import { setEmail } from '@/stores/auth/index';
 import axiosInstance from '../utils/api/axiosIntance.js';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 function CardReward() {
   const [item, setItem] = useState([]);
@@ -123,6 +123,7 @@ function CardReward() {
         icon: "error",
         title: "Exchange operation not performed. ",
         text: "Itemtotal can not be 0 or null or more than amoung!",
+        confirmButtonColor:"#00324D",
         
       });
     }
@@ -184,7 +185,9 @@ function CardReward() {
       title: "Do you want to delete it?",
       
       showCancelButton: true,
+      cancelButtonColor:'	#CF0000',
       confirmButtonText: "YES",
+      confirmButtonColor:'#1677CB',
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
@@ -293,7 +296,7 @@ function CardReward() {
                           Delete Reward
                         </button>&nbsp;<br />
                         <br />
-                        <button className="bg-red-700 hover:bg-red-800 text-white font-bold py-0 px-2 rounded-xl" onClick={closeEditPopup}>
+                        <button className="bg-red-500 text-white font-bold py-0 px-2 rounded-xl" onClick={closeEditPopup}>
                           Cancel
                         </button>
                       </div>

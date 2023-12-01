@@ -1,14 +1,16 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { BrowserMultiFormatReader, NotFoundException } from '@zxing/library';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Base from '@/layouts/base.jsx'
 import { IoChevronBackSharp } from 'react-icons/io5';
 import { setEmail } from '@/stores/auth/index';
 import { scanqrCode } from '@/stores/api/index';
 import { useSelector, useDispatch } from 'react-redux';
+import Swal from 'sweetalert2';
 
 const QRCodeScanner = () => {
+  const navigate = useNavigate();
   const videoRef = useRef(null);
   const codeReader = new BrowserMultiFormatReader();
   const [scannedData, setScannedData] = useState('');
@@ -40,12 +42,27 @@ const QRCodeScanner = () => {
           if (devices.length > 0) {
             codeReader.decodeFromVideoDevice(devices[selectedDeviceIndex].deviceId, videoRef.current, (result, error) => {
               if (result) {
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: "top-end",
+                  showConfirmButton: false,
+                  timer: 3000,
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                  }
+                });
+                Toast.fire({
+                  icon: "success",
+                  title: "Check-in successfully"
+                });
                 dispatch(scanqrCode({ emailuser: emailUser, event: result.getText() }))
                   .then(() => {
                     // Fetch updated data after the exchange operation is successful
                     fetchData();
                     console.log('Fetch updated data successful!');
-
+                    navigate("/calendar");
                     // Reset input fields or clear any other necessary states
                   })
                   .catch(error => {

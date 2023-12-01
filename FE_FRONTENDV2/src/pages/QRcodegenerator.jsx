@@ -36,7 +36,7 @@ function QRcodegenerator() {
 		 <div className="flex items-center ml-2">
     {/* &nbsp;&nbsp;&nbsp;&nbsp; */}
     
-         <Link to="/calendar" className="flex items-center">
+         <Link to="/form" className="flex items-center">
           <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-0 px-2 rounded-xl flex items-center">
           <IoChevronBackSharp style={{ marginRight: '3px'}}/>Back
           </button>
@@ -45,7 +45,7 @@ function QRcodegenerator() {
 		<center>
 		<div className="QRcodegenerator">
 			<div>
-            <h1 style={h1Style}>QR Generator</h1>
+            <h1 style={h1Style}>Events QRcode</h1>
             </div><br/>
 			<input 
 				type="text"

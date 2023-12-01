@@ -163,8 +163,8 @@ return maxCount;
             <div  className='flex flex-col justify-start'>
             <h1 className="text-xl mr-6">Check-in for event</h1>
             <div  className='flex flex-rol justify-start'>
-            <Link to={`/QRcodegenerator`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">crate QRcode</Link>&nbsp;
-            <Link to={`/QRCodeScanner`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Check-in</Link>
+            {/* <Link to={`/QRcodegenerator`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">crate QRcode</Link>&nbsp; */}
+            <Link to={`/QRCodeScanner`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Scan Check-in</Link>
             </div>
 
             <h1 className="text-xl mr-6 mb-4">Check-in for daily</h1>  
