@@ -82,7 +82,10 @@ function Newsfeed() {
   };
 
   const performDelete = async (id) => {
-    const updatedNewsList = newsList.filter(news => news.id !== id);
+    const shouldDelete = window.confirm("Are you sure you want to delete this news?");
+    
+    if (shouldDelete) {
+      const updatedNewsList = newsList.filter(news => news.id !== id);
     setNewsList(updatedNewsList);
     try {
       await axiosInstance.delete(`api/deleteNews?id=${id}`);
@@ -90,6 +93,7 @@ function Newsfeed() {
       console.error("Failed to delete news:", error);
     }
     closeEdit();
+    }
   }
 
   const paginate = (pageNumber) => {
@@ -129,7 +133,7 @@ function Newsfeed() {
               <h3>Author: {news.author}</h3>
               <p>Detail: {news.detail}</p>
               <div>
-                <button onClick={() => openEdit(news.id)}>Edit/Delete</button>
+                <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={() => openEdit(news.id)}>Edit/Delete</button>
               </div>
             </div>
           ))}
@@ -169,11 +173,11 @@ function Newsfeed() {
             onChange={(e) => setNewDetail(e.target.value)}
           />
           <div className="button-container">
-            <button className="bg-blue-500 text-white" onClick={postNews}>
+            <button className="bg-blue-500 text-white save-news" onClick={postNews}>
               Save News
             </button>
-            <button className="bg-red-500 text-white" onClick={closePopup}>
-              Close
+            <button className="bg-grey-500 text-white" onClick={closePopup}>
+              X
             </button>
           </div>
         </div>
@@ -200,8 +204,8 @@ function Newsfeed() {
             <button className="bg-red-500 text-white" onClick={() => performDelete(selectedNewsId)}>
               Delete News
             </button>
-            <button className="bg-gray-500 text-white" onClick={closeEdit}>
-              Close
+            <button className="bg-grey-500 text-white" onClick={closeEdit}>
+              X
             </button>
           </div>
         </div>
