@@ -1,31 +1,28 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { IoChevronBackSharp } from 'react-icons/io5';
-import { Link, useNavigate } from 'react-router-dom';
-import Base from '@/layouts/base.jsx'
-import { setEmail } from '@/stores/auth/index';
-import { createreward } from '@/stores/api/index';
-// import axiosInstance from '../utils/api/axiosIntance.js';
-
+import { IoChevronBackSharp } from "react-icons/io5";
+import { Link, useNavigate } from "react-router-dom";
+import Base from "@/layouts/base.jsx";
+import { setEmail } from "@/stores/auth/index";
+import axiosInstance from "../utils/api/axiosIntance.js";
 
 function addre() {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    id: '',
-    name: '',
-    detail: '',
-    price: '',
-    total: '',
-    
+    id: "",
+    name: "",
+    detail: "",
+    price: "",
+    total: "",
+    img: null,
   });
-  const dispatch = useDispatch();
-  const email = useSelector(state => state.authStore.email);
-  const [emailUser, setEmailUser] = useState();
   const [images, setImages] = useState([]);
   const [imageURLs, setImageURLs] = useState([]);
+  const email = useSelector(state => state.authStore.email);
+  const [emailUser, setEmailUser] = useState("");
+  const dispatch = useDispatch();
 
-  useEffect(() => {
+    useEffect(() => {
     dispatch(setEmail());
   }, [dispatch]);
 
@@ -34,72 +31,128 @@ function addre() {
   }, [email]);
 
   useEffect(() => {
-    if (images.length < 1) return;
-    const newImageUrls = [];
-    images.forEach((image) => newImageUrls.push(URL.createObjectURL(image)));
-    setImageURLs(newImageUrls);
+    console.log('Updated FormData:', formData);
+  }, [formData]);
+
+  useEffect(() => {
+    if (images.length > 0) {
+      const newImageUrls = images.map((image) => URL.createObjectURL(image));
+      setImageURLs(newImageUrls);
+    }
   }, [images]);
 
-  function onImageChange(e) {
-    setImages([...e.target.files]);
+  const onImageChange = async (e) => {
+    const file = e.target.files[0];
+  
+    if (file) {
+      const reader = new FileReader();
+  
+      reader.onloadend = () => {
+        console.log('Image Result:', reader.result);
+  
+        // Check the type of result (string or ArrayBuffer)
+        if (typeof reader.result === 'string') {
+          // Convert the base64 string to a Blob object
+          const blob = dataURLtoBlob(reader.result);
+  
+          // Check if blob is not undefined before setting it in the state
+          // if (blob) {
+            setFormData({
+              ...formData,
+              img: reader.result,
+            });
+          // }
+        } else if (reader.result instanceof ArrayBuffer) {
+          // Handle ArrayBuffer case (you might want to convert it to a string or Blob)
+          console.error('ArrayBuffer is not supported in this example.');
+        }
+      };
+  
+      reader.readAsDataURL(file);
+    }
+  };
+  
+  
+  // Function to convert base64 to Blob
+  function dataURLtoBlob(dataURL) {
+    if (typeof dataURL !== 'string') {
+      // Handle the case where dataURL is not a string
+      console.error('Invalid dataURL:', dataURL);
+      return null; // or return an appropriate default value
+    }
+    const arr = dataURL.split(',');
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+  
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+  
+    return new Blob([u8arr], { type: mime });
   }
+  
+  
+  
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     const parsedValue = name === 'id' || name === 'price' || name === 'total' ? parseInt(value) : value;
     setFormData({
       ...formData,
-      [name]: parsedValue,
+      [name]: parsedValue !== undefined ? parsedValue : "",
     });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Check if required fields are filled
-    if (!formData.id || !formData.name || !formData.detail || !formData.price || !formData.total || images.length === 0|| !email) {
-      alert('Please fill in all required fields and upload at least one image.');
-      return;
+    
+  
+    if (!formData.id || !formData.name || !formData.detail || !formData.price || !formData.total || !email || !formData.img) {
+      alert('Please fill in all required fields (ID, Name, Detail, Price, Total) and upload at least one image.');
+      return; // Remove the unnecessary res.status(400).json line
     }
-
-    // Dispatch the createReward action
-    console.log('FormData:', formData);
-    console.log('EmailUser:', emailUser);
-    console.log('Images:', images);
-
-    // dispatch(createReward({ ...formData,email: emailUser, img:images }));
-
-     // Create a new FormData object and append the image files
-  const formDataWithImages = new FormData();
-  formDataWithImages.append('id', formData.id);
-  formDataWithImages.append('name', formData.name);
-  formDataWithImages.append('detail', formData.detail);
-  formDataWithImages.append('price', formData.price);
-  formDataWithImages.append('total', formData.total);
-  formDataWithImages.append('email', email);
-  images.forEach((image) => {
-    formDataWithImages.append('img', image);
-  });
+  
+    const data = {
+      id: formData.id,
+      name: formData.name,
+      detail: formData.detail,
+      price: formData.price,
+      total: formData.total,
+      email: email,
+      img:formData.img,
+    };
+  
+    // const formDataWithoutImages = new FormData();
+    // // Use formDataWithoutImages here
+    // formDataWithoutImages.append('img', formData.img); // Use formData.img, not file
+    // for (const key in data) {
+    //   formDataWithoutImages.append(key, data[key]);
+    // }
+  
+    try {
+  
+      const response = await axiosInstance.post('api/createreward', data);
+  console.log('Backend Response:', response.data);
+  
+      setFormData({
+        id: "",
+        name: "",
+        detail: "",
+        price: "",
+        total: "",
+        img: null, 
+      });
+      setImages([]);
+      navigate("/point");
+    } catch (error) {
+      console.error('Error sending data to backend:', error);
+      alert('Error sending data to backend. Please check the console for details.');
+    }
+  };
   
 
-  // Log the content of formDataWithImages
-  console.log('FormDataWithImages:', formDataWithImages);
-
-  // Dispatch the createReward action with the FormData object
-  dispatch(createreward(formDataWithImages));
-  // await axiosInstance.post('/api/createreward', formDataWithImages)
-
-    // Clear form fields after dispatching the action
-    setFormData({
-      id: '',
-      name: '',
-      detail: '',
-      price: '',
-      total: '',
-    });
-    setImages([]);
-    navigate("/point");
-  };
   
   
   return (
@@ -154,9 +207,10 @@ function addre() {
 
 
                   <input type="file" accept="image/*" name="img" onChange={onImageChange} />
-                  {imageURLs.map((imageSrc, idx) => (
-                    <img key={idx} width="640" height="360" src={imageSrc} />
-                  ))}
+          {imageURLs.map((imageSrc, idx) => (
+            <img key={idx} width="640" height="360" src={imageSrc} alt={`Image ${idx}`} />
+          ))}
+
                 </div>
               </div><br />
               <div className="flex flex-col justify-center items-center">
@@ -178,197 +232,3 @@ function addre() {
   )
 }
 export default addre;
-
-
-
-// import React from "react";
-// import { useState, useEffect } from "react";
-// import { useSelector, useDispatch } from 'react-redux';
-// import { IoChevronBackSharp } from 'react-icons/io5';
-// import { Link, useNavigate } from 'react-router-dom';
-// import Base from '@/layouts/base.jsx'
-// import { setEmail } from '@/stores/auth/index';
-// import { createreward } from '@/stores/api/index';
-// // import axiosInstance from '../utils/api/axiosIntance.js';
-
-
-// function addre() {
-//   const navigate = useNavigate(); 
-//   const [formData, setFormData] = useState({
-//     id: '',
-//     name: '',
-//     detail: '',
-//     price: '',
-//     total: '',
-    
-//   });
-//   const dispatch = useDispatch();
-//   const email = useSelector(state => state.authStore.email);
-//   const [emailUser, setEmailUser] = useState();
-//   const [images, setImages] = useState([]);
-//   const [imageURLs, setImageURLs] = useState([]);
-
-//   useEffect(() => {
-//     dispatch(setEmail());
-//   }, [dispatch]);
-
-//   useEffect(() => {
-//     setEmailUser(email);
-//   }, [email]);
-
-//   useEffect(() => {
-//     if (images.length < 1) return;
-//     const newImageUrls = [];
-//     images.forEach((image) => newImageUrls.push(URL.createObjectURL(image)));
-//     setImageURLs(newImageUrls);
-//   }, [images]);
-
-//   const onImageChange = (e) => {
-//     // Use URL.createObjectURL directly without storing images in state
-//     setImages([URL.createObjectURL(e.target.files[0])]);
-//   };
-
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     const parsedValue = name === 'id' || name === 'price' || name === 'total' ? parseInt(value) : value;
-//     setFormData({
-//       ...formData,
-//       [name]: parsedValue,
-//     });
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-  
-//     // Check if required fields are filled
-//     if (!formData.id || !formData.name || !formData.detail || !formData.price || !formData.total || images.length === 0 || !email) {
-//       alert('Please fill in all required fields and upload at least one image.');
-//       return;
-//     }
-  
-//     try {
-//       // Step 1: Create Reward
-//       const rewardData = {
-//         id: formData.id,
-//         name: formData.name,
-//         detail: formData.detail,
-//         price: formData.price,
-//         total: formData.total,
-//         email: email,
-//       };
-  
-//       const rewardResponse = await dispatch(createreward(rewardData));
-//       console.log('Reward created successfully:', rewardResponse);
-  
-//       // Step 2: Upload Images
-//       const formDataWithImages = new FormData();
-//       formDataWithImages.append('id', formData.id);
-//       formDataWithImages.append('name', formData.name);
-//       formDataWithImages.append('detail', formData.detail);
-//       formDataWithImages.append('price', formData.price);
-//       formDataWithImages.append('total', formData.total);
-//       formDataWithImages.append('email', email);
-  
-//       images.forEach((image) => {
-//         formDataWithImages.append('img', image);
-//       });
-  
-//       const imageResponse = await axiosInstance.post('/api/uploadImages', formDataWithImages);
-//       console.log('Images uploaded successfully:', imageResponse);
-  
-//       // Step 3: Any other steps...
-  
-//       // Clear form fields after all API calls
-//       setFormData({
-//         id: '',
-//         name: '',
-//         detail: '',
-//         price: '',
-//         total: '',
-//       });
-//       setImages([]);
-//       navigate("/point");
-//     } catch (error) {
-//       console.error('Error:', error);
-//       // Handle errors as needed
-//     }
-//   };
-  
-  
-  
-//   return (
-//     <Base>
-//       <br />
-//       <div>
-//         <div className="flex items-center ml-2">
-//           <Link to="/point" className="flex items-center">
-//             <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-0 px-2 rounded-xl flex items-center">
-//               <IoChevronBackSharp style={{ marginRight: '3px' }} />Back
-//             </button>
-//           </Link>
-//         </div>
-//         <div className="flex flex-col justify-center items-center">
-//           <div className='w-50  text-black p-5'>
-
-//             <div className="flex flex-col justify-center items-center font-bold " style={{ fontSize: '20px' }}>
-
-//               <h3 >ADD REWARD</h3>
-//             </div>
-//             <br /><br />
-//             <form onSubmit={handleSubmit} encType="multipart/form-data">
-//               <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-//                 <label htmlFor="id">ID : </label>&nbsp;&nbsp;
-//                 <input type="number" name='id' className='form-control' value={formData.id} onChange={handleChange} />
-//               </div>
-//               <br />
-//               <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-//                 <label htmlFor="name">Name : </label>&nbsp;&nbsp;
-//                 <input type="text" name='name' className='form-control' value={formData.name} onChange={handleChange} />
-//               </div>
-//               <br />
-//               <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-//                 <label htmlFor="detail">detail : </label>&nbsp;&nbsp;
-//                 <input type="text" name='detail' className='form-control' value={formData.detail} onChange={handleChange} />
-//               </div>
-//               <br />
-//               <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-//                 <label htmlFor="price">Price : </label>&nbsp;&nbsp;
-//                 <input type="number" name='price' className='form-control' value={formData.price} onChange={handleChange} />
-//               </div>
-//               <br />
-//               <div>
-//                 <label htmlFor="total">Total of Items: </label>&nbsp;&nbsp;
-//                 <input type="number" name='total' className='form-control' value={formData.total} onChange={handleChange} />
-//               </div>
-//               <div><br />
-
-//                 <div className="App">
-
-//                   <p style={{ color: 'red', fontSize: 'small' }}>*If you want to change Image, choose a new file</p>
-
-
-//                   <input type="file" accept="image/*" name="img" onChange={onImageChange} />
-//                   {imageURLs.map((imageSrc, idx) => (
-//                     <img key={idx} width="640" height="360" src={imageSrc} />
-//                   ))}
-//                 </div>
-//               </div><br />
-//               <div className="flex flex-col justify-center items-center">
-                
-//                 <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl" >Submit</button>
-//               </div>
-
-//             </form>
-//           </div>
-//         </div>
-
-//       </div>
-//     </Base>
-
-
-
-
-
-//   )
-// }
-// export default addre;

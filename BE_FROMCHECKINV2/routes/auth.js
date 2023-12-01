@@ -6,10 +6,10 @@ const router = express.Router();
 
 // var upload = multer();
 
-const multer  = require('multer');
-const storage = multer.memoryStorage();
+// const multer  = require('multer');
+// const storage = multer.memoryStorage();
 
-const upload = multer({ storage: storage, limits: { fileSize: 1 * 1024 * 1024 }, });
+// const upload = multer({ storage: storage, limits: { fileSize: 1 * 1024 * 1024 }, });
 const itemController = require('../controllers/item');
 
 
@@ -97,7 +97,7 @@ router.post("/itemexchange", verifyToken, itemexchange);
 
 router.get("/getUserItemExchange", getUserItemExchange);
 
-router.post("/createreward",upload.single('img'), verifyToken,createReward);
+router.post("/createreward", verifyToken,createReward);
 
 // router.post("/createreward", verifyToken,createReward);
 
