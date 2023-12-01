@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Base from "@/layouts/base.jsx";
 import { setEmail } from "@/stores/auth/index";
 import axiosInstance from "../utils/api/axiosIntance.js";
-
+import Swal from 'sweetalert2'
 function addre() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -107,10 +107,21 @@ function addre() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+    Swal.fire({
+      title: "ADD REWARD successful!",
+      text: "Please, Check Notify!",
+      icon: "success"
+    });
   
     if (!formData.id || !formData.name || !formData.detail || !formData.price || !formData.total || !email || !formData.img) {
-      alert('Please fill in all required fields (ID, Name, Detail, Price, Total) and upload at least one image.');
+      Swal.fire({
+        icon: "error",
+        title: "Please fill in all required fields. ",
+        text: "(ID, Name, Detail, Price, Total) and upload at least one image.",
+        
+      });
+      // alert('Please fill in all required fields (ID, Name, Detail, Price, Total) and upload at least one image.');
+      
       return; // Remove the unnecessary res.status(400).json line
     }
   
