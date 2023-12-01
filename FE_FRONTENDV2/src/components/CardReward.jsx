@@ -137,7 +137,8 @@ function CardReward() {
       console.error('Error updating reward:', error.message);
     }
 
-    // closeEditPopup();
+    closeEditPopup();
+    
     handleCancellation();
   };
 
@@ -159,6 +160,7 @@ function CardReward() {
     }
   
     closeEditPopup();
+    Cancellation();
   };
   
 
