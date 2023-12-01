@@ -60,6 +60,8 @@ function addre() {
     if (!formData.id || !formData.name || !formData.detail || !formData.price || !formData.total || images.length === 0|| !email) {
       alert('Please fill in all required fields and upload at least one image.');
       return;
+    }else{
+      alert('ADD REWARD SUCCESS.');
     }
 
     // Dispatch the createReward action

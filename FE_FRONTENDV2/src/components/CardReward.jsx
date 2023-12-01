@@ -18,8 +18,26 @@ function CardReward() {
   const [detail, setDetail] = useState('');
   const [price, setPrice] = useState('');
   const [total, setTotal] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
+  const [showdelPopup, setShowdelPopup] = useState(false);
+  
+  
+  const handleConfirmation = () => {
+    // Handle confirmation logic here
+    console.log('Confirmed');
+    setShowPopup(false);
+  };
 
-
+  const handleCancellation = () => {
+    // Handle cancellation logic here
+    console.log('Cancelled');
+    setShowPopup(false);
+  };
+  const Cancellation = () => {
+    // Handle cancellation logic here
+    console.log('Cancelled');
+    setShowdelPopup(false);
+  };
   const openEditPopup = (itemId) => {
     // Find the selected item by itemId
     const selectedItem = item.find((i) => i.itemid === itemId);
@@ -119,7 +137,8 @@ function CardReward() {
       console.error('Error updating reward:', error.message);
     }
 
-    closeEditPopup();
+    // closeEditPopup();
+    handleCancellation();
   };
 
 
@@ -197,12 +216,13 @@ function CardReward() {
                   <div>
                     <center>
                       <div className="button-container">&nbsp;&nbsp;
-                        <button className="bg-green-400 hover:bg-green-700 text-white font-bold py-0 px-1 rounded-xl" onClick={handleUpdateReward}>
+                        <button className="bg-green-400 hover:bg-green-700 text-white font-bold py-0 px-1 rounded-xl" onClick={() => setShowPopup(true)}>
                           Update Reward
                         </button>&nbsp;
                         <button
                           className="bg-red-500 hover:bg-red-700 text-white font-bold py-0 px-2 rounded-xl"
-                          onClick={() => handleDeleteReward(item.itemid)}
+                          // onClick={() => handleDeleteReward(item.itemid)}
+                          onClick={() => setShowdelPopup(true)}
                         >
                           Delete Reward
                         </button>&nbsp;<br />
@@ -225,8 +245,44 @@ function CardReward() {
           </a><br />
         </div>
       ))}
+      <div>
+
+      {showPopup && (
+        <div className="popup">
+          <div className="relative w-full max-w-md max-h-full">
+                   <div >
+                       <div className="p-6 text-center">
+                           <svg aria-hidden="true" className="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                           <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you Sure to  Update?</h3>
+                           <button  type="button" className="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2" onClick={handleUpdateReward}>
+                               Yes, I'm sure
+                           </button>
+                           <button   className="bg-red-700 hover:bg-red-800 text-white font-bold py-0 px-2 rounded-xl" onClick={handleCancellation}>No, cancel</button>
+                       </div>
+                   </div>
+               </div>
+        </div>
+      )}
+      {showdelPopup && (
+        <div className="popup">
+          <div className="relative w-full max-w-md max-h-full">
+                   <div >
+                       <div className="p-6 text-center">
+                           <svg aria-hidden="true" className="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                           <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you Sure to  Delete?</h3>
+                           <button  type="button" className="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2" onClick={() => handleDeleteReward(item.itemid)}>
+                               Yes, I'm sure
+                           </button>
+                           <button   className="bg-red-700 hover:bg-red-800 text-white font-bold py-0 px-2 rounded-xl" onClick={Cancellation}>No, cancel</button>
+                       </div>
+                   </div>
+               </div>
+        </div>
+      )}
+    </div>
     </div>
   );
+  
 }
 
 export default CardReward;
