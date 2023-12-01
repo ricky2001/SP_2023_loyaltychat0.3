@@ -11,8 +11,7 @@ exports.getaiMessage = async (req, res) => {
   try {
     const response = await axios.post('https://api.openai.com/v1/chat/completions', {
       "model": process.env.JOB_ID,
-      "messages": [{"role": "assistant", "content": "I am a helpful assistant at ATA IT Limited Thailand."},
-      {"role": "user", "content": "You are one of the HR department's staffs"},
+      "messages": [{"role": "assistant", "content": "I am a helpful assistant at ATA IT Limited Thailand company."},
       {"role": "assistant", "content": "Yes, I know everything about company policies, leaving policies and benefit package of all employees, Therefore, answer the question with the correct answer that matches the answer given. "},
       {"role": "user", "content": reqobj.message}],
       "temperature": 0.7

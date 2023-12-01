@@ -23,13 +23,26 @@
   align-self: flex-start;
 }
 
-.popup input,
+.popup input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
 .popup textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid #dcdcdc;
   border-radius: 4px;
   margin-bottom: 10px;
+  box-sizing: border-box;
+  height: 150px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between; /* Change to space-between to push buttons to opposite ends */
 }
 
 .popup button {
@@ -40,11 +53,20 @@
   padding: 10px 15px;
   font-weight: bold;
   cursor: pointer;
-  align-self: center;
+}
+
+.popup button.bg-grey-500 {
+  background-color: #c4c4c4;
+  position: absolute;
+  top: 15px; /* Adjust the top value to position it from the top */
+  right: 15px; /* Adjust the right value to position it from the right */
+  padding: 8px 12px; /* Adjust the padding for the close button */
+  font-size: 10px; /* Adjust the font-size for the close button */
 }
 
 .popup button.bg-red-500 {
   background-color: #ed3b3b;
+
 }
 
 .card {
