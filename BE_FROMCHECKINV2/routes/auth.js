@@ -69,9 +69,9 @@ const {
 } = require("../controllers/form");
 
 
-// const {
-//   reportIssue
-// } = require("../controllers/reportissue");
+const {
+  reportIssue
+} = require("../controllers/reportissue");
 
 const {
   checkgraph
@@ -131,6 +131,6 @@ router.get("/checkgraph", verifyToken, checkgraph)
 
 // router.post("/logout", verifyToken ,logout);
 
-// router.post("/reportIssue", verifyToken, reportIssue);
+router.post("/reportIssue", verifyToken, reportIssue);
 
 module.exports = router;
