@@ -5,6 +5,8 @@ import { IoChevronBackSharp } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import axiosInstance from '../utils/api/axiosIntance.js';
 import html2canvas from 'html2canvas';
+import '../components/QRcodegenerator.css';
+import Swal from 'sweetalert2';
 
 function QRcodegenerator() {
   const [formItems, setFormItems] = useState([]);
@@ -26,6 +28,21 @@ function QRcodegenerator() {
   }, []);
 
   const downloadQRCode = async (event) => {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      }
+    });
+    Toast.fire({
+      icon: "success",
+      title: "Dowload successfully"
+    });
     const qrCodeData = `EventName: ${event.EventName}, Date: ${event.Date}`;
     const qrCodeFileName = `${event.EventName.replace(/\s/g, '_')}_QRCode.png`;
 

@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import axiosInstance from '../utils/api/axiosIntance.js';
 import { keepForm } from '@/stores/api/index';
 import Swal from 'sweetalert2';
+import '../components/Form.css';
 
 function Form() {
   const [isPopupOpen, setPopupOpen] = useState(false);
