@@ -3,15 +3,28 @@ const admin = require("./../config/firebaseadmin");
 
 // Read items
 exports.getForm = (req, res) => {
-  firebase.firestore().collection('form').get()
+  const eventId = req.params.eventId;
+  firebase
+    .firestore()
+    .collection('form')
+    .orderBy('Date', 'desc')
+    .get()
     .then((querySnapshot) => {
       const formItems = [];
       querySnapshot.forEach((doc) => {
         const data = doc.data();
         if (data && data.EventName) {
-          // Collect the specific data you need
-          // console.log(data)
-          formItems.push({ id : doc.id, EventName: data.EventName});
+          const formattedDate = data.Date.toDate().toLocaleDateString('en-US', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+          });
+
+          formItems.push({
+            id: doc.id,
+            EventName: data.EventName,
+            Date: formattedDate,
+          });
         }
       });
       return res.status(200).json({ formItems });

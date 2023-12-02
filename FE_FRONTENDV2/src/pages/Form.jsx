@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-// import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Base from '@/layouts/base.jsx'
 import { setEmail } from '@/stores/auth/index'
 import { useSelector, useDispatch } from 'react-redux';
 import axiosInstance from '../utils/api/axiosIntance.js';
 import { keepForm } from '@/stores/api/index';
+import Swal from 'sweetalert2';
+import '../components/Form.css';
 
 function Form() {
   const [isPopupOpen, setPopupOpen] = useState(false);
@@ -32,7 +34,23 @@ function Form() {
   }, [email]);
 
   const postForm = async () => {
-    const response = await axiosInstance.post('/api/createForm', {
+    if(newEventName!=""){
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "success",
+        title: "Create form successfully"
+      });
+      const response = await axiosInstance.post('/api/createForm', {
       content: newEventName,
       Email: emailUser,
       Date: new Date().getTime(), // Example timestamp creation, adjust according to Firestore timestamp
@@ -42,6 +60,15 @@ function Form() {
     setPopupOpen(false);
     // setNewAuthor('');
     setnewEventName('');
+    }else{
+      Swal.fire({
+        icon: "error",
+        title: "Creat Fail. ",
+        text: "You must fill form name !",
+        confirmButtonColor:"#00324D",
+      });
+    }
+    
   };
 
   useEffect(() => {
@@ -133,26 +160,89 @@ function Form() {
       const formIndex = updatedFormList.findIndex((form) => form.id === selectedFormId);
       updatedFormList[formIndex] = { id: selectedFormId, EventName: updateEventName };
       setFormList(updatedFormList);
-      try {
-        await axiosInstance.post(`api/updateForm`, {
-          EventName: updateEventName,
-        });
-      } catch (error) {
-        console.error("Failed to update form:", error);
-      }
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You want to edit this form?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, edit it!"
+      }).then((result) => {
+        if (result.isConfirmed) {    
+      
+      axiosInstance.post(`api/updateForm`, {
+        EventName: updateEventName,
+        id:selectedFormId,
+      });
       closeEdit();
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "success",
+        title: "Edit form successfully"
+      });
+        }
+      });
+
+      // try {
+      //   await axiosInstance.post(`api/updateForm`, {
+      //     EventName: updateEventName,
+      //   });
+      // } catch (error) {
+      //   console.error("Failed to update form:", error);
+      // }
     }
   };
 
   const performDelete = async (id) => {
-    const updatedFormList = formList.filter(form => form.id !== id);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const updatedFormList = formList.filter(form => form.id !== id);
     setFormList(updatedFormList);
-    try {
-      await axiosInstance.delete(`api/deleteForm?id=${id}`);
-    } catch (error) {
-      console.error("Failed to delete form:", error);
-    }
+    axiosInstance.delete(`api/deleteForm?id=${id}`);
     closeEdit();
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      }
+    });
+    Toast.fire({
+      icon: "success",
+      title: "Delete form successfully"
+    });
+      }
+    });
+    
+    // try {
+    //   await axiosInstance.delete(`api/deleteForm?id=${id}`);
+    // } catch (error) {
+    //   console.error("Failed to delete form:", error);
+    // }
+    // closeEdit();
   }
 
 
@@ -184,7 +274,8 @@ function Form() {
           <div className="flex items-center justify-between mb-4 p-5">
             <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Survey</h5>
             <div className="ml-2"></div>
-            <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={openPopup}>
+            <Link to={`/QRcodegenerator`} className="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded-xl">Event QRcode</Link>&nbsp;
+            <button className="bg-blue-500 text-white px-4 py-2 rounded-xl" onClick={openPopup}>
               Create Form
             </button>
           </div>
@@ -279,24 +370,25 @@ function Form() {
         )}
 
 
-        {isPopupOpen && (
-          <div className="popup">
-            <h2>Create Form</h2>
-            <textarea
-              placeholder="New Event Name"
-              value={newEventName}
-              onChange={(e) => setnewEventName(e.target.value)}
-            />
-            <div className="button-container">&nbsp;&nbsp;
-              <button className="bg-blue-500 text-white" onClick={postForm}>
-                Save Event
-              </button>&nbsp;
-              <button className="bg-red-500 text-white" onClick={closePopup}>
-                Close
-              </button>
-            </div>
-          </div>
-        )}
+{isPopupOpen && (
+  <div className="popup">
+    <h2>Create Form</h2>
+    <textarea
+      placeholder="New Event Name"
+      value={newEventName}
+      onChange={(e) => setnewEventName(e.target.value)}
+    />
+    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
+      <button className="bg-blue-500 text-white" onClick={postForm}>
+        Save Event
+      </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <button className="bg-red-500 text-white" onClick={closePopup}>
+        Close
+      </button>
+    </div>
+  </div>
+)}
+
 
         {isEditOpen && (
           <div className="popup">
@@ -314,7 +406,7 @@ function Form() {
               <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-0 px-2 rounded-xl" onClick={() => performDelete(selectedFormId)}>
                 Delete Form
               </button>&nbsp;
-              <button className="bg-red-700 hover:bg-red-800 text-white font-bold py-0 px-2 rounded-xl" onClick={closeEdit}>
+              <button className="bg-red-500  text-white font-bold py-0 px-2 rounded-xl" onClick={closeEdit}>
                 Close
               </button>
             </div>

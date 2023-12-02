@@ -4,7 +4,9 @@ import { useConsign} from '@/stores/api/index'
 import {setEmail} from '@/stores/auth/index'
 import {useNavigate} from 'react-router-dom'
 import classNames from 'classnames';
+import Swal from 'sweetalert2'
 import '@/assets/css/popup.css'
+import {getCoin} from '@/stores/api/index'
 
 
 
@@ -17,6 +19,7 @@ function FormConsign(){
     const navigate = useNavigate();
     const email = useSelector(state => state.authStore.email);
     const [emailUser,setEmailUser] = useState();
+    const coinUser = useSelector((state) => state.apiStore.coin);
 
     const popupShow  = classNames('fixed  top-0  left-0  right-0 bottom-0 flex flex-row justify-center items-center bg-black bg-opacity-30 z-50',{
         'hidden':!toggle,
@@ -25,8 +28,8 @@ function FormConsign(){
     
     const dispatch = useDispatch();
     useEffect(() => {   
-        dispatch(setEmail())
-        
+        dispatch(setEmail());
+        dispatch(getCoin());
         
     }, [dispatch])
 
@@ -36,7 +39,9 @@ function FormConsign(){
     
     
     const handleToggle = ()=>{
+        
         setToggle(!toggle);
+
     }
 
     useEffect(() => {
@@ -64,10 +69,20 @@ function FormConsign(){
     const handleSubmit = async(e)=>{
         e.preventDefault();
         console.log(emailTarget,pointSender,text);
-        
-        await dispatch(useConsign({emailFrom:emailUser,emailTo:emailTarget,starConsign:pointSender,text:text}));
+        if(pointSender>0 && pointSender<=coinUser && emailTarget != "" ){
+             await dispatch(useConsign({emailFrom:emailUser,emailTo:emailTarget,starConsign:pointSender,text:text}));
         
         navigate('/point');
+        }else{
+            Swal.fire({
+                icon: "error",
+                title: "Submit failed",
+                text: "Check your stars or email fill !",
+                confirmButtonColor:"#00324D",
+              });
+              setToggle(!toggle);
+        }
+       
     }
     const handleCancle = ()=>{
         navigate('/point');
@@ -75,7 +90,6 @@ function FormConsign(){
 
     return(
         <form className="w-full h-screen" >
-
             <label htmlFor="email-address-icon" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">From</label>
             <div className="relative mb-4">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">

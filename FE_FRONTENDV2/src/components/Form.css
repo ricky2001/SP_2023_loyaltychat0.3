@@ -1,0 +1,57 @@
+/* Example: Responsive styles for different screen sizes */
+@media only screen and (max-width: 768px) {
+    /* Styles for screens up to 768px wide */
+    /* Adjust styling for smaller screens */
+  }
+  
+  @media only screen and (min-width: 769px) and (max-width: 1024px) {
+    /* Styles for screens between 769px and 1024px wide */
+    /* Adjust styling for medium-sized screens */
+  }
+  
+  @media only screen and (min-width: 1025px) {
+    /* Styles for screens larger than 1024px wide */
+    /* Adjust styling for larger screens */
+  }
+/* Example: Responsive button styles */
+button {
+    padding: 10px 20px; /* Adjust padding based on your design */
+    font-size: 14px; /* Adjust font size based on your design */
+  }
+/* Example: Responsive width using percentage */
+.container {
+    width: 100%;
+  }
+  
+  /* Example: Responsive width using viewport width */
+  .container {
+    width: 80vw;
+  }
+/* Example: Responsive font size */
+body {
+    font-size: 16px;
+  }
+  
+  @media only screen and (max-width: 768px) {
+    body {
+      font-size: 14px;
+    }
+  }
+  .card p {
+    word-wrap: break-word;
+  }
+  .card p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .card p {
+    font-size: 16px; /* Default font size */
+  }
+  
+  @media (max-width: 600px) {
+    .card p {
+      font-size: 14px; /* Adjust font size for smaller screens */
+    }
+  }
+  

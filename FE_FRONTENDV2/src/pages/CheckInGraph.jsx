@@ -83,6 +83,7 @@ function CheckInGraph() {
     <Base>
       <div className="mx-auto w-full h-full mt-32">
         <div className="flex flex-col justify-center items-center">
+          <h1 className="text-xl font-bold mb-4">Graph show employees check-in on app</h1>
           <p className="text-xl font-bold mb-4">Current Date: {new Date().toDateString()}</p>
         </div>
         <center>

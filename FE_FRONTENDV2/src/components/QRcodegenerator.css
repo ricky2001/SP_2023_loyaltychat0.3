@@ -1,0 +1,18 @@
+.container p {
+    word-wrap: break-word;
+  }
+  .container p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .container p {
+    font-size: 16px; /* Default font size */
+  }
+  
+  @media (max-width: 600px) {
+    .container p {
+      font-size: 14px; /* Adjust font size for smaller screens */
+    }
+  }
+  

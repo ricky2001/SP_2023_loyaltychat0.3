@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useExchange } from '@/stores/api/index';
 import { setEmail } from '@/stores/auth/index';
 import axiosInstance from '../utils/api/axiosIntance.js';
+import Swal from 'sweetalert2';
 
 function CardReward() {
   const [item, setItem] = useState([]);
@@ -98,13 +99,18 @@ function CardReward() {
   const handleClickExchange = async (e, itemId) => {
     e.preventDefault();
 
-    if (itemtotal > 0) {
+    if (itemtotal > 0 && itemtotal<= item.itemtotal) {
       dispatch(useExchange({ emailuser: emailUser, itemid: itemId, itemTotal: itemtotal }))
         .then(() => {
           fetchData();
           console.log('Fetch updated data successful!');
           setItemId('');
           setItemTotal('');
+          Swal.fire({
+            title: "Exchange successful!",
+            text: "Please, Check Notify!",
+            icon: "success"
+          });
         })
         .catch((error) => {
           console.error('Exchange error:', error);
@@ -113,12 +119,19 @@ function CardReward() {
         // Cancell();
     } else {
       console.log('Itemtotal is 0 or null. Exchange operation not performed.');
+      Swal.fire({
+        icon: "error",
+        title: "Exchange operation not performed. ",
+        text: "Itemtotal can not be 0 or null or more than amoung!",
+        confirmButtonColor:"#00324D",
+        
+      });
     }
 
     console.log('Item ID:', itemId);
     console.log('Email User:', emailUser);
     console.log('Item Total:', itemtotal);
-    alert('Exchange Successful!');
+    
   };
 
   const handleUpdateReward = async () => {
@@ -134,6 +147,21 @@ function CardReward() {
       };
       console.log('Update Data:', updateData);
       const response = await axiosInstance.post('api/updatereward', updateData);
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "success",
+        title: "Edit reward successfully"
+      });
 
       if (response.status === 200) {
         console.log('Reward updated successfully!');
@@ -153,22 +181,53 @@ function CardReward() {
 
   const handleDeleteReward = async (itemId) => {
     console.log('Deleting item with ID:', itemId);
-    try {
-      // Call the backend API to delete the reward
-      const response = await axiosInstance.delete('api/deletereward', { data: { itemid: itemId } });
-  
-      if (response.status === 200) {
-        console.log('Reward deleted successfully!');
-        fetchData();
-      } else {
-        console.error('Error deleting reward:', response.data.message);
-      }
-    } catch (error) {
-      console.error('Error deleting reward:', error.message);
-    }
-  
-    closeEditPopup();
+    Swal.fire({
+      title: "Do you want to delete it?",
+      
+      showCancelButton: true,
+      cancelButtonColor:'	#CF0000',
+      confirmButtonText: "YES",
+      confirmButtonColor:'#1677CB',
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        // Swal.fire("Delete success!");
+        axiosInstance.delete('api/deletereward', { data: { itemid: itemId } });
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          }
+        });
+        Toast.fire({
+          icon: "success",
+          title: "Delete successfully"
+        });
+        closeEditPopup();
     Cancellation();
+      } 
+    });
+    // try {
+    //   // Call the backend API to delete the reward
+    //   const response = await axiosInstance.delete('api/deletereward', { data: { itemid: itemId } });
+  
+    //   if (response.status === 200) {
+    //     console.log('Reward deleted successfully!');
+    //     fetchData();
+    //   } else {
+    //     console.error('Error deleting reward:', response.data.message);
+    //   }
+    // } catch (error) {
+    //   console.error('Error deleting reward:', error.message);
+    // }
+  
+    // closeEditPopup();
+    // Cancellation();
   };
   
 
@@ -231,13 +290,13 @@ function CardReward() {
                         </button>&nbsp;
                         <button
                           className="bg-red-500 hover:bg-red-700 text-white font-bold py-0 px-2 rounded-xl"
-                          // onClick={() => handleDeleteReward(item.itemid)}
-                          onClick={() => setShowdelPopup(true)}
+                          onClick={() => handleDeleteReward(item.itemid)}
+                          // onClick={() => setShowdelPopup(true)}
                         >
                           Delete Reward
                         </button>&nbsp;<br />
                         <br />
-                        <button className="bg-red-700 hover:bg-red-800 text-white font-bold py-0 px-2 rounded-xl" onClick={closeEditPopup}>
+                        <button className="bg-red-500 text-white font-bold py-0 px-2 rounded-xl" onClick={closeEditPopup}>
                           Cancel
                         </button>
                       </div>
@@ -276,7 +335,7 @@ function CardReward() {
                </div>
         </div>
       )}
-      {showdelPopup && (
+      {showdelPopup &&  (
         <div className="popup">
           <div className="relative w-full max-w-md max-h-full">
                    <div >

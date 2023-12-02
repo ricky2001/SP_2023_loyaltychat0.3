@@ -25,10 +25,11 @@ function  Consign(){
                 <div className="mx-auto w-full h-full grid md:grid-cols-12  grid-cols-6">
             <div className="md:col-start-4 md:col-span-6 col-start-2 col-span-4">
                 <div className="flex flex-col justify-center items-center">
+                    <br/>
                     <h1 className="text-lg font-medium">Consign your stars</h1>
                 </div>
                 <div className="flex flex-col justify-center items-center mt-4">
-                    <h1 className="text-lg font-medium"> Total of stars you can consign : {coinUser}</h1>
+                    <h3 className=" text-xl font-bold mb-4"> Total of stars you can consign : {coinUser}</h3>
                 </div>
 
                 <div className="flex flex-col justify-center items-center mt-4">
