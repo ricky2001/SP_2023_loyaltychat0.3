@@ -38,7 +38,8 @@ exports.itemexchange = (req, res) => {
               itemname: doc1.data().itemname,
               itemtotal: req.body.itemTotal,
               totalprices: doc1.data().itemprice,
-              date: new Date()
+              date: new Date(),
+              img: doc1.data().itemimg
             })
               .then((docRef) => {
                 console.log('Document written with ID: ', docRef.id);
