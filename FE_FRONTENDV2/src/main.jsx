@@ -24,8 +24,9 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 import ProtectedRoute from './routers/protectRouter';
 import QRCodeScanner from './components/QRCodeScanner.jsx';
 
-import QRcodegenerator from './pages/QRcodegenerator.jsx'
-import Addre from './pages/addre.jsx'
+import QRcodegenerator from './pages/QRcodegenerator.jsx';
+import Addre from './pages/addre.jsx';
+import ExchangeHistory from './components/exchangeHistory.jsx';
 
 const router = createBrowserRouter([
   {
@@ -78,6 +79,9 @@ const router = createBrowserRouter([
 },{
   path:"/CheckInGraph",
   element:<ProtectedRoute component={<CheckInGraph/>} />,
+},{
+  path:"/exchangeHistory",
+  element:<ProtectedRoute component={<ExchangeHistory/>} />,
 }
 
 ]);
