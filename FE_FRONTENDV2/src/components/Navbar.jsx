@@ -36,7 +36,7 @@ function Navbar() {
     if (isAuthenticated) {
         component = <>
         <IconButton aria-label={notificationsLabel(10)}>
-              <Badge badgeContent={10} color="secondary">
+              <Badge badgeContent={0} color="error">
                 <MailIcon />
               </Badge>
             </IconButton></>

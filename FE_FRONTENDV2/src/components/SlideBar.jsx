@@ -35,6 +35,15 @@ function SlideBar({ styleClass }) {
 
                 </Link>
             </li>
+            
+            <li>
+                <Link to={`/exchangeHistory`} className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <i className="bi bi-hourglass-split text-gray-700 font-bold text-xl"></i>
+                    <span className="flex-1 ml-3 whitespace-nowrap">Exchange History</span>
+
+                </Link>
+            </li>
+
             <li>
                 <Link to={`/calendar`} className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                     <i className="bi bi-calendar-check-fill text-gray-700 font-bold text-xl"></i>
