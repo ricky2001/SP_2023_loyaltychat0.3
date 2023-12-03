@@ -96,10 +96,10 @@ function CardReward() {
     setItemTotal(e.target.value);
   };
 
-  const handleClickExchange = async (e, itemId) => {
+  const handleClickExchange = async (e, itemId,itemTotal) => {
     e.preventDefault();
-
-    if (itemtotal > 0 && itemtotal<= item.itemtotal) {
+    
+    if (itemtotal > 0 && itemtotal <= itemTotal) {
       dispatch(useExchange({ emailuser: emailUser, itemid: itemId, itemTotal: itemtotal }))
         .then(() => {
           fetchData();
@@ -127,7 +127,7 @@ function CardReward() {
         
       });
     }
-
+    console.log(total);
     console.log('Item ID:', itemId);
     console.log('Email User:', emailUser);
     console.log('Item Total:', itemtotal);
@@ -309,7 +309,7 @@ function CardReward() {
               <br />
               <button className="bg-blue-500 hover.bg-blue-700 text-white font.bold py-2 px-4 rounded-xl" 
               // onClick={() => setShowexPopup(true)}
-              onClick={(e) => handleClickExchange(e, item.itemid)}
+              onClick={(e) => handleClickExchange(e, item.itemid,item.itemtotal)}
               >
                 Exchange
               </button>
