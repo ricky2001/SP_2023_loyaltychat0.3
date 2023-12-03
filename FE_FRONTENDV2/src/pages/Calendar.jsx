@@ -147,15 +147,7 @@ return maxCount;
         <div className="flex flex-col justify-center items-center">
             <div className="flex flex-col justify-center items-center mb-4 ">
                     <h1 className="text-xl  mb-4" style={h1Style}>Check-in</h1>
-                    {/* <div  className='flex flex-rol justify-start'> */}
-                   
-                   {/* <h1 className="text-xl mr-6">Check-in for event:</h1> */}
-                    {/* <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Click</button> */}
-                    {/* <Link to={`/QRcodegenerator`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">crate barcode</Link>&nbsp;
-                    <Link to={`/QRCodeScanner`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Click</Link> */}
                     
-                   
-               {/* </div> */}
        
                 
             </div>
