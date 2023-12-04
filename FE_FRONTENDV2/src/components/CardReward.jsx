@@ -5,6 +5,7 @@ import { useExchange } from '@/stores/api/index';
 import { setEmail } from '@/stores/auth/index';
 import axiosInstance from '../utils/api/axiosIntance.js';
 import Swal from 'sweetalert2';
+import {getCoin} from '@/stores/api/index'
 import './CardReward.css';
 
 function CardReward() {
@@ -72,6 +73,9 @@ function CardReward() {
       console.error('Error fetching data:', error);
     }
   };
+  useEffect(() => {
+    dispatch(getCoin())
+}, [])
 
   useEffect(() => {
     dispatch(setEmail());
@@ -93,13 +97,23 @@ function CardReward() {
     };
   }, []);
 
+  let coinUser = useSelector(state => state.apiStore.coin)
+
   const handleChangeItemTotal = (e) => {
     setItemTotal(e.target.value);
   };
 
-  const handleClickExchange = async (e, itemId,itemTotal) => {
+  const handleClickExchange = async (e, itemId,itemTotal,itemprice) => {
     e.preventDefault();
-    
+    if(coinUser<itemprice){
+      return Swal.fire({
+        icon: "error",
+        title: "Exchange operation not performed. ",
+        text: "Your Stars not enough!",
+        confirmButtonColor:"#00324D",
+        
+      });
+    }
     if (itemtotal > 0 && itemtotal <= itemTotal) {
       dispatch(useExchange({ emailuser: emailUser, itemid: itemId, itemTotal: itemtotal }))
         .then(() => {
@@ -310,7 +324,7 @@ function CardReward() {
               <br />
               <button className="bg-blue-500 hover.bg-blue-700 text-white font.bold py-2 px-4 rounded-xl" 
               // onClick={() => setShowexPopup(true)}
-              onClick={(e) => handleClickExchange(e, item.itemid,item.itemtotal)}
+              onClick={(e) => handleClickExchange(e, item.itemid,item.itemtotal,item.itemprice)}
               >
                 Exchange
               </button>
