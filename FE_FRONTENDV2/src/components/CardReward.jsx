@@ -109,7 +109,7 @@ function CardReward() {
           setItemTotal('');
           Swal.fire({
             title: "Exchange successful!",
-            text: "Please, Check Notify!",
+            text: "Check on, My Reward Menu!",
             icon: "success"
           });
         })
