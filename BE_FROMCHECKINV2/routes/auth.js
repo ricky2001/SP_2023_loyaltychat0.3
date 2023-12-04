@@ -86,6 +86,10 @@ const {
   historyMR
 }=require("../controllers/historyMR");
 
+const {
+  notification
+}=require("../controllers/notification");
+
 
 
 router.post("/signup", signup);
@@ -143,6 +147,8 @@ router.get("/exchangehistory",verifyToken, exchangehistory);
 router.post("/updateStatus",verifyToken,updateStatus);
 
 router.post("/historyMR",verifyToken, historyMR);
+
+router.post("/send-notification",verifyToken, notification);
 
 // router.post("/logout", verifyToken ,logout);
 

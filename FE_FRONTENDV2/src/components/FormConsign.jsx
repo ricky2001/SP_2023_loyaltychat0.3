@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import Swal from 'sweetalert2'
 import '@/assets/css/popup.css'
 import {getCoin} from '@/stores/api/index'
+import axiosInstance from '../utils/api/axiosIntance.js';
 
 
 
@@ -66,27 +67,49 @@ function FormConsign(){
         setText(e.target.value);
     }
 
-    const handleSubmit = async(e)=>{
+    // const sendNotification = async (emailTarget, title, body) => {
+    //     try {
+    //       const response = await axiosInstance.post('/api/send-notification', {
+    //         registrationToken: emailTarget,
+    //         title,
+    //         body,
+    //       });
+      
+    //       if (response.ok) {
+    //         console.log('Notification sent successfully:', response.data);
+    //       } else {
+    //         console.error('Failed to send notification. Server responded with:', response.status, response.statusText);
+    //       }
+    //     } catch (error) {
+    //       console.error('Error sending notification:', error.message);
+    //     }
+    //   };
+      
+    
+      const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(emailTarget,pointSender,text);
-        if(pointSender>0 && pointSender<=coinUser && emailTarget != "" ){
-             await dispatch(useConsign({emailFrom:emailUser,emailTo:emailTarget,starConsign:pointSender,text:text}));
-        
-        navigate('/point');
-        }else{
-            Swal.fire({
-                icon: "error",
-                title: "Submit failed",
-                text: "Check your stars or email fill !",
-                confirmButtonColor:"#00324D",
-              });
-              setToggle(!toggle);
+    
+        if (pointSender > 0 && pointSender <= coinUser && emailTarget !== '') {
+          // Call the notification service here
+        //   await sendNotification(emailTarget, 'New Notification', 'You have a new notification!');
+    
+          // Continue with your existing code
+          await dispatch(useConsign({ emailFrom: emailUser, emailTo: emailTarget, starConsign: pointSender, text: text }));
+          navigate('/point');
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Submit failed',
+            text: 'Check your stars or email fill!',
+            confirmButtonColor: '#00324D',
+          });
+          setToggle(!toggle);
         }
-       
-    }
-    const handleCancle = ()=>{
+      };
+    
+      const handleCancle = () => {
         navigate('/point');
-    }
+      };
 
     return(
         <form className="w-full h-screen" >

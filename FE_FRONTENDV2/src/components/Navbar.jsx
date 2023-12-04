@@ -73,7 +73,7 @@ function Navbar() {
       </Link>
 
       <div className="flex items-center">
-        {component}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        {/* {component}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */}
         <div className="md:block md:w-auto" id="navbar-default">
           <ul className="font-medium flex flex-col border border-gray-100 rounded-lg bg-gray-50 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             <li>
