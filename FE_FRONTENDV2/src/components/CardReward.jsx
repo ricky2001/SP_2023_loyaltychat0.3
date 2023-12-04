@@ -5,6 +5,7 @@ import { useExchange } from '@/stores/api/index';
 import { setEmail } from '@/stores/auth/index';
 import axiosInstance from '../utils/api/axiosIntance.js';
 import Swal from 'sweetalert2';
+import './CardReward.css';
 
 function CardReward() {
   const [item, setItem] = useState([]);
@@ -232,9 +233,9 @@ function CardReward() {
   
 
   return (
-    <div>
+    <div className="card-reward-container">
       {item.map((item, index) => (
-        <div key={index}>
+        <div key={index} className="reward-card">
           <a className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
             <div className="flex flex-row justify-between items-center" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px' }}>
               <input
@@ -285,7 +286,7 @@ function CardReward() {
                   <div>
                     <center>
                       <div className="button-container">&nbsp;&nbsp;
-                        <button className="bg-green-400 hover:bg-green-700 text-white font-bold py-0 px-1 rounded-xl" onClick={() => setShowPopup(true)}>
+                        <button className="bg-green-400 hover:bg-green-700 text-white py-0 px-1 rounded-xl" onClick={() => setShowPopup(true)}>
                           Update Reward
                         </button>&nbsp;
                         <button

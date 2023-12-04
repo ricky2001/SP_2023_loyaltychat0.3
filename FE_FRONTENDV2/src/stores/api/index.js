@@ -130,6 +130,14 @@ export const createreward = createAsyncThunk('api/createreward', async (formData
   }
 });
 
+export const youreward = createAsyncThunk('api/youreward', async ({ emailuse}) => {
+  console.log(emailuse);
+  const response = await axiosInstance.post('api/historyMR', { emailuse});
+  const data = await response.data;
+ 
+  return data;
+});
+
 
 
 
@@ -334,6 +342,18 @@ export const apiSlice = createSlice({
 
       })
       .addCase(createreward.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(youreward.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(youreward.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.code = action.payload.code;
+
+      })
+      .addCase(youreward.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       });

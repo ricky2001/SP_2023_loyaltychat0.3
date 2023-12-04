@@ -1,0 +1,64 @@
+.exchange-history {
+  padding: 20px;
+}
+
+.exchange-history h1 {
+  text-align: center;
+  font-size: 24px;
+}
+
+.table-container {
+  margin-top: 20px;
+  overflow-x: auto; 
+}
+
+.exchange-history-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.exchange-history-table th,
+.exchange-history-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.exchange-history-table th {
+  background-color: #D8EFFE;
+  font-weight: bold;
+}
+
+.exchange-history-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.item-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 768px) {
+  .table-container {
+    overflow-x: auto; 
+  }
+
+  .exchange-history-table {
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+    table-layout: fixed;
+  }
+
+  .exchange-history-table th,
+  .exchange-history-table td {
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px; 
+    padding: 8px 10px; 
+  }
+}

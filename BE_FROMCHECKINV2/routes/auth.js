@@ -77,6 +77,15 @@ const {
   checkgraph
 } = require("../controllers/employeecheck");
 
+const{
+  exchangehistory,
+  updateStatus
+}= require("../controllers/exchangeHistory");
+
+const {
+  historyMR
+}=require("../controllers/historyMR");
+
 
 
 router.post("/signup", signup);
@@ -127,7 +136,13 @@ router.post("/keepForm", verifyToken, keepForm)
 
 router.post("/scanqrcode", verifyToken, scan);
 
-router.get("/checkgraph", verifyToken, checkgraph)
+router.get("/checkgraph", verifyToken, checkgraph);
+
+router.get("/exchangehistory",verifyToken, exchangehistory);
+
+router.post("/updateStatus",verifyToken,updateStatus);
+
+router.post("/historyMR",verifyToken, historyMR);
 
 // router.post("/logout", verifyToken ,logout);
 

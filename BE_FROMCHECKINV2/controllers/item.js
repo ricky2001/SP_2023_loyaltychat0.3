@@ -1,7 +1,10 @@
 const firebase = require("./../config/firebase");
 const admin = require("./../config/firebaseadmin");
 const fs = require('fs');
-const ba64 = require("ba64")
+// const fs = require('fs').promises;
+const ba64 = require("ba64");
+const sharp = require('sharp');
+const sizeOf = require('image-size');
 
 
 //rewaed exchanges
@@ -38,7 +41,11 @@ exports.itemexchange = (req, res) => {
               itemname: doc1.data().itemname,
               itemtotal: req.body.itemTotal,
               totalprices: doc1.data().itemprice,
-              date: new Date()
+              date: new Date(),
+              img: doc1.data().itemimg,
+              status:"Waiting for HR",
+              name: doc2.data().name,
+              department: doc2.data().department
             })
               .then((docRef) => {
                 console.log('Document written with ID: ', docRef.id);
@@ -128,15 +135,15 @@ exports.createReward = async (req, res) => {
     const imgFilename = `Reward/${Date.now()}_${Math.floor(Math.random() * 1000000)}.${fileExtension}`;
 
     // Write the image buffer to a temporary file
-    ba64.writeImageSync(`temp`, img);
+    ba64.writeImageSync(`tmp`, img);
 
     // Upload the temporary file to Firebase Storage
     const storageRef = firebase.storage().ref();
     const imagesRef = storageRef.child(imgFilename);
-    const snapshot = await imagesRef.put(fs.readFileSync(`./temp.${fileExtension}`));
+    const snapshot = await imagesRef.put(fs.readFileSync(`/tmp.${fileExtension}`));
 
     // Delete the temporary file after upload
-    fs.unlinkSync(`./temp.${fileExtension}`);
+    fs.unlinkSync(`/tmp.${fileExtension}`);
 
     // Get the image download URL
     const imgUrl = await imagesRef.getDownloadURL();
@@ -159,6 +166,105 @@ exports.createReward = async (req, res) => {
     return res.status(400).json({ message: 'Bad request', error: e.message });
   }
 };
+// exports.createReward = async (req, res) => {
+//   try {
+//     console.log('Request Body:', req.body);
+//     // Validate the request
+//     const { id, name, detail, price, total, img } = req.body;
+//     if (!id || !name || !detail || !price || !total || !img) {
+//       console.error('Error in createReward: Invalid request. Please provide all required fields and an image.');
+//       return res.status(403).json({ error: 'Invalid request. Please provide all required fields and an image.' });
+//     }
+
+//     // Authentication
+//     const token = req.headers.authorization.split(' ')[1];
+//     const decodedToken = await admin.auth().verifyIdToken(token);
+//     const email = decodedToken.email;
+
+//     const fileExtension = img.split(';')[0].split('/')[1];
+
+//     // Generate a unique filename for the image
+//     const imgFilename = `Reward/${Date.now()}_${Math.floor(Math.random() * 1000000)}.${fileExtension}`;
+
+//     // Convert base64 image to buffer
+//     const imgBuffer = Buffer.from(img, 'base64');
+
+//     // Upload the image buffer to Firebase Storage
+//     const storageRef = firebase.storage().ref();
+//     const imagesRef = storageRef.child(imgFilename);
+//     const snapshot = await imagesRef.put(imgBuffer);
+
+//     // Get the image download URL
+//     const imgUrl = await imagesRef.getDownloadURL();
+
+//     // Create a new item in Firestore with the image URL
+//     const docRef = await firebase.firestore().collection('rewarditem').add({
+//       itemid: parseInt(id),
+//       Adder: email,
+//       itemname: name,
+//       itemdetail: detail,
+//       itemprice: parseInt(price),
+//       itemtotal: parseInt(total),
+//       itemimg: imgUrl,
+//     });
+
+//     console.log('Form item added with ID: ', docRef.id);
+//     return res.status(201).json({ message: 'Form item created successfully' });
+//   } catch (e) {
+//     console.error('Error in createReward:', e);
+//     return res.status(400).json({ message: 'Bad request', error: e.message });
+//   }
+// };
+// exports.createReward = async (req, res) => {
+//   try {
+//     console.log('Request Body:', req.body);
+//     // Validate the request
+//     const { id, name, detail, price, total, img } = req.body;
+//     if (!id || !name || !detail || !price || !total || !img) {
+//       console.error('Error in createReward: Invalid request. Please provide all required fields and an image.');
+//       return res.status(403).json({ error: 'Invalid request. Please provide all required fields and an image.' });
+//     }
+
+//     // Authentication
+//     const token = req.headers.authorization.split(' ')[1];
+//     const decodedToken = await admin.auth().verifyIdToken(token);
+//     const email = decodedToken.email;
+
+//     // Decode base64 image to a buffer
+//     const imgBuffer = Buffer.from(img, 'base64');
+
+//     // Generate a unique filename for the image
+//     const fileExtension = img.split(';')[0].split('/')[1];
+//     const imgFilename = `Reward/${Date.now()}_${Math.floor(Math.random() * 1000000)}.${fileExtension}`;
+
+//     // Upload the image buffer to Firebase Storage
+//     const storageRef = firebase.storage().ref();
+//     const imagesRef = storageRef.child(imgFilename);
+//     const snapshot = await imagesRef.put(imgBuffer);
+
+//     // Get the image download URL
+//     const imgUrl = await imagesRef.getDownloadURL();
+
+//     // Create a new item in Firestore with the image URL
+//     const docRef = await firebase.firestore().collection('rewarditem').add({
+//       itemid: parseInt(id),
+//       Adder: email,
+//       itemname: name,
+//       itemdetail: detail,
+//       itemprice: parseInt(price),
+//       itemtotal: parseInt(total),
+//       itemimg: imgUrl,
+//     });
+
+//     console.log('Form item added with ID: ', docRef.id);
+
+//     return res.status(201).json({ message: 'Form item created successfully' });
+//   } catch (e) {
+//     console.error('Error in createReward:', e);
+//     return res.status(400).json({ message: 'Bad request', error: e.message });
+//   }
+// };
+
 
 
 
