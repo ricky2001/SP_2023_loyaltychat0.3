@@ -5,6 +5,7 @@ import { useExchange } from '@/stores/api/index';
 import { setEmail } from '@/stores/auth/index';
 import axiosInstance from '../utils/api/axiosIntance.js';
 import Swal from 'sweetalert2';
+import { getCoin } from '@/stores/api/index';
 import './CardReward.css';
 
 function CardReward() {
@@ -65,6 +66,22 @@ function CardReward() {
   };
 
   const fetchData = async () => {
+    useEffect(() => {
+      // Initial fetch
+      dispatch(getCoin());
+      // Set up interval to continuously update coin data
+      const id = setInterval(() => {
+        dispatch(getCoin());
+      }, 3000); // Update every 5 seconds, adjust as needed
+  
+      setIntervalId(id);
+  
+      return () => {
+        // Clean up the interval when the component is unmounted
+        clearInterval(intervalId);
+      };
+    }, [dispatch]);
+    const coinUser = useSelector((state) => state.apiStore.coin);
     try {
       const response = await axiosInstance.get('api/getUserItemExchange');
       setItem(response.data);
@@ -97,7 +114,7 @@ function CardReward() {
     setItemTotal(e.target.value);
   };
 
-  const handleClickExchange = async (e, itemId,itemTotal) => {
+  const handleClickExchange = async (e, itemId,itemTotal,itemprice) => {
     e.preventDefault();
     
     if (itemtotal > 0 && itemtotal <= itemTotal) {
@@ -118,7 +135,15 @@ function CardReward() {
         });
         
         // Cancell();
-    } else {
+    } else if(coinUser<itemprice){
+      Swal.fire({
+        icon: "error",
+        title: "Exchange operation not performed. ",
+        text: "Your Stars not enough!",
+        confirmButtonColor:"#00324D",
+        
+      });
+    }else {
       console.log('Itemtotal is 0 or null. Exchange operation not performed.');
       Swal.fire({
         icon: "error",
@@ -310,7 +335,7 @@ function CardReward() {
               <br />
               <button className="bg-blue-500 hover.bg-blue-700 text-white font.bold py-2 px-4 rounded-xl" 
               // onClick={() => setShowexPopup(true)}
-              onClick={(e) => handleClickExchange(e, item.itemid,item.itemtotal)}
+              onClick={(e) => handleClickExchange(e, item.itemid,item.itemtotal,item.itemprice)}
               >
                 Exchange
               </button>
