@@ -105,15 +105,7 @@ function CardReward() {
 
   const handleClickExchange = async (e, itemId,itemTotal,itemprice) => {
     e.preventDefault();
-    if(coinUser<itemprice){
-      return Swal.fire({
-        icon: "error",
-        title: "Exchange operation not performed. ",
-        text: "Your Stars not enough!",
-        confirmButtonColor:"#00324D",
-        
-      });
-    }
+    
     if (itemtotal > 0 && itemtotal <= itemTotal) {
       dispatch(useExchange({ emailuser: emailUser, itemid: itemId, itemTotal: itemtotal }))
         .then(() => {
@@ -132,7 +124,15 @@ function CardReward() {
         });
         
         // Cancell();
-    } else {
+    } if(coinUser<itemprice){
+      return Swal.fire({
+        icon: "error",
+        title: "Exchange operation not performed. ",
+        text: "Your Stars not enough!",
+        confirmButtonColor:"#00324D",
+        
+      });
+    }else {
       console.log('Itemtotal is 0 or null. Exchange operation not performed.');
       Swal.fire({
         icon: "error",
