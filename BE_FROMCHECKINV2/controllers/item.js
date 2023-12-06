@@ -111,61 +111,6 @@ exports.getUserItemExchange = (req, res) => {
 };
 
 // Create a new item
-// exports.createReward = async (req, res) => {
-//   try {
-//     console.log('Request Body:', req.body);
-//     // Validate the request
-//     const { id, name, detail, price, total, img } = req.body;
-//     if (!id || !name || !detail || !price || !total || !img) {
-//       console.error('Error in createReward: Invalid request. Please provide all required fields and an image.');
-//     return res.status(403).json({ error: 'Invalid request. Please provide all required fields and an image.' });
-//   }
-
-//     // Extract the image buffer from the request body
-//     // const imgBuffer = Buffer.from(img, 'base64');
-
-//     // Authentication
-//     const token = req.headers.authorization.split(' ')[1];
-//     const decodedToken = await admin.auth().verifyIdToken(token);
-//     const email = decodedToken.email;
-
-//     const fileExtension = img.split(';')[0].split('/')[1];
-
-//     // Generate a unique filename for the image
-//     const imgFilename = `Reward/${Date.now()}_${Math.floor(Math.random() * 1000000)}.${fileExtension}`;
-
-//     // Write the image buffer to a temporary file
-//     ba64.writeImageSync(`tmp`, img);
-
-//     // Upload the temporary file to Firebase Storage
-//     const storageRef = firebase.storage().ref();
-//     const imagesRef = storageRef.child(imgFilename);
-//     const snapshot = await imagesRef.put(fs.readFileSync(`/tmp.${fileExtension}`));
-
-//     // Delete the temporary file after upload
-//     fs.unlinkSync(`/tmp.${fileExtension}`);
-
-//     // Get the image download URL
-//     const imgUrl = await imagesRef.getDownloadURL();
-
-//     // Create a new item in Firestore with the image URL
-//     const docRef = await firebase.firestore().collection('rewarditem').add({
-//       itemid: parseInt(id),
-//       Adder: email,
-//       itemname: name,
-//       itemdetail: detail,
-//       itemprice: parseInt(price),
-//       itemtotal: parseInt(total),
-//       itemimg: imgUrl,
-//     });
-
-//     console.log('Form item added with ID: ', docRef.id);
-//     return res.status(201).json({ message: 'Form item created successfully' });
-//   } catch (e) {
-//     console.error('Error in createReward:', e);
-//     return res.status(400).json({ message: 'Bad request', error: e.message });
-//   }
-// };
 exports.createReward = async (req, res) => {
   try {
     console.log('Request Body:', req.body);
@@ -221,6 +166,8 @@ exports.createReward = async (req, res) => {
     return res.status(400).json({ message: 'Bad request', error: e.message });
   }
 };
+
+
 
 
 
