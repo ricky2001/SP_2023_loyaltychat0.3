@@ -54,7 +54,7 @@ exports.checkgraph = (req, res) => {
             res.status(200).json(result);
         })
         .catch((error) => {
-            console.error('Error getting documents: ', error);
+            // console.error('Error getting documents: ', error);
             res.status(500).json({ error: 'Internal Server Error' });
         });
 };

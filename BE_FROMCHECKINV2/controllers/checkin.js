@@ -2,7 +2,7 @@ const firebase = require("./../config/firebase");
 const admin = require("./../config/firebaseadmin");
 
 exports.getUserDateCheckIn = (req, res) => {
-    console.log('start service');
+    // console.log('start service');
     const token = req.headers.authorization.split(" ")[1];
     let found;
     const data = [];
@@ -17,7 +17,7 @@ exports.getUserDateCheckIn = (req, res) => {
       firebase.firestore().collection('checkin').where('email', '==', email).get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
-            console.log(doc.id, ' => ', doc.data());
+            // console.log(doc.id, ' => ', doc.data());
             const dateObj = new Date(doc.data().dateCheckIn);
             dateObj.setDate(dateObj.getDate() - 1);
             const year = dateObj.getFullYear();
@@ -34,7 +34,7 @@ exports.getUserDateCheckIn = (req, res) => {
           }
         })
         .catch((error) => {
-          console.error('Error getting documents: ', error);
+          // console.error('Error getting documents: ', error);
           return res.status(500).json({ message: 'Internal server error' });
         });
     })
@@ -57,7 +57,7 @@ const date = new Date(timestamp);
 const options = { hour12: true, hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Bangkok' };
 const formattedTime = date.toLocaleString('en-US', options);
 
-console.log("Thailand Time:", formattedTime);
+// console.log("Thailand Time:", formattedTime);
 
   admin
     .auth()
@@ -71,11 +71,11 @@ console.log("Thailand Time:", formattedTime);
         time:formattedTime
       })
         .then((docRef) => {
-          console.log('Document checkIn written with ID: ', docRef.id);
+          // console.log('Document checkIn written with ID: ', docRef.id);
           return res.status(200).json({status:"success" , code:"200"})
         })
         .catch((error) => {
-          console.error('Error adding document: ', error);
+          // console.error('Error adding document: ', error);
           return res.status(500).json({ error: error.message });
         });
         
@@ -89,11 +89,11 @@ console.log("Thailand Time:", formattedTime);
               points: totalPoints,
             })
               .then(() => {
-                console.log('Points email to updated successfully');
+                // console.log('Points email to updated successfully');
               })
               .catch((error) => {
                   err = error
-                console.error('Error email to updating points: ', error);
+                // console.error('Error email to updating points: ', error);
               });
           });
         })

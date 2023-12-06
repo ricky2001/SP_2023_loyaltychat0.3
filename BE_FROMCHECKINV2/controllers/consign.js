@@ -25,11 +25,11 @@ exports.consign = (req, res) => {
     text: req.body?.text,
   })
     .then((docRef) => {
-      console.log('Document written with ID: ', docRef.id);
+      // console.log('Document written with ID: ', docRef.id);
     })
     .catch((error) => {
       err = error
-      console.error('Error adding document: ', error);
+      // console.error('Error adding document: ', error);
     });
   // find user data and update consign
 
@@ -43,17 +43,17 @@ exports.consign = (req, res) => {
           points: pointsDiff,
         })
           .then(() => {
-            console.log('Points from updated successfully');
+            // console.log('Points from updated successfully');
           })
           .catch((error) => {
             err = error
-            console.error('Error email to updating points: ', error);
+            // console.error('Error email to updating points: ', error);
           });
       });
     })
     .catch((error) => {
       err = error
-      console.error('Error email to getting documents: ', error);
+      // console.error('Error email to getting documents: ', error);
     });
 
 
@@ -67,17 +67,17 @@ exports.consign = (req, res) => {
           points: totalPoints,
         })
           .then(() => {
-            console.log('Points email to updated successfully');
+            // console.log('Points email to updated successfully');
           })
           .catch((error) => {
             err = error
-            console.error('Error email to updating points: ', error);
+            // console.error('Error email to updating points: ', error);
           });
       });
     })
     .catch((error) => {
       err = error
-      console.error('Error email to getting documents: ', error);
+      // console.error('Error email to getting documents: ', error);
     });
   return res.status(200).json({ status: 'success', code: '200' });
 
@@ -95,14 +95,14 @@ exports.getUserPointConsign = (req, res) => {
       firebase.firestore().collection('users').where('email', '==', email).get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
-            console.log(doc.id, ' => ', doc.data());
+            // console.log(doc.id, ' => ', doc.data());
             if (doc.data()) {
               return res.status(200).json(doc.data())
             }
           });
         })
         .catch((error) => {
-          console.error('Error getting documents: ', error);
+          // console.error('Error getting documents: ', error);
         });
     })
     .catch((error) => {

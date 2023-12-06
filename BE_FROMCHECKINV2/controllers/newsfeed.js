@@ -19,7 +19,7 @@ exports.getNews = (req, res) => {
       return res.status(200).json({ newsfeedItems });
     })
     .catch((error) => {
-      console.error('Error getting newsfeed items: ', error);
+      // console.error('Error getting newsfeed items: ', error);
       return res.status(500).json({ message: 'Internal server error' });
     });
 };
@@ -44,11 +44,11 @@ exports.createNews = (req, res) => {
           timestamp: new Date(),
         })
         .then((docRef) => {
-          console.log('Newsfeed item added with ID: ', docRef.id);
+          // console.log('Newsfeed item added with ID: ', docRef.id);
           return res.status(201).json({ message: 'Newsfeed item created successfully' });
         })
         .catch((error) => {
-          console.error('Error adding newsfeed item: ', error);
+          // console.error('Error adding newsfeed item: ', error);
           return res.status(500).json({ message: 'Internal server error' });
         });
     })
@@ -78,11 +78,11 @@ exports.updateNews = (req, res) => {
           timestamp: new Date(),
         })
         .then(() => {
-          console.log('Newsfeed item updated with ID: ', id);
+          // console.log('Newsfeed item updated with ID: ', id);
           return res.status(200).json({ message: 'Newsfeed item updated successfully' });
         })
         .catch((error) => {
-          console.error('Error updating newsfeed item: ', error);
+          // console.error('Error updating newsfeed item: ', error);
           return res.status(500).json({ message: 'Internal server error' });
         });
     })
@@ -107,11 +107,11 @@ exports.deleteNews = (req, res) => {
         .doc(id)
         .delete()
         .then(() => {
-          console.log('Newsfeed item deleted with ID: ', id);
+          // console.log('Newsfeed item deleted with ID: ', id);
           return res.status(200).json({ message: 'Newsfeed item deleted successfully' });
         })
         .catch((error) => {
-          console.error('Error deleting newsfeed item: ', error);
+          // console.error('Error deleting newsfeed item: ', error);
           return res.status(500).json({ message: 'Internal server error' });
         });
     })

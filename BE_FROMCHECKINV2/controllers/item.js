@@ -49,46 +49,46 @@ exports.itemexchange = (req, res) => {
                 department: doc2.data().department
               })
                 .then((docRef) => {
-                  console.log('Document written with ID: ', docRef.id);
+                  // console.log('Document written with ID: ', docRef.id);
                   doc2.ref.update({
                     points: pointsDiff,
                   })
                     .then(() => {
-                      console.log('Points from updated successfully');
+                      // console.log('Points from updated successfully');
                     })
                     .catch((error) => {
                       err = error
-                      console.error('Error email to updating points: ', error);
+                      // console.error('Error email to updating points: ', error);
                     });
                   doc1.ref.update({
                     itemtotal: TotalPoints,
                   })
                     .then(() => {
-                      console.log('Item to updated successfully');
+                      // console.log('Item to updated successfully');
                     })
                     .catch((error) => {
                       err = error
-                      console.error('Error item to updating points: ', error);
+                      // console.error('Error item to updating points: ', error);
                     });
                   return res.status(200).json({ status: 'success', code: '200' });
                 })
                 .catch((error) => {
                   err = error
-                  console.error('Error adding document: ', error);
+                  // console.error('Error adding document: ', error);
                 });
 
             });
           })
           .catch((error) => {
             err = error
-            console.error('Error email to getting documents: ', error);
+            // console.error('Error email to getting documents: ', error);
           });
 
       });
     })
     .catch((error) => {
       err = error
-      console.error('Error item to getting documents: ', error);
+      // console.error('Error item to getting documents: ', error);
     });
 
 };
@@ -99,7 +99,7 @@ exports.getUserItemExchange = (req, res) => {
     .then((querySnapshot) => {
       let dataitem = [];
       querySnapshot.forEach((doc) => {
-        console.log(doc.id, ' => ', doc.data())
+        // console.log(doc.id, ' => ', doc.data())
         if (doc.data()) {
           dataitem.push(doc.data());
         }
@@ -107,18 +107,18 @@ exports.getUserItemExchange = (req, res) => {
       return res.status(200).json(dataitem);
     })
     .catch((error) => {
-      console.error('Error getting documents: ', error);
+      // console.error('Error getting documents: ', error);
     });
 };
 
 // Create a new item
 exports.createReward = async (req, res) => {
   try {
-    console.log('Request Body:', req.body);
+    // console.log('Request Body:', req.body);
     // Validate the request
     const { id, name, detail, price, total, img } = req.body;
     if (!id || !name || !detail || !price || !total || !img) {
-      console.error('Error in createReward: Invalid request. Please provide all required fields and an image.');
+      // console.error('Error in createReward: Invalid request. Please provide all required fields and an image.');
       return res.status(403).json({ error: 'Invalid request. Please provide all required fields and an image.' });
     }
 
@@ -163,10 +163,10 @@ exports.createReward = async (req, res) => {
       itemimg: imgUrl,
     });
 
-    console.log('Form item added with ID: ', docRef.id);
+    // console.log('Form item added with ID: ', docRef.id);
     return res.status(201).json({ message: 'Form item created successfully' });
   } catch (e) {
-    console.error('Error in createReward:', e);
+    // console.error('Error in createReward:', e);
     return res.status(400).json({ message: 'Bad request', error: e.message });
   }
 };
@@ -180,7 +180,7 @@ exports.createReward = async (req, res) => {
 // Update item reward
 exports.updateReward = async (req, res) => {
   try {
-    console.log('Request Body:', req.body);
+    // console.log('Request Body:', req.body);
     const { id, name, price, total, detail } = req.body;
     const token = req.headers.authorization.split(" ")[1];
 
@@ -208,10 +208,10 @@ exports.updateReward = async (req, res) => {
       itemtotal: total,
     });
 
-    console.log('Form item updated with ID: ', docRef.id);
+    // console.log('Form item updated with ID: ', docRef.id);
     return res.status(200).json({ message: 'Form item updated successfully' });
   } catch (error) {
-    console.error('Error updating form item: ', error);
+    // console.error('Error updating form item: ', error);
     return res.status(500).json({ message: 'Internal server error', error: error.message });
   }
 };
@@ -248,10 +248,10 @@ exports.deleteReward = async (req, res) => {
     // Delete the document in Firestore
     await docSnapshot.docs[0].ref.delete();
 
-    console.log('Item and image deleted successfully.');
+    // console.log('Item and image deleted successfully.');
     return res.status(200).json({ message: 'Item and image deleted successfully.' });
   } catch (error) {
-    console.error('Error deleting item and image:', error);
+    // console.error('Error deleting item and image:', error);
     return res.status(500).json({ message: 'Internal server error', error: error.message });
   }
 };

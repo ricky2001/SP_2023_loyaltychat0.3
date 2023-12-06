@@ -28,7 +28,7 @@ exports.exchangehistory = async (req, res) => {
   
       res.json(data);
     } catch (error) {
-      console.error('Error retrieving data:', error);
+      // console.error('Error retrieving data:', error);
       res.status(500).send('Internal Server Error');
     }
   };
@@ -58,7 +58,7 @@ exports.updateStatus = async (req, res) => {
 
       res.json({ success: true, message: 'Status updated successfully' });
     } catch (error) {
-      console.error('Error updating status:', error);
+      // console.error('Error updating status:', error);
       res.status(500).json({ success: false, message: 'Internal Server Error' });
     }
   };

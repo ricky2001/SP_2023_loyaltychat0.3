@@ -27,7 +27,7 @@ exports.verifyToken = (req, res, next) => {
             });
           })
           .catch((error) => {
-            console.error('Error creating custom token: ', error);
+            // console.error('Error creating custom token: ', error);
             return res.status(500).json({ error: 'Internal server error' });
           });
       } else {
@@ -37,7 +37,7 @@ exports.verifyToken = (req, res, next) => {
       }
     })
     .catch((error) => {
-      console.error('Error verifying token: ', error);
+      // console.error('Error verifying token: ', error);
       return res.status(401).json({ error: 'Unauthorized', status: '401' });
     });
 };

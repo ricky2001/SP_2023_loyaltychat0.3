@@ -6,7 +6,7 @@ const apiKey = process.env.OPENAI_API_KEY;
 
 exports.getaiMessage = async (req, res) => {
   const reqobj = req.body;
-  console.log("test######:"+reqobj.message);
+  // console.log("test######:"+reqobj.message);
 
   try {
     const response = await axios.post('https://api.openai.com/v1/chat/completions', {
@@ -22,12 +22,12 @@ exports.getaiMessage = async (req, res) => {
       }
     });
 
-    console.log(response.data);
+    // console.log(response.data);
     res.json({
         messages: response.data.choices[0].message,
       });
   } catch (error) {
-    console.error('Error calling OpenAI API:', error);
+    // console.error('Error calling OpenAI API:', error);
   }
 }
 

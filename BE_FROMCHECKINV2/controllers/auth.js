@@ -59,11 +59,11 @@ firebase.auth().signInWithEmailAndPassword(req.body.email, req.body.password)
     if (user) {
       user.getIdToken()
         .then((idToken) => {
-          console.log('token', idToken);
+          // console.log('token', idToken);
           return res.status(200).json({ email: user.email, token: idToken });
         })
         .catch((error) => {
-          console.error('Error getting ID token: ', error);
+          // console.error('Error getting ID token: ', error);
           return res.status(500).json({ error: 'Internal server error' });
         });
     } else {

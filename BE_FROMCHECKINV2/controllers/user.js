@@ -21,12 +21,12 @@ exports.names = (req, res) => {
                     });
                 })
                 .catch((error) => {
-                    console.error("Error retrieving user name: ", error);
+                    // console.error("Error retrieving user name: ", error);
                     return res.status(500).json({ error: error.message });
                 });
         })
         .catch((error) => {
-            console.error("Error verifying ID token: ", error);
+            // console.error("Error verifying ID token: ", error);
             return res.status(401).json({ error: error.message });
         });
 };

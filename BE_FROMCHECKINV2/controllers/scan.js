@@ -40,20 +40,20 @@ exports.scan = async (req, res) => {
             eventname: event,
         })
         .then((docRef) => {
-            console.log('Document written with ID: ', docRef.id);
+            // console.log('Document written with ID: ', docRef.id);
 
             // Update user's points
             doc.ref.update({
                 points: newPoints
             }).then(() => {
-                console.log('Points updated successfully');
+                // console.log('Points updated successfully');
                 return res.status(200).json({
                     status: 'success',
                     code: '200'
                 });
             })
             .catch((error) => {
-                console.error('Error updating points: ', error);
+                // console.error('Error updating points: ', error);
                 return res.status(500).json({
                     status: 'Error updating points',
                     code: '500'
@@ -61,7 +61,7 @@ exports.scan = async (req, res) => {
             });
         })
         .catch((error) => {
-            console.error('Error adding document: ', error);
+            // console.error('Error adding document: ', error);
             return res.status(500).json({
                 status: 'Error adding document',
                 code: '500'
@@ -70,7 +70,7 @@ exports.scan = async (req, res) => {
     })
     })
     .catch((error) => {
-        console.error('Error finding user: ', error);
+        // console.error('Error finding user: ', error);
         return res.status(500).json({
             status: 'Error finding user',
             code: '500'
