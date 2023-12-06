@@ -75,7 +75,7 @@ function Newsfeed() {
           detail: updateDetail,
         });
       } catch (error) {
-        console.error("Failed to update news:", error);
+        // console.error("Failed to update news:", error);
       }
       closeEdit();
     }
@@ -90,7 +90,7 @@ function Newsfeed() {
     try {
       await axiosInstance.delete(`api/deleteNews?id=${id}`);
     } catch (error) {
-      console.error("Failed to delete news:", error);
+      // console.error("Failed to delete news:", error);
     }
     closeEdit();
     }

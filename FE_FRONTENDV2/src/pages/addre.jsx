@@ -31,7 +31,7 @@ function addre() {
   }, [email]);
 
   useEffect(() => {
-    console.log('Updated FormData:', formData);
+    // console.log('Updated FormData:', formData);
   }, [formData]);
 
   useEffect(() => {
@@ -48,7 +48,7 @@ function addre() {
       const reader = new FileReader();
   
       reader.onloadend = () => {
-        console.log('Image Result:', reader.result);
+        // console.log('Image Result:', reader.result);
   
         // Check the type of result (string or ArrayBuffer)
         if (typeof reader.result === 'string') {
@@ -62,7 +62,7 @@ function addre() {
             });
         } else if (reader.result instanceof ArrayBuffer) {
           // Handle ArrayBuffer case (you might want to convert it to a string or Blob)
-          console.error('ArrayBuffer is not supported in this example.');
+          // console.error('ArrayBuffer is not supported in this example.');
         }
       };
   
@@ -75,7 +75,7 @@ function addre() {
   function dataURLtoBlob(dataURL) {
     if (typeof dataURL !== 'string') {
       // Handle the case where dataURL is not a string
-      console.error('Invalid dataURL:', dataURL);
+      // console.error('Invalid dataURL:', dataURL);
       return null; // or return an appropriate default value
     }
     const arr = dataURL.split(',');
@@ -131,7 +131,7 @@ function addre() {
     try {
   
       const response = await axiosInstance.post('api/createreward', data);
-  console.log('Backend Response:', response.data);
+  // console.log('Backend Response:', response.data);
   
       setFormData({
         id: "",
@@ -144,7 +144,7 @@ function addre() {
       setImages([]);
       navigate("/point");
     } catch (error) {
-      console.error('Error sending data to backend:', error);
+      // console.error('Error sending data to backend:', error);
       alert('Error sending data to backend. Please check the console for details.');
     }
   };

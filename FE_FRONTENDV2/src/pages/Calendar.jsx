@@ -80,7 +80,7 @@ function CalendarPage() {
 
  async function handleClickCheckin(){
         let dateCheckIn = moment().format('YYYY-MM-DD')
-        console.log(dateCheckIn)
+        // console.log(dateCheckIn)
         await dispatch(checkIn({dateCheckIn,star}))
         await dispatch(getHistory())
         // setShowDate(history);
@@ -107,10 +107,10 @@ if(dates.includes(deleteOneday.format('YYYY-MM-DD'))){
             
             break;
         }
-        console.log(dates[i],dates[i-1])
+        // console.log(dates[i],dates[i-1])
 
         const diff = moment(dates[i]).diff(moment(dates[i-1]), 'days');
-        console.log(diff)
+        // console.log(diff)
         if (diff === 1) {
             maxCount++;
         }

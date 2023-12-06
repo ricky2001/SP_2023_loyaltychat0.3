@@ -20,7 +20,7 @@ function ExchangeHistory() {
       }));
       setHistory(data);
     } catch (error) {
-      console.error("Error fetching exchange history:", error);
+      // console.error("Error fetching exchange history:", error);
     }
   };
 
@@ -36,7 +36,7 @@ function ExchangeHistory() {
       });
       fetchExchangeHistory(); // Refresh the exchange history after status update
     } catch (error) {
-      console.error("Error updating status:", error);
+      // console.error("Error updating status:", error);
     }
   };
 

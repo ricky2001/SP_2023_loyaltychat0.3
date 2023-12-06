@@ -22,7 +22,7 @@ const QRCodeScanner = () => {
 
   const fetchData = () => {
     // Implement the logic to fetch updated data here
-    console.log('Fetching updated data...');
+    // console.log('Fetching updated data...');
   };
 
   useEffect(() => {
@@ -61,25 +61,25 @@ const QRCodeScanner = () => {
                   .then(() => {
                     // Fetch updated data after the exchange operation is successful
                     fetchData();
-                    console.log('Fetch updated data successful!');
+                    // console.log('Fetch updated data successful!');
                     navigate("/calendar");
                     // Reset input fields or clear any other necessary states
                   })
                   .catch(error => {
                     // Handle error if the exchange operation fails
-                    console.error('Exchange error:', error);
+                    // console.error('Exchange error:', error);
                   });
                 setScannedData(result.getText());
               } else if (error && error instanceof NotFoundException) {
-                console.log('No QR code found.');
+                // console.log('No QR code found.');
               }
             });
           } else {
-            console.error('No video input devices found.');
+            // console.error('No video input devices found.');
           }
         })
         .catch((err) => {
-          console.error('Error accessing video devices:', err);
+          // console.error('Error accessing video devices:', err);
         });
     }
 
@@ -89,10 +89,10 @@ const QRCodeScanner = () => {
   }, [selectedDeviceIndex, emailUser]);
 
   const switchCamera = () => {
-    console.log('Switching camera...');
+    // console.log('Switching camera...');
     if (videoInputDevices.length > 1) {
       setSelectedDeviceIndex((selectedDeviceIndex + 1) % videoInputDevices.length);
-      console.log('Selected device index:', selectedDeviceIndex);
+      // console.log('Selected device index:', selectedDeviceIndex);
     }
   };
 

@@ -70,7 +70,7 @@ function CheckInGraph() {
             });
           })
           .catch(error => {
-            console.error("Error fetching data:", error);
+            // console.error("Error fetching data:", error);
           });
       }, []);
       const getHeight = () => {

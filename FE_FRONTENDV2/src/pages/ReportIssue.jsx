@@ -23,18 +23,18 @@ const ReportIssue = () => {
         email: email,
       });
 
-      console.log('Response:', response.data);
+      // console.log('Response:', response.data);
 
       if (response.status === 200) {
-        console.log('Issue submitted successfully!');
+        // console.log('Issue submitted successfully!');
         // Optionally, you can reset the form fields or navigate to a success page
         setApplicationIssue('');
         setEmail('');
       } else {
-        console.error('Failed to submit issue.');
+        // console.error('Failed to submit issue.');
       }
     } catch (error) {
-      console.error('Error submitting issue:', error);
+      // console.error('Error submitting issue:', error);
     }
   };
 

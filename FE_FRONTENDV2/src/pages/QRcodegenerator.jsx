@@ -23,7 +23,7 @@ function QRcodegenerator() {
         setOriginalFormItems(items);
       })
       .catch(error => {
-        console.error('Error fetching form data:', error);
+        // console.error('Error fetching form data:', error);
       });
   }, []);
 

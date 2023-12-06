@@ -27,23 +27,23 @@ function CardReward() {
   
   const handleConfirmation = () => {
     // Handle confirmation logic here
-    console.log('Confirmed');
+    // console.log('Confirmed');
     setShowPopup(false);
   };
 
   const handleCancellation = () => {
     // Handle cancellation logic here
-    console.log('Cancelled');
+    // console.log('Cancelled');
     setShowPopup(false);
   };
   const Cancellation = () => {
     // Handle cancellation logic here
-    console.log('Cancelled');
+    // console.log('Cancelled');
     setShowdelPopup(false);
   };
   const Cancell = () => {
     // Handle cancellation logic here
-    console.log('Cancelled');
+    // console.log('Cancelled');
     setShowexPopup(false);
   };
   const openEditPopup = (itemId) => {
@@ -70,7 +70,7 @@ function CardReward() {
       const response = await axiosInstance.get('api/getUserItemExchange');
       setItem(response.data);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      // console.error('Error fetching data:', error);
     }
   };
   useEffect(() => {
@@ -110,7 +110,7 @@ function CardReward() {
       dispatch(useExchange({ emailuser: emailUser, itemid: itemId, itemTotal: itemtotal }))
         .then(() => {
           fetchData();
-          console.log('Fetch updated data successful!');
+          // console.log('Fetch updated data successful!');
           setItemId('');
           setItemTotal('');
           Swal.fire({
@@ -120,7 +120,7 @@ function CardReward() {
           });
         })
         .catch((error) => {
-          console.error('Exchange error:', error);
+          // console.error('Exchange error:', error);
         });
         
         // Cancell();
@@ -133,7 +133,7 @@ function CardReward() {
         
       });
     }else {
-      console.log('Itemtotal is 0 or null. Exchange operation not performed.');
+      // console.log('Itemtotal is 0 or null. Exchange operation not performed.');
       Swal.fire({
         icon: "error",
         title: "Exchange operation not performed. ",
@@ -142,15 +142,15 @@ function CardReward() {
         
       });
     }
-    console.log(total);
-    console.log('Item ID:', itemId);
-    console.log('Email User:', emailUser);
-    console.log('Item Total:', itemtotal);
+    // console.log(total);
+    // console.log('Item ID:', itemId);
+    // console.log('Email User:', emailUser);
+    // console.log('Item Total:', itemtotal);
     
   };
 
   const handleUpdateReward = async () => {
-    console.log('Updating Reward. Name:', name, 'Detail:', detail, 'Price:', price, 'Total:', total);
+    // console.log('Updating Reward. Name:', name, 'Detail:', detail, 'Price:', price, 'Total:', total);
     try {
       const updateData = {
         email: emailUser,
@@ -160,7 +160,7 @@ function CardReward() {
         price: parseInt(price),
         total: parseInt(total),
       };
-      console.log('Update Data:', updateData);
+      // console.log('Update Data:', updateData);
       const response = await axiosInstance.post('api/updatereward', updateData);
       const Toast = Swal.mixin({
         toast: true,
@@ -179,13 +179,13 @@ function CardReward() {
       });
 
       if (response.status === 200) {
-        console.log('Reward updated successfully!');
+        // console.log('Reward updated successfully!');
         fetchData();
       } else {
-        console.error('Error updating reward:', response.data.message);
+        // console.error('Error updating reward:', response.data.message);
       }
     } catch (error) {
-      console.error('Error updating reward:', error.message);
+      // console.error('Error updating reward:', error.message);
     }
 
     closeEditPopup();
@@ -195,7 +195,7 @@ function CardReward() {
 
 
   const handleDeleteReward = async (itemId) => {
-    console.log('Deleting item with ID:', itemId);
+    // console.log('Deleting item with ID:', itemId);
     Swal.fire({
       title: "Do you want to delete it?",
       

@@ -28,7 +28,7 @@ function YouReward() {
           setRewardData(response.data);
         }
       } catch (error) {
-        console.error('Error fetching reward data:', error);
+        // console.error('Error fetching reward data:', error);
         Swal.fire({
           icon: 'error',
           title: 'Error',

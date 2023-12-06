@@ -120,7 +120,7 @@ function Form() {
       const sortedForm = response.data.formItems.sort((a, b) => b.timestamp - a.timestamp);
       setFormList(sortedForm);
     } catch (error) {
-      console.error('Failed to fetch data:', error);
+      // console.error('Failed to fetch data:', error);
     }
   };
 
@@ -139,7 +139,7 @@ function Form() {
 
       // Fetch updated data after the exchange operation is successful
       fetchData();
-      console.log('Fetch updated data successful!');
+      // console.log('Fetch updated data successful!');
 
       // Reset input fields or clear any other necessary states
       setSatisfactionLevel('');
@@ -147,7 +147,7 @@ function Form() {
       closePopupForm();
     } catch (error) {
       // Handle error if the exchange operation fails
-      console.error('Exchange error:', error);
+      // console.error('Exchange error:', error);
     }
   };
 
