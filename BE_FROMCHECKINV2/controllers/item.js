@@ -5,6 +5,7 @@ const fs = require('fs');
 const ba64 = require("ba64");
 const sharp = require('sharp');
 const sizeOf = require('image-size');
+const tempDir = require('os').tmpdir();
 
 
 //rewaed exchanges
@@ -135,15 +136,18 @@ exports.createReward = async (req, res) => {
     const imgFilename = `Reward/${Date.now()}_${Math.floor(Math.random() * 1000000)}.${fileExtension}`;
 
     // Write the image buffer to a temporary file
-    ba64.writeImageSync(`temp`, img);
+    // ba64.writeImageSync(`temp`, img);
+    
+ba64.writeImageSync(`${tempDir}/temp`, img);
+
 
     // Upload the temporary file to Firebase Storage
     const storageRef = firebase.storage().ref();
     const imagesRef = storageRef.child(imgFilename);
-    const snapshot = await imagesRef.put(fs.readFileSync(`./temp.${fileExtension}`));
+    const snapshot = await imagesRef.put(fs.readFileSync(`${tempDir}/temp.${fileExtension}`));
 
     // Delete the temporary file after upload
-    fs.unlinkSync(`./temp.${fileExtension}`);
+    fs.unlinkSync(`${tempDir}/temp.${fileExtension}`);
 
     // Get the image download URL
     const imgUrl = await imagesRef.getDownloadURL();
