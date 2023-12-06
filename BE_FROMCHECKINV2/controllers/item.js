@@ -18,48 +18,48 @@ exports.itemexchange = (req, res) => {
         const OldPoints1 = doc1.data().itemtotal;
         const NewPoints1 = req.body.itemTotal;
         const TotalPoints = OldPoints1 - NewPoints1;
-        if(TotalPoints<0){
+        if (TotalPoints < 0) {
           return res.status(500).json({
             status: "Out of stock",
             code: "500"
           });
         }
         firebase.firestore().collection('users').where('email', '==', req.body.emailuser).get()
-        .then((querySnapshot2) => {
-          querySnapshot2.forEach((doc2) => {
-            const oldPoints2 = doc2.data().points;
-            const newPoints2 = doc1.data().itemprice*req.body.itemTotal;
-            const pointsDiff = oldPoints2 - newPoints2;
-            if(pointsDiff < 0) {
-              return res.status(500).json({
-                    status: "You stars not enough points",
-                    code: "500"
-                  });
-            }
-            firebase.firestore().collection('rewardexchange').add({
-              emailuser: req.body.emailuser,
-              itemid: req.body.itemid,
-              itemname: doc1.data().itemname,
-              itemtotal: req.body.itemTotal,
-              totalprices: doc1.data().itemprice,
-              date: new Date(),
-              img: doc1.data().itemimg,
-              status:"Waiting for HR",
-              name: doc2.data().name,
-              department: doc2.data().department
-            })
-              .then((docRef) => {
-                console.log('Document written with ID: ', docRef.id);
-                doc2.ref.update({
-                  points: pointsDiff,
-                })
-                  .then(() => {
-                    console.log('Points from updated successfully');
+          .then((querySnapshot2) => {
+            querySnapshot2.forEach((doc2) => {
+              const oldPoints2 = doc2.data().points;
+              const newPoints2 = doc1.data().itemprice * req.body.itemTotal;
+              const pointsDiff = oldPoints2 - newPoints2;
+              if (pointsDiff < 0) {
+                return res.status(500).json({
+                  status: "You stars not enough points",
+                  code: "500"
+                });
+              }
+              firebase.firestore().collection('rewardexchange').add({
+                emailuser: req.body.emailuser,
+                itemid: req.body.itemid,
+                itemname: doc1.data().itemname,
+                itemtotal: req.body.itemTotal,
+                totalprices: doc1.data().itemprice,
+                date: new Date(),
+                img: doc1.data().itemimg,
+                status: "Waiting for HR",
+                name: doc2.data().name,
+                department: doc2.data().department
+              })
+                .then((docRef) => {
+                  console.log('Document written with ID: ', docRef.id);
+                  doc2.ref.update({
+                    points: pointsDiff,
                   })
-                  .catch((error) => {
-                    err = error
-                    console.error('Error email to updating points: ', error);
-                  });
+                    .then(() => {
+                      console.log('Points from updated successfully');
+                    })
+                    .catch((error) => {
+                      err = error
+                      console.error('Error email to updating points: ', error);
+                    });
                   doc1.ref.update({
                     itemtotal: TotalPoints,
                   })
@@ -70,20 +70,20 @@ exports.itemexchange = (req, res) => {
                       err = error
                       console.error('Error item to updating points: ', error);
                     });
-                    return res.status(200).json({ status: 'success', code: '200' });
-              })
-              .catch((error) => {
-                err = error
-                console.error('Error adding document: ', error);
-              });
-           
+                  return res.status(200).json({ status: 'success', code: '200' });
+                })
+                .catch((error) => {
+                  err = error
+                  console.error('Error adding document: ', error);
+                });
+
+            });
+          })
+          .catch((error) => {
+            err = error
+            console.error('Error email to getting documents: ', error);
           });
-        })
-        .catch((error) => {
-          err = error
-          console.error('Error email to getting documents: ', error);
-        });
-       
+
       });
     })
     .catch((error) => {
@@ -95,20 +95,20 @@ exports.itemexchange = (req, res) => {
 
 
 exports.getUserItemExchange = (req, res) => {
-      firebase.firestore().collection('rewarditem').get()
-        .then((querySnapshot) => {
-          let dataitem = [];
-          querySnapshot.forEach((doc) => {
-            console.log(doc.id, ' => ', doc.data())
-            if (doc.data()) {
-              dataitem.push(doc.data());
-            }
-          });
-          return res.status(200).json(dataitem);
-        })
-        .catch((error) => {
-          console.error('Error getting documents: ', error);
-        });
+  firebase.firestore().collection('rewarditem').get()
+    .then((querySnapshot) => {
+      let dataitem = [];
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, ' => ', doc.data())
+        if (doc.data()) {
+          dataitem.push(doc.data());
+        }
+      });
+      return res.status(200).json(dataitem);
+    })
+    .catch((error) => {
+      console.error('Error getting documents: ', error);
+    });
 };
 
 // Create a new item
@@ -119,8 +119,8 @@ exports.createReward = async (req, res) => {
     const { id, name, detail, price, total, img } = req.body;
     if (!id || !name || !detail || !price || !total || !img) {
       console.error('Error in createReward: Invalid request. Please provide all required fields and an image.');
-    return res.status(403).json({ error: 'Invalid request. Please provide all required fields and an image.' });
-  }
+      return res.status(403).json({ error: 'Invalid request. Please provide all required fields and an image.' });
+    }
 
     // Extract the image buffer from the request body
     // const imgBuffer = Buffer.from(img, 'base64');
@@ -137,8 +137,8 @@ exports.createReward = async (req, res) => {
 
     // Write the image buffer to a temporary file
     // ba64.writeImageSync(`temp`, img);
-    
-ba64.writeImageSync(`${tempDir}/temp`, img);
+
+    ba64.writeImageSync(`${tempDir}/temp`, img);
 
 
     // Upload the temporary file to Firebase Storage
@@ -222,7 +222,7 @@ exports.updateReward = async (req, res) => {
 exports.deleteReward = async (req, res) => {
   try {
     const { itemid } = req.body;
-    
+
     if (!itemid) {
       return res.status(400).json({ error: 'Invalid request. Missing itemid in the request body.' });
     }
