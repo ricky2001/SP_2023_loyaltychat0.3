@@ -88,7 +88,15 @@ function FormConsign(){
     
       const handleSubmit = async (e) => {
         e.preventDefault();
-    
+        if (emailTarget==emailUser){
+             Swal.fire({
+                icon: 'error',
+                title: 'Submit failed',
+                text: 'You can not sent to own email!',
+                confirmButtonColor: '#00324D',
+              });
+             return setToggle(!toggle);
+        }
         if (pointSender > 0 && pointSender <= coinUser && emailTarget !== '') {
           // Call the notification service here
         //   await sendNotification(emailTarget, 'New Notification', 'You have a new notification!');
