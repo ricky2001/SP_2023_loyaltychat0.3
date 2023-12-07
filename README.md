@@ -15,7 +15,7 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#deploy">Deploy</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -108,27 +108,134 @@ You can use this command(npm run dev) in both frontend and backend. If you want 
 <!-- ROADMAP -->
 ## Deploy
 If you want to deploy this project, you have to do by step:
+
+First you have to open Visual Studio Code, then open project folder.
+
 For frontend
-1. 
+
+1. Open folder `FE_FRONTENDV2`, then go into `src\utils\api`
+
+2. You will see `axiosIntance.js` file, then open it.
+
+3. You will see code in line 6 and 7,
+  ```sh
+  const baseURL = 'http://localhost:3000/';
+//  const baseURL = 'https://us-central1-loyalty-e5fdd.cloudfunctions.net/api';
+  ```
+Change to be this.
+```sh
+//  const baseURL = 'http://localhost:3000/';
+  const baseURL = 'https://us-central1-loyalty-e5fdd.cloudfunctions.net/api';
+  ```
+
+4. Open terminal and go into frontend folder.
+  ```sh
+  cd FE_FRONTENDV2
+  ```
+
+5. After that run this command for deploy frontend.
+  ```sh
+  firebase deploy
+  ```
+  Then wait until it finish.
+
+For backend
+
+1. Open folder `BE_FROMCHECKINV2`, You will see `app.js` file, then open it.
+
+2. You will see code in app.js,
+  ```sh
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require('cors');
+const app = express();
+
+// Routes
+const authRoutes = require("./routes/auth");
+
+app.use(bodyParser.json({ extended: false,limit:'10mb' }));
+app.use(cors()); 
+
+// Routes
+app.use("/api", authRoutes);
+
+// PORT
+const port = 3000;
+
+// Starting a server
+app.listen(port, () => {
+  console.log(Start server : ${port});
+});
+
+//for deploy
+// const express = require("express");
+// const bodyParser = require("body-parser");
+// const cors = require('cors');
+// const app = express();
+// const functions = require('firebase-functions');
+// const authRoutes = require("./routes/auth");
+
+// app.use(bodyParser.json({ extended: false ,limit:'10mb'}));
+// app.use(cors()); 
+
+// // Routes
+// app.use("/api", authRoutes);
+
+// exports.api = functions.https.onRequest(app);
+  ```
+Change to be this.
+```sh
+// const express = require("express");
+// const bodyParser = require("body-parser");
+// const cors = require('cors');
+// const app = express();
+
+// Routes
+// const authRoutes = require("./routes/auth");
+
+// app.use(bodyParser.json({ extended: false,limit:'10mb' }));
+// app.use(cors()); 
+
+// Routes
+// app.use("/api", authRoutes);
+
+// PORT
+// const port = 3000;
+
+// Starting a server
+// app.listen(port, () => {
+//   console.log(Start server : ${port});
+// });
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+// for deploy
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require('cors');
+const app = express();
+const functions = require('firebase-functions');
+const authRoutes = require("./routes/auth");
 
+app.use(bodyParser.json({ extended: false ,limit:'10mb'}));
+app.use(cors()); 
 
+// Routes
+app.use("/api", authRoutes);
 
-<!-- CONTRIBUTING -->
-## Contributing
+exports.api = functions.https.onRequest(app);
+  ```
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+4. Open terminal and go into frontend folder.
+  ```sh
+  cd BE_FROMCHECKINV2
+  ```
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
+5. After that run this command for deploy frontend.
+  ```sh
+  firebase deploy
+  ```
+  Then wait until it finish, After you done every steps it is mean you deploy successful.
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -136,8 +243,15 @@ Don't forget to give the project a star! Thanks again!
 
 <!-- LICENSE -->
 ## License
+MFU
+IT school, SE major(Gen 16) 
+ID:6331305002 Mr. JIRAWAT RATSAMEE
+ID:6331305007 Mr. CHINDANAI POTIJUNTAJINDA
+ID:6331305014 Mr. NUNTAWAT PRANGSANGWILAI
+ID:6331305023 Mrs. RISA SIRIROT
+ID:6331305037 Mr. PHEERAPHOL MEKKHARACH
+ID:6331305048 Mr. Sai Reacky
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
