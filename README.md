@@ -46,6 +46,16 @@ This project used framework Reactjs + Vite and used Nodejs with Express.js.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+### Installation
+
+How you can instruct our audience on installing and setting up our app.
+
+1. First, in git repository press code button and select HTTPS and coppy link
+2. Clone the repo by type this command in terminal
+   
+   ```sh
+   git clone https://github.com/ricky2001/loyaltychat0.3.git
+   ```
 
 
 <!-- GETTING STARTED -->
@@ -72,23 +82,8 @@ After you go into root folders of backend and frontend, you have to type npm com
   npm install
   ```
 
-### Installation
 
-How you can instruct our audience on installing and setting up our app.
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -97,26 +92,25 @@ How you can instruct our audience on installing and setting up our app.
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+After you install in each folders finished, you have to run this command for running our project.
+* npm run dev
+  ```sh
+  npm run dev
+  ```
+You can use this command(npm run dev) in both frontend and backend. If you want to see the database, you can see on firebase.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+[![Firebase][Firebase]][Firebase-url] (click this to go see our firebase)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
 <!-- ROADMAP -->
-## Roadmap
+## Deploy
+If you want to deploy this project, you have to do by step:
+For frontend
+1. 
 
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
-
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
