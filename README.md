@@ -51,20 +51,30 @@ This project used framework Reactjs + Vite and used Nodejs with Express.js.
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+After you clone this project open terminal, you have to go in two folders.
+this cd into frontend folder
+  ```sh
+  cd FE_FRONTENDV2
+  ```
+after you go in frontend folder you have to open new cmd for go in to backend folder and this cd into backend folder
+  ```sh
+  cd BE_FROMCHECKINV2
+  ```
+
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+After you go into root folders of backend and frontend, you have to type npm command for install package.
 * npm
   ```sh
-  npm install npm@latest -g
+  npm i
+  or
+  npm install
   ```
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+How you can instruct our audience on installing and setting up our app.
 
 1. Get a free API Key at [https://example.com](https://example.com)
 2. Clone the repo
