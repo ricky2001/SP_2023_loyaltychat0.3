@@ -28,6 +28,10 @@
 
 Loyalty is important with a company to make employees comfortable and happy while doing work and the interaction among employees is important too. So with the hybrid mode that employees work their job sometime in home or company, that may make the problem about loyalty with  employees less interaction among employees.With the benefit that employees in the company are rewarded for their more interactions, they are more loyalty and may be able to focus their job better and challenging the employee with a check in work so the employee can check in and get reward by collect check in stack.
 
+This is our deployed web app: https://loyalty-e5fdd.web.app/
+
+You can use this username `test1@gmail.com`, `test2@gmail.com` and password `12345678` for use our web app.
+
 
 ### Built With
 
@@ -80,8 +84,13 @@ After you go into root folders of backend and frontend, you have to type npm com
   npm install
   ```
 
-
-
+In backend folder, you have to create `.env` file that contain the api key from openai and resend.
+* .env
+  ```sh
+  OPENAI_API_KEY="your openai api key"
+  JOB_ID="your job model from fine tuning openai"
+  RESEND_API="your resend apik key"
+  ```
 
 <p align="right">(<a href="#about-the-project">back to top</a>)</p>
 
@@ -95,7 +104,11 @@ After you install in each folders finished, you have to run this command for run
   ```sh
   npm run dev
   ```
-You can use this command(npm run dev) in both frontend and backend. If you want to see the database, you can see on firebase.
+You can use this command(npm run dev) in both frontend and backend. 
+
+You can use this username `test1@gmail.com`, `test2@gmail.com` and password `12345678` for use our web app.
+
+If you want to see the database, you can see on firebase.
 
 [![Firebase][Firebase]][Firebase-url] (click this to go see our firebase)
 
