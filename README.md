@@ -42,7 +42,7 @@ This project used framework Reactjs + Vite and used Nodejs with Express.js.
 * [![Resend](https://img.shields.io/badge/Resend-white?style=for-the-badge&logo=data:image/png;base64,iVBORw0KG...)](https://resend.com/)
 * [![Firebase][Firebase]][Firebase-url]
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#about-the-project">back to top</a>)</p>
 
 
 <!-- GETTING STARTED -->
@@ -83,7 +83,7 @@ After you go into root folders of backend and frontend, you have to type npm com
 
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#about-the-project">back to top</a>)</p>
 
 
 
@@ -99,7 +99,7 @@ You can use this command(npm run dev) in both frontend and backend. If you want 
 
 [![Firebase][Firebase]][Firebase-url] (click this to go see our firebase)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#about-the-project">back to top</a>)</p>
 
 
 
@@ -235,7 +235,7 @@ exports.api = functions.https.onRequest(app);
   Then wait until it finish, After you done every steps it is mean you deploy successful.
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#about-the-project">back to top</a>)</p>
 
 
 
@@ -259,7 +259,7 @@ ID:6331305037 Mr. PHEERAPHOL MEKKHARACH
 ID:6331305048 Mr. Sai Reacky
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#about-the-project">back to top</a>)</p>
 
 
 
@@ -270,7 +270,7 @@ Email Adress - 6331305007@lamduan.mfu.ac.th - 6331305023@lamduan.mfu.ac.th
 
 Project Link: [https://github.com/ricky2001/loyaltychat0.3.git](https://github.com/ricky2001/loyaltychat0.3.git)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#about-the-project">back to top</a>)</p>
 
 
 
