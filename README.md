@@ -56,7 +56,7 @@ How you can instruct our audience on installing and setting up our app.
 2. Clone the repo by type this command in terminal
    
    ```sh
-   git clone https://github.com/ricky2001/loyaltychat0.3.git
+   git clone https://github.com/ricky2001/SP_2023_loyaltychat0.3.git
    ```
    
 After you clone this project open terminal, you have to go in two folders.
@@ -268,7 +268,7 @@ ID:6331305048 Mr. Sai Reacky
 
 Email Adress - 6331305007@lamduan.mfu.ac.th - 6331305023@lamduan.mfu.ac.th
 
-Project Link: [https://github.com/ricky2001/loyaltychat0.3.git](https://github.com/ricky2001/loyaltychat0.3.git)
+Project Link: [https://github.com/ricky2001/SP_2023_loyaltychat0.3.git](https://github.com/ricky2001/SP_2023_loyaltychat0.3.git)
 
 <p align="right">(<a href="#about-the-project">back to top</a>)</p>
 
