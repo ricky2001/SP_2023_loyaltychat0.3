@@ -46,7 +46,6 @@ This project used framework Reactjs + Vite and used Nodejs with Express.js.
 * [![Resend](https://img.shields.io/badge/Resend-white?style=for-the-badge&logo=data:image/png;base64,iVBORw0KG...)](https://resend.com/)
 * [![Firebase][Firebase]][Firebase-url]
 
-<p align="right">(<a href="#about-the-project">back to top</a>)</p>
 
 
 <!-- GETTING STARTED -->
