@@ -10,16 +10,14 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
+        <li><a href="#prerequisites">Prerequisites</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#deploy">Deploy</a></li>
-    <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -46,6 +44,10 @@ This project used framework Reactjs + Vite and used Nodejs with Express.js.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+
+<!-- GETTING STARTED -->
+## Getting Started
+
 ### Installation
 
 How you can instruct our audience on installing and setting up our app.
@@ -56,11 +58,7 @@ How you can instruct our audience on installing and setting up our app.
    ```sh
    git clone https://github.com/ricky2001/loyaltychat0.3.git
    ```
-
-
-<!-- GETTING STARTED -->
-## Getting Started
-
+   
 After you clone this project open terminal, you have to go in two folders.
 this cd into frontend folder
   ```sh
@@ -243,13 +241,21 @@ exports.api = functions.https.onRequest(app);
 
 <!-- LICENSE -->
 ## License
+
 MFU
+
 IT school, SE major(Gen 16) 
+
 ID:6331305002 Mr. JIRAWAT RATSAMEE
+
 ID:6331305007 Mr. CHINDANAI POTIJUNTAJINDA
+
 ID:6331305014 Mr. NUNTAWAT PRANGSANGWILAI
+
 ID:6331305023 Mrs. RISA SIRIROT
+
 ID:6331305037 Mr. PHEERAPHOL MEKKHARACH
+
 ID:6331305048 Mr. Sai Reacky
 
 
@@ -260,29 +266,12 @@ ID:6331305048 Mr. Sai Reacky
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Email Adress - 6331305007@lamduan.mfu.ac.th - 6331305023@lamduan.mfu.ac.th
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
-
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
-* [Malven's Grid Cheatsheet](https://grid.malven.co/)
-* [Img Shields](https://shields.io)
-* [GitHub Pages](https://pages.github.com)
-* [Font Awesome](https://fontawesome.com)
-* [React Icons](https://react-icons.github.io/react-icons/search)
+Project Link: [https://github.com/ricky2001/loyaltychat0.3.git](https://github.com/ricky2001/loyaltychat0.3.git)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 
 
