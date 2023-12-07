@@ -26,7 +26,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Loyalty is important with a company to make employees comfortable and happy while doing work and the interaction among employees is important too. So with the hybrid mode that employees work their job sometime in home or company, that may make the problem about loyalty with  employees less interaction among employees.With the benefit that employees in the company are rewarded for their more interactions, they are more loyalty and may be able to focus their job better and challenging the employee with a check in work so the employee can check in and get reward by collect check in stack.
+Loyalty is important with a company to make employees comfortable and happy while doing work and the interaction among employees is important too. So with the hybrid mode that employees work their job sometime in home or company, that may make the problem about loyalty with  employees less interaction among employees.With the benefit that employees in the company are rewarded for their more interactions, they are more loyalty and may be able to focus their job better and challenging the employee with a check in work so the employee can check in and get reward by collect check in stack. And for this project we have two groups to do, First is Loyalty Program group and second is Chat Bot group. Even though we do this project in two groups. But the division has been clearly divided for function.
 
 This is our deployed web app: https://loyalty-e5fdd.web.app/
 
@@ -258,17 +258,17 @@ MFU
 
 IT school, SE major(Gen 16) 
 
-ID:6331305002 Mr. JIRAWAT RATSAMEE
+ID:6331305002 Mr. JIRAWAT RATSAMEE (Loyalty Program group)
 
-ID:6331305007 Mr. CHINDANAI POTIJUNTAJINDA
+ID:6331305007 Mr. CHINDANAI POTIJUNTAJINDA (Loyalty Program group)
 
-ID:6331305014 Mr. NUNTAWAT PRANGSANGWILAI
+ID:6331305014 Mr. NUNTAWAT PRANGSANGWILAI (Chat Bot group)
 
-ID:6331305023 Mrs. RISA SIRIROT
+ID:6331305023 Mrs. RISA SIRIROT (Chat Bot group)
 
-ID:6331305037 Mr. PHEERAPHOL MEKKHARACH
+ID:6331305037 Mr. PHEERAPHOL MEKKHARACH (Chat Bot group)
 
-ID:6331305048 Mr. Sai Reacky
+ID:6331305048 Mr. Sai Reacky (Loyalty Program group)
 
 
 <p align="right">(<a href="#about-the-project">back to top</a>)</p>
